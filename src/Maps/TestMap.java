@@ -3,6 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
-
+	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation();
@@ -47,6 +48,7 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new EndLevelBox(
                 getMapTile(32, 7).getLocation()
         ));
+        enhancedMapTiles.add(new Checkpoint(getMapTile(33, 10).getLocation(), this));
 
         return enhancedMapTiles;
     }
@@ -58,5 +60,9 @@ public class TestMap extends Map {
         npcs.add(new Walrus(getMapTile(30, 10).getLocation().subtractY(13)));
 
         return npcs;
+    }
+    
+    public void setPlayerStartPosition(Point x) {
+    	playerStartPosition = x;
     }
 }
