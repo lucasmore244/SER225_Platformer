@@ -12,7 +12,7 @@ public class SpriteFont {
 	protected float y;
 	protected Color color;
 	protected Color outlineColor;
-	protected float outlineThickness = 1f;
+	protected float outlineThickness = 1f; 
 
 	public SpriteFont(String text, float x, float y, String fontName, int fontSize, Color color) {
 		this.text = text;
@@ -86,7 +86,7 @@ public class SpriteFont {
 	public void moveRight(float dx) {
 		x += dx;
 	}
-	
+	 
 	public void moveLeft(float dx) {
 		x -= dx;
 	}

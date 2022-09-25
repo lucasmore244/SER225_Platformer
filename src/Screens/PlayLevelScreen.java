@@ -1,5 +1,7 @@
 package Screens;
 
+import java.awt.Color;
+
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -9,6 +11,8 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
 import Players.Cat;
+import SpriteFont.HealthDisplay;
+import SpriteFont.TimeDisplay;
 import Utils.Point;
 import Utils.Stopwatch;
 
@@ -22,6 +26,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    protected HealthDisplay healthdisplay;
+    protected TimeDisplay timedisplay;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -42,6 +48,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
+        healthdisplay = new HealthDisplay("LIVES:", 250, 50, "Comic Sans", 20, Color.red);
+        timedisplay= new TimeDisplay("TIME TAKEN:", 250, 70, "Comic Sans", 20, Color.red);
     }
 
     public void update() {
@@ -77,7 +85,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
-                break;
+                healthdisplay.draw(graphicsHandler);
+                timedisplay.draw(graphicsHandler);
+                break; 
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
                 break;
