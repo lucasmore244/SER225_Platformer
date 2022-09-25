@@ -48,8 +48,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
-        healthdisplay = new HealthDisplay("LIVES:", 250, 50, "Comic Sans", 20, Color.red);
-        timedisplay= new TimeDisplay("TIME TAKEN:", 250, 70, "Comic Sans", 20, Color.red);
+        healthdisplay = new HealthDisplay("LIVES:", 650, 50, "Comic Sans", 20, Color.red);
+        timedisplay= new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
     }
 
     public void update() {
