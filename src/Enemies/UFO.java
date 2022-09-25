@@ -19,14 +19,13 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class UFO extends Enemy {
 
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
+    private float movementSpeed = 5f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
 
     public UFO(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("UFO.png"), 39, 39), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
@@ -40,7 +39,7 @@ public class UFO extends Enemy {
         } else if (facingDirection == Direction.LEFT) {
             currentAnimationName = "WALK_LEFT";
         }
-        airGroundState = AirGroundState.GROUND;
+        airGroundState = AirGroundState.AIR;
     }
 
     @Override
@@ -48,11 +47,8 @@ public class UFO extends Enemy {
         float moveAmountX = 0;
         float moveAmountY = 0;
 
-        // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
-
-        // if on ground, walk forward based on facing direction
-        if (airGroundState == AirGroundState.GROUND) {
+        // if on air, walk forward based on facing direction
+        if (airGroundState == AirGroundState.AIR) {
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
             } else {
@@ -103,7 +99,7 @@ public class UFO extends Enemy {
                             .withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build()
@@ -115,7 +111,7 @@ public class UFO extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
