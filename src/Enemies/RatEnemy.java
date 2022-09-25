@@ -14,13 +14,13 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the black bug enemy
+// This class is for the Rat enemy
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class RatEnemy extends Enemy {
 
-    private float gravity = .9f;
-    private float movementSpeed = .9f;
+    private float gravity = 1.0f;
+    private float movementSpeed = 1.0f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -103,10 +103,6 @@ public class RatEnemy extends Enemy {
                             .withScale((float) 0.5)
                             .withBounds(29, 29, 39, 51)
                             .build(),
-//                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
-//                            .withScale(2)
-//                            .withBounds(6, 6, 12, 7)
-//                            .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
@@ -115,11 +111,6 @@ public class RatEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(29, 29, 39, 51)
                             .build(),
-//                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
-//                            .withScale(2)
-//                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-//                            .withBounds(6, 6, 12, 7)
-//                            .build()
             });
         }};
     }
