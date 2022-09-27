@@ -340,8 +340,6 @@ public abstract class Player extends GameObject {
             	monsterTime = date.getTime();
                // levelState = LevelState.PLAYER_DEAD;
                 playerHealth--;
-                setPlayerHealth(playerHealth);
-                System.out.println(getPlayerhealth());
                 //drop life
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
