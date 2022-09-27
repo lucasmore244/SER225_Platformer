@@ -1,6 +1,8 @@
 package Level;
 
 import Engine.Key;
+import java.util.Calendar;
+import java.util.Date;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
@@ -26,6 +28,7 @@ public abstract class Player extends GameObject {
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
 
+
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
@@ -33,6 +36,16 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    
+    
+    protected int playerHealth = 0;
+    //protected Calendar c = Calendar.getInstance();
+    protected int waterFlag = 0;
+    protected long waterTime = 0;
+    protected int monsterTouchFlag = 0;
+    protected long monsterTime = 0;
+
+
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -182,6 +195,7 @@ public abstract class Player extends GameObject {
 
     // player JUMPING state logic
     protected void playerJumping() {
+    	
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
@@ -254,8 +268,22 @@ public abstract class Player extends GameObject {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+                Date date = new Date();
+            	waterTime = date.getTime();
+            	waterFlag = 1;
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";                
+                playerHealth--;
+                if (playerHealth == 0) {
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            }
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
+                Date date = new Date();
+            	long temp = date.getTime();
+            	if (temp - waterTime >= 1000) {
+            		waterFlag = 0;
+            	}
             }
         }
         else if (playerState == PlayerState.WALKING) {
@@ -305,8 +333,24 @@ public abstract class Player extends GameObject {
     public void hurtPlayer(MapEntity mapEntity) {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
-            if (mapEntity instanceof Enemy) {
-                levelState = LevelState.PLAYER_DEAD;
+            if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
+            	monsterTouchFlag = 1;
+            	Date date = new Date();          	
+            	monsterTime = date.getTime();
+               // levelState = LevelState.PLAYER_DEAD;
+                playerHealth--;
+                System.out.println(playerHealth);
+                //drop life
+            	if (playerHealth == 0) {
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            }
+            if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
+            	Date date = new Date();          	
+            	long temp = date.getTime();
+            	if (temp - monsterTime >= 1000) {
+            		monsterTouchFlag = 0;
+            	}
             }
         }
     }
@@ -366,7 +410,13 @@ public abstract class Player extends GameObject {
             }
         }
     }
-
+    public int getPlayerhealth(){
+    	return playerHealth;
+    }
+    
+    public void setPlayerHealth(int playerHealth) {
+    	this.playerHealth = playerHealth;
+    }
     public PlayerState getPlayerState() {
         return playerState;
     }
