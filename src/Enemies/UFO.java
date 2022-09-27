@@ -19,7 +19,8 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class UFO extends Enemy {
 
-    private float movementSpeed = 5f;
+    private float movementSpeed = 1f;
+    private float amountMoved = 0;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -61,13 +62,21 @@ public class UFO extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
+        
+        amountMoved = amountMoved + moveAmountX;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
-        if (hasCollided) {
+        if(amountMoved == 200 || amountMoved == -200) {
+        	hasCollided = true;
+        	amountMoved =0;
+        }
+        	
+    	
+    	if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
                 currentAnimationName = "WALK_LEFT";
@@ -76,6 +85,7 @@ public class UFO extends Enemy {
                 currentAnimationName = "WALK_RIGHT";
             }
         }
+    	hasCollided = false;
     }
 
     @Override
