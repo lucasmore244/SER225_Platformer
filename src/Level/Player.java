@@ -20,7 +20,7 @@ public abstract class Player extends GameObject {
     protected float jumpHeight = 0;
     protected float jumpDegrade = 0;
     protected float terminalVelocityY = 0;
-    protected float momentumYIncrease = 0;
+    protected float momentumYIncrease = 0; 
 
     // values used to handle player movement
     protected float jumpForce = 0;

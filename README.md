@@ -23,3 +23,7 @@ Changes to content in the `docs` folder will not show up on the website unless t
 
 rom wasserman
 Steven Griffin
+Moore
+Lucas
+Ohm Patel
+
