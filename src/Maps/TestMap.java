@@ -1,6 +1,7 @@
 package Maps;
 
-import Enemies.BugEnemy;
+import Enemies.RatEnemy;
+import Enemies.UFO;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Checkpoint;
@@ -20,13 +21,15 @@ public class TestMap extends Map {
 	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(2, 11).getLocation();
+        this.playerStartPosition = getMapTile(2, 11).getLocation(); 
     }
 
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(new BugEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
+        enemies.add(new UFO(getMapTile(15, 1).getLocation().addY(20), Direction.LEFT));
+        enemies.add(new UFO(getMapTile(30, 0).getLocation().addY(20), Direction.LEFT));
+        enemies.add(new RatEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
         enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT));
         return enemies;
     }
@@ -48,7 +51,7 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new EndLevelBox(
                 getMapTile(32, 7).getLocation()
         ));
-        enhancedMapTiles.add(new Checkpoint(getMapTile(33, 10).getLocation(), this));
+        enhancedMapTiles.add(new Checkpoint(getMapTile(15, 8).getLocation(), this));
 
         return enhancedMapTiles;
     }

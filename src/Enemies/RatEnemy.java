@@ -14,19 +14,19 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the black bug enemy
+// This class is for the Rat enemy
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
-public class BugEnemy extends Enemy {
+public class RatEnemy extends Enemy {
 
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
+    private float gravity = 1.0f;
+    private float movementSpeed = 1.0f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
 
-    public BugEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+    public RatEnemy(Point location, Direction facingDirection) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rat.png"), 82, 81), "WALK_LEFT");
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
@@ -100,26 +100,17 @@ public class BugEnemy extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
+                            .withScale((float) 0.5)
+                            .withBounds(29, 29, 39, 51)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(2)
+                            .withScale((float) 0.5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(29, 29, 39, 51)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 100)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
             });
         }};
     }
