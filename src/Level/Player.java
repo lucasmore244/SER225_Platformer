@@ -73,6 +73,7 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+//        setPlayerHealth(playerHealth);
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
@@ -339,7 +340,8 @@ public abstract class Player extends GameObject {
             	monsterTime = date.getTime();
                // levelState = LevelState.PLAYER_DEAD;
                 playerHealth--;
-                System.out.println(playerHealth);
+                setPlayerHealth(playerHealth);
+                System.out.println(getPlayerhealth());
                 //drop life
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
@@ -417,6 +419,8 @@ public abstract class Player extends GameObject {
     public void setPlayerHealth(int playerHealth) {
     	this.playerHealth = playerHealth;
     }
+
+   
     public PlayerState getPlayerState() {
         return playerState;
     }

@@ -32,6 +32,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+       
     }
 
     public void initialize() {
@@ -52,7 +53,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         levelClearedScreen = new LevelClearedScreen();
         levelLoseScreen = new LevelLoseScreen(this);
-        healthdisplay = new HealthDisplay("LIVES:", 650, 50, "Comic Sans", 20, Color.red);
+        this.player.getPlayerhealth();//......................//
+        healthdisplay = new HealthDisplay("LIVES: " + player.getPlayerhealth(), 650, 50, "Comic Sans", 20, Color.red);
         timedisplay= new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
     }
 
@@ -62,6 +64,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
+//                player.getPlayerhealth();
                 map.update(player);
                 break;
             // if level has been completed, bring up level cleared screen
