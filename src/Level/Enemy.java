@@ -38,6 +38,7 @@ public class Enemy extends MapEntity {
         super.update();
         if (intersects(player)) {
             touchedPlayer(player);
+            
         }
     }
 

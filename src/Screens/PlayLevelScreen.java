@@ -26,6 +26,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    protected boolean firstGo = true;
     protected HealthDisplay healthdisplay;
     protected TimeDisplay timedisplay;
 
@@ -35,7 +36,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         // define/setup map
-        this.map = new TestMap();
+    	if (firstGo) {
+			this.map = new TestMap();
+		}
+    	 
         map.reset();
 
         // setup player
@@ -117,6 +121,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void resetLevel() {
+    	firstGo = false;
         initialize();
     }
 
