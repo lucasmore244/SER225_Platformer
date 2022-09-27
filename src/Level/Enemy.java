@@ -2,6 +2,7 @@ package Level;
 
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Utils.Direction;
 
 import java.util.HashMap;
 
@@ -44,4 +45,5 @@ public class Enemy extends MapEntity {
     public void touchedPlayer(Player player) {
         player.hurtPlayer(this);
     }
+
 }
