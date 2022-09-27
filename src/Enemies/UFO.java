@@ -70,7 +70,7 @@ public class UFO extends Enemy {
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
-        if(amountMoved == 200 || amountMoved == -200) {
+        if(amountMoved == 300 || amountMoved == -300) {
         	hasCollided = true;
         	amountMoved =0;
         }
