@@ -47,11 +47,41 @@ public class TestMap extends Map {
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
         ));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(36, 8).getLocation(),
+                getMapTile(42, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        ));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(42, 8).getLocation(),
+                getMapTile(49, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        ));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(49, 8).getLocation(),
+                getMapTile(54, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        ));
 
         enhancedMapTiles.add(new EndLevelBox(
-                getMapTile(32, 7).getLocation()
+                getMapTile(64, 10).getLocation()
         ));
-        enhancedMapTiles.add(new Checkpoint(getMapTile(15, 8).getLocation(), this));
+        enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
 
         return enhancedMapTiles;
     }
