@@ -42,7 +42,7 @@ public class Fireball extends Enemy {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
             // move fireball forward
-            moveXHandleCollision(movementSpeed);
+            moveYHandleCollision(movementSpeed);
             super.update(player);
         }
     }

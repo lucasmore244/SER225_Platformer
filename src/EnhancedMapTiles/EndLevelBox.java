@@ -19,8 +19,6 @@ import java.util.HashMap;
 public class EndLevelBox extends EnhancedMapTile {
     public EndLevelBox(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rocket.png"), 50, 35), TileType.PASSABLE);
-
-        
     }
 
     @Override
@@ -37,7 +35,7 @@ public class EndLevelBox extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale(4)
-                        .withBounds(1, 1, 14, 14)
+                        .withBounds(1, 1, 25, 17)
                         .build(),
             });
         }};
