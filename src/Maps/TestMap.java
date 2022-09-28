@@ -4,6 +4,7 @@ import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
@@ -50,6 +51,23 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new EndLevelBox(
                 getMapTile(32, 7).getLocation()
         ));
+        
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(8, 11).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(16, 6).getLocation()
+        		
+        )); 
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(15, 8).getLocation()
+        		
+        )); 
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(22, 2).getLocation()
+        ));
+        
 
         return enhancedMapTiles;
     }
@@ -62,4 +80,6 @@ public class TestMap extends Map {
 
         return npcs;
     }
+    
+    
 }
