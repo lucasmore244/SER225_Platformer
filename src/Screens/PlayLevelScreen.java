@@ -32,12 +32,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected boolean firstGo = true;
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
-	protected String running;
+	protected String livescount;
 	protected SpriteFont level1;
-
 	protected SpriteFont coins;
-
 	protected Coin coin;
+	protected String coincount;
 
 	
 
@@ -66,7 +65,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL 1", 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
         level1.setOutlineThickness(3);
-        coins = new SpriteFont("COINS: ", 650, 70, "Comic Sans", 20, Color.red);
 		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
 	}
 
@@ -77,8 +75,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// platformer level going
 		case RUNNING:
 			player.update();
-			running = "LIVES: " + player.getPlayerhealth();
-			healthdisplay = new HealthDisplay(running, 650, 50, "Comic Sans", 20, Color.red);
+			livescount = "LIVES: " + player.getPlayerhealth();
+			coincount = "COINS: " + coin.getCoinCount();
+			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
+			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			map.update(player);
 			break;
 		// if level has been completed, bring up level cleared screen

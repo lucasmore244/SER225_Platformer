@@ -17,7 +17,7 @@ import Utils.Point;
 public class Coin extends EnhancedMapTile {
 	
 	private static final String EnhancedMapTiles = null;
-	private int coin = 0;
+	protected int coin = 0;
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	
@@ -58,4 +58,12 @@ public class Coin extends EnhancedMapTile {
             });
         }};
     	}
+    
+    public int getCoinCount(){
+    	return coin;
+    }
+    
+    public void setCoinCount(int coin) {
+    	this.coin = coin;
+    }
 }
