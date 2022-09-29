@@ -33,7 +33,7 @@ public class Mushrooms extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
-                        .withScale((float) .5)
+                        .withScale((float) .7)
                         .withBounds(20, 20, 40, 40)
                         .build(),
             });
