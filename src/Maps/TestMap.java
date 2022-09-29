@@ -51,7 +51,17 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getMapTile(36, 8).getLocation(),
-                getMapTile(42, 8).getLocation(),
+                getMapTile(43, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.LEFT
+        ));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(41, 8).getLocation(),
+                getMapTile(51, 8).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6,16,4),
@@ -60,22 +70,12 @@ public class TestMap extends Map {
         
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(42, 8).getLocation(),
-                getMapTile(49, 8).getLocation(),
-                TileType.JUMP_THROUGH_PLATFORM,
-                3,
-                new Rectangle(0, 6,16,4),
-                Direction.RIGHT
-        ));
-        
-        enhancedMapTiles.add(new HorizontalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
-                getMapTile(49, 8).getLocation(),
+                getMapTile(48, 8).getLocation(),
                 getMapTile(54, 8).getLocation(),
                 TileType.JUMP_THROUGH_PLATFORM,
                 3,
                 new Rectangle(0, 6,16,4),
-                Direction.RIGHT
+                Direction.LEFT
         ));
 
         enhancedMapTiles.add(new EndLevelBox(
