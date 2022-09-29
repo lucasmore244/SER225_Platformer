@@ -36,7 +36,6 @@ public class Coin extends EnhancedMapTile {
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);
-            System.out.println("Picked up " + coin + " coin");
             collected = true;
             map.setCoinCount(1);
         }
