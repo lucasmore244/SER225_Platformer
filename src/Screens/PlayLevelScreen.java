@@ -35,10 +35,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String livescount;
 	protected SpriteFont level1;
 	protected SpriteFont coins;
-	protected Coin coin;
+	protected TestMap maps;
 	protected String coincount;
-
-	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -49,7 +47,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			this.map = new TestMap();
 		}
-
+		maps = (TestMap) map;
 		map.reset();
 
 		// setup player
@@ -64,7 +62,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL 1", 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
-        level1.setOutlineThickness(3);
+		level1.setOutlineThickness(3);
 		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
 	}
 
@@ -76,7 +74,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case RUNNING:
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
-			coincount = "COINS: " + coin.getCoinCount();
+			coincount = "COINS: " + maps.getCoinCount();
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			map.update(player);

@@ -63,12 +63,5 @@ public class Coin extends EnhancedMapTile {
             });
         }};
     	}
-    
-    public int getCoinCount(){
-    	return coin;
-    }
-    
-    public void setCoinCount(int coin) {
-    	this.coin = coin;
-    }
+
 }

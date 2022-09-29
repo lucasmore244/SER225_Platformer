@@ -111,17 +111,18 @@ public class TestMap extends Map {
         		getMapTile(22, 2).getLocation(), this
         ));
         
-        enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
+        enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this)); 
 
-        return enhancedMapTiles;
+        return enhancedMapTiles; 
     }
     
-    public int setCoinCount(int x) {
-    	return coinCount + x;
+    public void setCoinCount(int x)  {
+    	coinCount = coinCount + x; 
     }
     
     public int getCoinCount() {
     	return coinCount;
+    	
     }
 
     @Override
