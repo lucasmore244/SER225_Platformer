@@ -33,6 +33,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected TimeDisplay timedisplay;
 	protected String running;
 	protected SpriteFont level1;
+	protected SpriteFont coins;
 	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -57,9 +58,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 		levelClearedScreen = new LevelClearedScreen();
 		levelLoseScreen = new LevelLoseScreen(this);
-		level1 = new SpriteFont("LEVEL 1", 200, 50, "Comic Sans", 30, Color.red);
+		level1 = new SpriteFont("LEVEL 1", 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
         level1.setOutlineThickness(3);
+        coins = new SpriteFont("COINS: ", 650, 70, "Comic Sans", 20, Color.red);
 		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
 	}
 
@@ -103,6 +105,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			healthdisplay.draw(graphicsHandler);
 			timedisplay.draw(graphicsHandler);
 			level1.draw(graphicsHandler);
+			coins.draw(graphicsHandler);
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);
