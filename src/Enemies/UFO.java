@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -11,6 +12,7 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.util.HashMap;
 
@@ -18,6 +20,13 @@ import java.util.HashMap;
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class UFO extends Enemy {
+	
+	 // timer is used to determine when a fireball is to be shot out
+    protected Stopwatch shootTimer = new Stopwatch();
+
+    // can be either WALK or SHOOT based on what the enemy is currently set to do
+    protected DinosaurState dinosaurState;
+    protected DinosaurState previousDinosaurState;
 
     private float movementSpeed = 1f;
     private float amountMoved = 0;
