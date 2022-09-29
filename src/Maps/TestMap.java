@@ -19,6 +19,8 @@ import java.util.ArrayList;
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 	
+	private int coinCount = 0;
+	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation(); 
@@ -32,6 +34,7 @@ public class TestMap extends Map {
         enemies.add(new RatEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
         enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2), Direction.RIGHT));
+     
         return enemies;
     }
 
@@ -82,9 +85,17 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new EndLevelBox(
                 getMapTile(64, 10).getLocation()
         ));
-        enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
 
-        return enhancedMapTiles;
+        return enhancedMapTiles; 
+    }
+    
+    public void setCoinCount(int x)  {
+    	coinCount = coinCount + x; 
+    }
+    
+    public int getCoinCount() {
+    	return coinCount;
+    	
     }
 
     @Override
