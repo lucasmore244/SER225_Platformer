@@ -38,29 +38,24 @@ public class Coin extends EnhancedMapTile {
         
     }
 	
+	 public void draw(GraphicsHandler graphicsHandler) {
+		 if(!collected) {
+	        super.draw(graphicsHandler);
+	    }
+	 }
+
+	
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-       
-    	if(!collected) {
+      
     		return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale((float) .5)
-                        .withBounds(1, 1, 40, 40)
+                        .withBounds(40, 40, 40, 40)
                         .build(),
             });
         }};
     	}
-    	else {        
-    		return new HashMap<String, Frame[]>() {{
-            put("DEFAULT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(1, 0), 500)
-                            .withScale((float) .5)
-                            .withBounds(1, 1, 40, 40)
-                            .build(),
-                });
-            }};
-    	}
-    }
 }
