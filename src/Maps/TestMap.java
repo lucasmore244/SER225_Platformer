@@ -4,9 +4,11 @@ import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.Mushrooms;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
@@ -82,6 +84,43 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new EndLevelBox(
                 getMapTile(64, 10).getLocation()
         ));
+        
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(8, 11).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(16, 6).getLocation()
+        		
+        )); 
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(15, 8).getLocation()
+        		
+        )); 
+        enhancedMapTiles.add(new Coin(
+        		getMapTile(22, 2).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Mushrooms(
+        		getMapTile(17, 9).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Mushrooms(
+        		getMapTile(24, 10).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Mushrooms(
+        		getMapTile(32, 10).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Mushrooms(
+        		getMapTile(55, 11).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new Mushrooms(
+        		getMapTile(63, 11).getLocation()
+        ));
+        
         enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
 
         return enhancedMapTiles;
@@ -95,6 +134,7 @@ public class TestMap extends Map {
 
         return npcs;
     }
+    
     
     public void setPlayerStartPosition(Point x) {
     	playerStartPosition = x;

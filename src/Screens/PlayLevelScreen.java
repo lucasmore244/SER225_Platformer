@@ -5,6 +5,7 @@ import java.awt.Color;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
+import EnhancedMapTiles.Coin;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -33,7 +34,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected TimeDisplay timedisplay;
 	protected String running;
 	protected SpriteFont level1;
+
 	protected SpriteFont coins;
+
+	protected Coin coin;
+
 	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {

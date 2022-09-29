@@ -3,6 +3,8 @@ package Level;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
+
+import Builders.MapTileBuilder;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
@@ -279,6 +281,15 @@ public abstract class Player extends GameObject {
             		levelState = LevelState.PLAYER_DEAD;
             	}
             }
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM) {
+            	playerHealth--;
+                if (playerHealth == 0) {
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            }
+            
+
+            
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
                 Date date = new Date();
             	long temp = date.getTime();
