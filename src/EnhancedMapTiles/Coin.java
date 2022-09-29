@@ -2,6 +2,7 @@ package EnhancedMapTiles;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
@@ -12,6 +13,7 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Maps.TestMap;
 import Utils.Direction;
 import Utils.Point;
 public class Coin extends EnhancedMapTile {
@@ -20,9 +22,11 @@ public class Coin extends EnhancedMapTile {
 	protected int coin = 0;
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
+	private TestMap map;
 	
-	public Coin(Point location) {
+	public Coin(Point location, TestMap testMap) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Coin.png"), 80, 80), TileType.PASSABLE);
+        this.map = testMap;
     }	
 	
 
@@ -32,8 +36,9 @@ public class Coin extends EnhancedMapTile {
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);
-            System.out.println("Picked up " + coin + " coins");
+            System.out.println("Picked up " + coin + " coin");
             collected = true;
+            map.setCoinCount(1);
         }
         
     }
