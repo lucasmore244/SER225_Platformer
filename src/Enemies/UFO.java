@@ -1,6 +1,7 @@
 package Enemies;
 
 import Builders.FrameBuilder;
+import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
@@ -11,6 +12,7 @@ import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.util.HashMap;
 
@@ -18,8 +20,16 @@ import java.util.HashMap;
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class UFO extends Enemy {
+	
+	 // timer is used to determine when a fireball is to be shot out
+    protected Stopwatch shootTimer = new Stopwatch();
 
-    private float movementSpeed = 5f;
+    // can be either WALK or SHOOT based on what the enemy is currently set to do
+    protected DinosaurState dinosaurState;
+    protected DinosaurState previousDinosaurState;
+
+    private float movementSpeed = 1f;
+    private float amountMoved = 0;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -61,13 +71,21 @@ public class UFO extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
+        
+        amountMoved = amountMoved + moveAmountX;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
-        if (hasCollided) {
+        if(amountMoved == 300 || amountMoved == -300) {
+        	hasCollided = true;
+        	amountMoved =0;
+        }
+        	
+    	
+    	if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
                 currentAnimationName = "WALK_LEFT";
@@ -76,6 +94,7 @@ public class UFO extends Enemy {
                 currentAnimationName = "WALK_RIGHT";
             }
         }
+    	hasCollided = false;
     }
 
     @Override

@@ -3,6 +3,8 @@ package Level;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
+
+import Builders.MapTileBuilder;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
@@ -46,6 +48,8 @@ public abstract class Player extends GameObject {
     protected long waterTime = 0;
     protected int monsterTouchFlag = 0;
     protected long monsterTime = 0;
+    protected int mushroomFlag = 0;
+    protected long mushroomTime = 0;
 
 
 
@@ -75,6 +79,7 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+//        setPlayerHealth(playerHealth);
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
@@ -280,6 +285,18 @@ public abstract class Player extends GameObject {
             		levelState = LevelState.PLAYER_DEAD;
             	}
             }
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM && mushroomFlag == 0) {
+            	Date date = new Date();
+            	mushroomTime = date.getTime();
+            	mushroomFlag = 1;
+            	playerHealth--;
+                if (playerHealth == 0) {
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            }
+            
+
+            
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
                 Date date = new Date();
             	long temp = date.getTime();
@@ -287,6 +304,15 @@ public abstract class Player extends GameObject {
             		waterFlag = 0;
             	}
             }
+            
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM && mushroomFlag == 1) {
+                Date date = new Date();
+            	long temp = date.getTime();
+            	if (temp - mushroomTime >= 1000) {
+            		mushroomFlag = 0;
+            	}
+            }
+
         }
         else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
@@ -341,7 +367,6 @@ public abstract class Player extends GameObject {
             	monsterTime = date.getTime();
                // levelState = LevelState.PLAYER_DEAD;
                 playerHealth--;
-                System.out.println(playerHealth);
                 //drop life
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
@@ -419,6 +444,8 @@ public abstract class Player extends GameObject {
     public void setPlayerHealth(int playerHealth) {
     	this.playerHealth = playerHealth;
     }
+
+   
     public PlayerState getPlayerState() {
         return playerState;
     }
