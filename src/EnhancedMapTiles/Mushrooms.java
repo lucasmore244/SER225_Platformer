@@ -8,25 +8,23 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Direction;
 import Utils.Point;
 
-public class Mushrooms extends EnhancedMapTile {
+public class Mushrooms extends Enemy {
 	
 	public Mushrooms(Point location ) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom.png"), 80, 76), TileType.MUSHROOM);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom.png"), 80, 80), "DEFAULT");
 	}
 	
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)) {
         	super.update(player);
-        	int health = player.getPlayerhealth();
-        	health -= health;
-        	player.setPlayerHealth(health);
         }
     }
 
@@ -36,7 +34,7 @@ public class Mushrooms extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale((float) .5)
-                        .withBounds(0, 80, 0, 80)
+                        .withBounds(20, 20, 40, 40)
                         .build(),
             });
         }};

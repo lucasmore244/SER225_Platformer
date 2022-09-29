@@ -21,6 +21,8 @@ import java.util.ArrayList;
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 	
+	private int coinCount = 0;
+	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation(); 
@@ -34,6 +36,16 @@ public class TestMap extends Map {
         enemies.add(new RatEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
         enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2), Direction.RIGHT));
+        enemies.add(new Mushrooms(getMapTile(17, 9).getLocation()));
+        
+        enemies.add(new Mushrooms(getMapTile(24, 10).getLocation()));
+        
+        enemies.add(new Mushrooms(getMapTile(32, 10).getLocation()));
+        
+        enemies.add(new Mushrooms(getMapTile(55, 11).getLocation()));
+      
+        enemies.add(new Mushrooms(getMapTile(63, 11).getLocation()));
+        
         return enemies;
     }
 
@@ -85,45 +97,31 @@ public class TestMap extends Map {
                 getMapTile(64, 10).getLocation()
         ));
         
+        enhancedMapTiles.add(new Coin(getMapTile(8, 11).getLocation(), this));
+      
         enhancedMapTiles.add(new Coin(
-        		getMapTile(8, 11).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Coin(
-        		getMapTile(16, 6).getLocation()
+        		getMapTile(16, 6).getLocation(), this
         		
         )); 
         enhancedMapTiles.add(new Coin(
-        		getMapTile(15, 8).getLocation()
+        		getMapTile(15, 8).getLocation(), this
         		
         )); 
         enhancedMapTiles.add(new Coin(
-        		getMapTile(22, 2).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Mushrooms(
-        		getMapTile(17, 9).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Mushrooms(
-        		getMapTile(24, 10).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Mushrooms(
-        		getMapTile(32, 10).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Mushrooms(
-        		getMapTile(55, 11).getLocation()
-        ));
-        
-        enhancedMapTiles.add(new Mushrooms(
-        		getMapTile(63, 11).getLocation()
+        		getMapTile(22, 2).getLocation(), this
         ));
         
         enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
 
         return enhancedMapTiles;
+    }
+    
+    public int setCoinCount(int x) {
+    	return coinCount + x;
+    }
+    
+    public int getCoinCount() {
+    	return coinCount;
     }
 
     @Override
