@@ -161,6 +161,9 @@ public abstract class Map {
     public Point getPlayerStartPosition() {
         return playerStartPosition;
     }
+    public void setPlayerStartPosition(Point x) {
+    	playerStartPosition = x;
+    }
 
     // get position on the map based on a specfic tile index
     public Point getPositionByTileIndex(int xIndex, int yIndex) {

@@ -19,8 +19,8 @@ import java.util.HashMap;
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
 public class RatEnemy extends Enemy {
 
-    private float gravity = 1.0f;
-    private float movementSpeed = 1.0f;
+    private float gravity = 1.2f;
+    private float movementSpeed = 1.3f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
@@ -69,7 +69,7 @@ public class RatEnemy extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
-        // if bug has collided into something while walking forward,
+        // if rat has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
             if (direction == Direction.RIGHT) {
@@ -84,7 +84,7 @@ public class RatEnemy extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if bug is colliding with the ground, change its air ground state to GROUND
+        // if rat is colliding with the ground, change its air ground state to GROUND
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {
