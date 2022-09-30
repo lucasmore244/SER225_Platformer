@@ -402,4 +402,6 @@ public abstract class Map {
 
     public int getEndBoundX() { return endBoundX; }
     public int getEndBoundY() { return endBoundY; }
+
+	public abstract int getCoinCount();
 }
