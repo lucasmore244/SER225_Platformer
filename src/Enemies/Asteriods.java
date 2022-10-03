@@ -69,21 +69,21 @@ public class Asteriods extends Enemy {
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
 		// if bug has collided into something while walking forward,
 		// it turns around (changes facing direction)
-		if (amountMoved == 1000 || amountMoved == 5) {
+		if (amountMoved > 700) {
 			hasCollided = true;
 			amountMoved = 0;
 		}
 
-		if (hasCollided) {
-			if (direction == Direction.RIGHT) {
-				facingDirection = Direction.LEFT;
-				currentAnimationName = "WALK_LEFT";
-			} else {
-				facingDirection = Direction.RIGHT;
-				currentAnimationName = "WALK_RIGHT";
-			}
-		}
-		hasCollided = false;
+//		if (hasCollided) {
+//			if (direction == Direction.RIGHT) {
+//				facingDirection = Direction.LEFT;
+//				currentAnimationName = "WALK_LEFT";
+//			} else {
+//				facingDirection = Direction.RIGHT;
+//				currentAnimationName = "WALK_RIGHT";
+//			}
+//		}
+//		hasCollided = false;
 	}
 
 	@Override
