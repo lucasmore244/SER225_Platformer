@@ -12,6 +12,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
+import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
 import SpriteFont.HealthDisplay;
@@ -36,9 +37,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String livescount;
 	protected SpriteFont level1;
 	protected SpriteFont coins;
-	protected TestMap maps;
 	protected String coincount;
-	public DisplayTime timer;
+	public DisplayTime timer = new DisplayTime();
+	protected int currentMap = 1;
+	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -47,9 +49,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void initialize() {
 		// define/setup map
 		if (firstGo) {
-			this.map = new TestMap();
+			if(currentMap == 1) {
+				this.map = new TestMap();
+			}
+			else if (currentMap == 2) {
+				this.map = new Level3();
+			}
 		}
-		maps = (TestMap) map;
+		
 		map.reset();
 
 		// setup player
@@ -59,10 +66,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+		
 
 		levelClearedScreen = new LevelClearedScreen();
 		levelLoseScreen = new LevelLoseScreen(this);
-		level1 = new SpriteFont("LEVEL 1", 50, 50, "Comic Sans", 30, Color.red);
+		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
 		
@@ -77,10 +85,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case RUNNING:
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
-			coincount = "COINS: " + maps.getCoinCount();
+			coincount = "COINS: " + map.getCoinCount();
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
-			timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
+			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
 			break;
 		// if level has been completed, bring up level cleared screen
@@ -88,6 +96,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (levelCompletedStateChangeStart) {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
+				currentMap += 1;
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				initialize();
 			} else {
 				levelClearedScreen.update();
 				if (screenTimer.isTimeUp()) {
