@@ -97,7 +97,7 @@ public class DinosaurEnemy extends Enemy {
                 facingDirection = Direction.RIGHT;
             }
 
-            // if dinosaur is shooting, it first turns read for 1 second
+            // if dinosaur is shooting, it first turns red for 1 second
             // then the fireball is actually shot out
         } else if (dinosaurState == DinosaurState.SHOOT) {
             if (previousDinosaurState == DinosaurState.WALK) {
