@@ -319,7 +319,27 @@ public abstract class Player extends GameObject {
         else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
-        }
+            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+            	playerHealth--;
+            	Date date = new Date();
+            	waterTime = date.getTime();
+            	waterFlag = 1;
+            	
+            	if (playerHealth == 0) {
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            }
+            	if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
+                    Date date = new Date();
+                	long temp = date.getTime();
+                	if (temp - waterTime >= 1000) {
+                		waterFlag = 0;
+                	}
+                }
+            
         else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
@@ -331,6 +351,7 @@ public abstract class Player extends GameObject {
             } else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
+        }
         }
     }
 

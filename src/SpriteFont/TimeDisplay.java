@@ -1,7 +1,6 @@
 package SpriteFont;
-import Engine.GraphicsHandler;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class TimeDisplay extends SpriteFont {
 
@@ -11,5 +10,3 @@ public class TimeDisplay extends SpriteFont {
 	}
 
 }
-
-

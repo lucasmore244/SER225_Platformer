@@ -2,6 +2,7 @@ package Screens;
 
 import java.awt.Color;
 
+import Engine.DisplayTime;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
@@ -38,7 +39,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont level1;
 	protected SpriteFont coins;
 	protected String coincount;
+	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
+	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -49,15 +52,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if(currentMap == 1) {
 				this.map = new TestMap();
+				this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
 			}
 			else if (currentMap == 2) {
 				this.map = new Level3();
+				this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
 
 			}
 		}
 		
 		map.reset();
-
+		map.update(player);
 		// setup player
 		this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		this.player.setMap(map);
@@ -70,7 +77,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
-		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
+		
+		
 	}
 
 	public void update() {		
@@ -84,6 +92,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			coincount = "COINS: " + map.getCoinCount();
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
+			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
 			break;
 		// if level has been completed, bring up level cleared screen
@@ -92,9 +101,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
-				this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-
+				
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -134,6 +141,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_LOSE:
 			levelLoseScreen.draw(graphicsHandler);
 			break;
+			
 		}
 	}
 
