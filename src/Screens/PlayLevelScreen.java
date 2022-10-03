@@ -13,6 +13,7 @@ import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
 import Players.Cat;
+import Players.CatLevel3;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
@@ -51,7 +52,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		map.reset();
 
 		// setup player
-		this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		this.player.setMap(map);
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
