@@ -15,7 +15,7 @@ import Utils.Point;
 import Utils.Stopwatch;
 
 import java.util.HashMap;
-
+ 
 // This class is for the black bug enemy
 // enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
 // if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
@@ -50,6 +50,9 @@ public class UFO extends Enemy {
             currentAnimationName = "WALK_LEFT";
         }
         airGroundState = AirGroundState.AIR;
+        
+     // every 2 seconds, the fireball will be shot out
+        shootTimer.setWaitTime(2000);
     }
 
     @Override
@@ -57,6 +60,11 @@ public class UFO extends Enemy {
         float moveAmountX = 0;
         float moveAmountY = 0;
 
+     // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
+        if (shootTimer.isTimeUp() && dinosaurState != DinosaurState.SHOOT) {
+            dinosaurState = DinosaurState.SHOOT;
+        }
+        
         // if on air, walk forward based on facing direction
         if (airGroundState == AirGroundState.AIR) {
             if (facingDirection == Direction.RIGHT) {

@@ -27,4 +27,10 @@ public class TitleScreenMap extends Map {
         cat.draw(graphicsHandler);
     }
 
+	@Override
+	public int getCoinCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
