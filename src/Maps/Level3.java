@@ -20,6 +20,7 @@ import Level.TileType;
 import NPCs.Walrus;
 import Screens.LevelLoseScreen;
 import Tilesets.CommonTileset;
+import Tilesets.SpaceTileset;
 import Utils.Direction;
 import Utils.Point;
 
@@ -28,7 +29,7 @@ public class Level3 extends Map{
 private int coinCount = 0;
 	
     public Level3() {
-        super("level3.txt", new CommonTileset());
+        super("level3.txt", new SpaceTileset());
         this.playerStartPosition = getMapTile(1, 2).getLocation(); 
     }
     

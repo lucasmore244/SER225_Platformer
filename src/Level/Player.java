@@ -9,9 +9,12 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Players.Cat;
+import Players.CatLevel3;
 import Utils.AirGroundState;
 import Utils.Direction;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
@@ -274,11 +277,12 @@ public abstract class Player extends GameObject {
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
-                Date date = new Date();
+            	playerHealth--;
+            	Date date = new Date();
             	waterTime = date.getTime();
             	waterFlag = 1;
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";                
-                playerHealth--;
+                
                 if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
             	}
