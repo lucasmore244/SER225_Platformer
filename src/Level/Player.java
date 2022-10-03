@@ -302,7 +302,7 @@ public abstract class Player extends GameObject {
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
                 Date date = new Date();
             	long temp = date.getTime();
-            	if (temp - waterTime >= 1000) {
+            	if (temp - waterTime >= 500) {
             		waterFlag = 0;
             	}
             }

@@ -52,19 +52,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			}
 			else if (currentMap == 2) {
 				this.map = new Level3();
+
 			}
 		}
 		
 		map.reset();
 
 		// setup player
-		this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		this.player.setMap(map);
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
 		levelClearedScreen = new LevelClearedScreen();
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
@@ -73,7 +73,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
 	}
 
-	public void update() {
+	public void update() {		
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
@@ -92,6 +92,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
+				this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -165,5 +168,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	// This enum represents the different states this screen can be in
 	private enum PlayLevelScreenState {
 		RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
+	}
+	public void CatLevel() {
+		if(currentMap == 1) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		}
+		else if (currentMap == 2) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+
+		}
 	}
 }
