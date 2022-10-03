@@ -2,6 +2,7 @@ package Screens;
 
 import java.awt.Color;
 
+import Engine.DisplayTime;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
@@ -37,6 +38,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected TestMap maps;
 	protected String coincount;
+	public DisplayTime timer;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -63,7 +65,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL 1", 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
-		timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
+		
+		
 	}
 
 	public void update() {
@@ -77,6 +80,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			coincount = "COINS: " + maps.getCoinCount();
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
+			timedisplay = new TimeDisplay("TIME TAKEN:", 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
 			break;
 		// if level has been completed, bring up level cleared screen
