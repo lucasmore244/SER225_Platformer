@@ -101,6 +101,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
+				firstGo = true;
 				
 				try {
 					Thread.sleep(2000);
