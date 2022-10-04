@@ -93,6 +93,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red); 
 			map.update(player);
+			if(map.getCoinCount() >= 3 && player.getPlayerhealth() < 5) {
+	    		player.setPlayerHealth(player.getPlayerhealth() + 1);
+	    		map.setCoinCount(-3);
+	    	}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
@@ -100,6 +104,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
+				firstGo = true;
 				
 				try {
 					Thread.sleep(2000);

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class TestMap extends Map {
 	
 	private int coinCount = 0;
+	private Player player;
 	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
