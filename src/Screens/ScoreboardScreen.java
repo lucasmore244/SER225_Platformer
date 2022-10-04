@@ -4,25 +4,26 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.LevelState;
 import Level.Map;
-import Maps.Level3;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import java.awt.*;
+import java.util.Scanner;
+
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class ScoreboardScreen extends Screen {
+	Scanner scanner = new Scanner(System.in);
 	protected ScreenCoordinator screenCoordinator;
 	protected Map background;
 	protected KeyLocker keyLocker = new KeyLocker();
-	protected SpriteFont playersname;
-	protected SpriteFont playertimedisplay;
-	protected SpriteFont returnInstructionsLabel;
-	protected Level3 level3;
-	protected JTextField playersinput;
-	protected String playertime;
-	protected DisplayTime time;
+	protected SpriteFont playertimeheader, playertimedisplay, playersnameheader,playersnamedisplay;
+	protected DisplayTime time = new DisplayTime();
+	protected String playertime = time.getTime(), playersinput;
 	protected LevelLoseScreen levellose;
 	protected LevelState levelState;
+	protected JTable table;
 	
 
 	public ScoreboardScreen(ScreenCoordinator screenCoordinator) {
@@ -31,36 +32,34 @@ public class ScoreboardScreen extends Screen {
 
 	@Override
 	public void initialize() {
-		// setup graphics on screen (background map, spritefont text)
-		 background = new TitleScreenMap();
-		background.setAdjustCamera(false);
-		playersname = new SpriteFont("Enter your name", 60, 250, "Times New Roman", 30, Color.white);
-		playersinput = new JTextField("");
-		playertime = time.getTime();
-		playertimedisplay = new SpriteFont(playertime, 20, 250, "Times New Roman", 30, Color.white);
-		
+		playersnameheader = new SpriteFont("Player Name", 200, 50, "Times New Roman", 20, Color.white);
+		playertimeheader = new SpriteFont("Time Used", 450, 50, "Times New Roman", 20, Color.white);
+		String data[][]= new String[4][10]; 
+		String[] columnNames = { "Player Name", "Time Used"};
+		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+		table = new JTable(model);
+		keyLocker.lockKey(Key.SPACE);
 	}
 
 	public void update() {
-		playersname = null;
-
-		background.update(null);
-
+		if (levelState == LevelState.LEVEL_COMPLETED) {
+			System.out.println("Enter your name");
+			playersinput = scanner.nextLine();
+			playersnamedisplay = new SpriteFont(playersinput, 200, 70, "Times New Roman", 20, Color.white);
+			playertimedisplay = new SpriteFont(playertime, 450, 70, "Times New Roman", 20, Color.white);	
+		}
         if (Keyboard.isKeyUp(Key.SPACE)) {
             keyLocker.unlockKey(Key.SPACE);
         }
         // if space is pressed, go back to main menu
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-            screenCoordinator.setGameState(GameState.SCOREBOARD);
-        } else {
-        	screenCoordinator.setGameState(GameState.MENU);
-        }
+            screenCoordinator.setGameState(GameState.MENU);
+        } 
 	}
 
 	public void draw(GraphicsHandler graphicsHandler) {
-		background.draw(graphicsHandler);
-		playersname.draw(graphicsHandler);
-		playertimedisplay.draw(graphicsHandler);
+		playersnameheader.draw(graphicsHandler);
+		playertimeheader.draw(graphicsHandler);
 	}
 }
 

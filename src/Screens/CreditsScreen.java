@@ -1,12 +1,10 @@
 package Screens;
-
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
 
 // This class is for the credits screen
