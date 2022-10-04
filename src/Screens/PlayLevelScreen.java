@@ -39,6 +39,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	protected int currentMap = 1;
+	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -58,7 +59,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		map.reset();
 
 		// setup player
-		this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		this.player.setMap(map);
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
@@ -85,6 +86,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			map.update(player);
+			if(map.getCoinCount() >= 3 && player.getPlayerhealth() < 5) {
+	    		player.setPlayerHealth(player.getPlayerhealth() + 1);
+	    		map.setCoinCount(-3);
+	    	}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
