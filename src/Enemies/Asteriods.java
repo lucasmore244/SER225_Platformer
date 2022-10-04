@@ -22,7 +22,6 @@ public class Asteriods extends Enemy {
 	private Direction startFacingDirection;
 	private Direction facingDirection;
 	private AirGroundState airGroundState;
-	private Asteriods asteriod;
 
 	public Asteriods(Point location, Direction facingDirection) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
@@ -40,6 +39,7 @@ public class Asteriods extends Enemy {
 			currentAnimationName = "WALK_LEFT";
 		}
 		airGroundState = AirGroundState.AIR;
+//		System.out.println("Display reset");
 	}
 
 	@Override
@@ -62,18 +62,29 @@ public class Asteriods extends Enemy {
 
 		super.update(player);
 
-		amountMoved = amountMoved + moveAmountX;
+		amountMoved = amountMoved + movementSpeed;
 	}
 
 	@Override
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
 		// if bug has collided into something while walking forward,
 		// it turns around (changes facing direction)
-		if (amountMoved > 700) {
+		if (amountMoved > 700 && direction == Direction.RIGHT) {
 			hasCollided = true;
 			amountMoved = 0;
-		}
-
+//			facingDirection = Direction.LEFT;
+//			currentAnimationName = "WALK_LEFT";
+			this.setMovementSpeed((int) (Math.random() *10 + 2));
+		} 
+	//		else if (amountMoved < 5 && direction == Direction.LEFT){
+//			hasCollided = true;
+//			amountMoved = 0;
+//			facingDirection = Direction.RIGHT;
+//			currentAnimationName = "WALK_RIGHT";
+//			this.setMovementSpeed((int) (Math.random() *10 + 2));
+//		}
+//		hasCollided = false;
+		
 //		if (hasCollided) {
 //			if (direction == Direction.RIGHT) {
 //				facingDirection = Direction.LEFT;
@@ -117,5 +128,13 @@ public class Asteriods extends Enemy {
 			}
 		};
 	}
+	
+	public int getMovementSpeed() {
+		return (int) movementSpeed;
+	}
+	
+	public void setMovementSpeed(int movementSpeed) {
+    	this.movementSpeed = movementSpeed;
+    }
 
 }

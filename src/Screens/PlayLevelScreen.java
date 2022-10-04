@@ -2,6 +2,7 @@ package Screens;
 
 import java.awt.Color;
 
+import Enemies.Asteriods;
 import Engine.DisplayTime;
 import Engine.GraphicsHandler;
 import Engine.Screen;
@@ -19,6 +20,7 @@ import Players.CatLevel3;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
+import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
@@ -42,7 +44,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
 	
-
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
 	}
@@ -67,15 +68,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-		
-
+//		timedisplay = new TimeDisplay("TIME TAKEN: 00:00", 450, 50, "Comic Sans", 20, Color.red);
 		levelClearedScreen = new LevelClearedScreen();
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
-		level1.setOutlineThickness(3);
-		
-		
+		level1.setOutlineThickness(3);	
 	}
 
 	public void update() {
@@ -89,7 +87,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			coincount = "COINS: " + map.getCoinCount();
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
-			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red);
+			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red); 
 			map.update(player);
 			break;
 		// if level has been completed, bring up level cleared screen
