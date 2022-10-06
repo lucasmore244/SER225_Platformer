@@ -53,16 +53,32 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
+
+			}
+			else if (currentMap == 2) {
+				this.map = new Level3();
+
+
+			}
+		}
+		map.reset();
+		// setup player
+		if(currentMap == 1) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		}
+		else if (currentMap == 2){
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
 			} else if (currentMap == 2) {
 				this.map = new Level3();
 			}
-		}
-
-		map.reset();
+		
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);

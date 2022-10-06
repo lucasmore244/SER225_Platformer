@@ -51,6 +51,8 @@ public abstract class Player extends GameObject {
     protected long monsterTime = 0;
     protected int mushroomFlag = 0;
     protected long mushroomTime = 0;
+    protected int damageFlag = 0;
+    protected long damageTime = 0;
 
 
 
@@ -136,6 +138,9 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
+            case TAKING_DAMAGE:
+            	break;
+            
         }
     }
 
@@ -280,7 +285,6 @@ public abstract class Player extends GameObject {
             	Date date = new Date();
             	waterTime = date.getTime();
             	waterFlag = 1;
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";                
                 
                 if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
@@ -302,6 +306,7 @@ public abstract class Player extends GameObject {
                 Date date = new Date();
             	long temp = date.getTime();
             	if (temp - waterTime >= 500) {
+
             		waterFlag = 0;
             	}
             }
@@ -335,6 +340,7 @@ public abstract class Player extends GameObject {
                     Date date = new Date();
                 	long temp = date.getTime();
                 	if (temp - waterTime >= 1000) {
+
                 		waterFlag = 0;
                 	}
                 }
@@ -351,6 +357,23 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
+         /*   	
+        else if (playerState == PlayerState.TAKING_DAMAGE) {
+        	if (previousPlayerState == PlayerState.STANDING) {
+        		System.out.println(playerState);
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
+
+        	}
+        	else if (previousPlayerState == PlayerState.WALKING) {
+        		System.out.println(playerState);
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
+
+        	}
+            previousPlayerState = playerState;
+            super.update();
+
+        }
+            	*/
         }
     }
 
@@ -384,6 +407,9 @@ public abstract class Player extends GameObject {
         if (!isInvincible) {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
+               // this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
+
+            	//playerState = PlayerState.TAKING_DAMAGE;
             	monsterTouchFlag = 1;
             	Date date = new Date();          	
             	monsterTime = date.getTime();
@@ -395,9 +421,12 @@ public abstract class Player extends GameObject {
             	}
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
+                //this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
+
             	Date date = new Date();          	
             	long temp = date.getTime();
             	if (temp - monsterTime >= 1000) {
+                	//playerState = PlayerState.TAKING_DAMAGE;               	
             		monsterTouchFlag = 0;
             	}
             }
