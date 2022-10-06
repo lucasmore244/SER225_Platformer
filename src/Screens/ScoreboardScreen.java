@@ -21,7 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 public class ScoreboardScreen extends Screen {
-	Scanner scanner = new Scanner(System.in);
 	protected ScreenCoordinator screenCoordinator;
 	protected Map background;
 	protected KeyLocker keyLocker = new KeyLocker();
@@ -31,7 +30,7 @@ public class ScoreboardScreen extends Screen {
 	protected LevelLoseScreen levellose;
 	protected LevelState levelState;
 	protected boolean start;
-	protected String name = JOptionPane.showInputDialog("Please Enter your name");
+	protected String name = JOptionPane.showInputDialog(null, "Please Enter your name");
 	protected ArrayList<String> data;
 	protected ArrayList<SpriteFont> playerSpriteFonts = new ArrayList<>();
 
@@ -43,7 +42,8 @@ public class ScoreboardScreen extends Screen {
 	public void initialize() {
 		playersnameheader = new SpriteFont("Player Name", 200, 50, "Times New Roman", 20, Color.white);
 		playertimeheader = new SpriteFont("Time Used", 450, 50, "Times New Roman", 20, Color.white);
-		backtohomescreen = new SpriteFont("Click the Space Bar twice to go back to Home Screen", 0, 550, "Times New Roman", 30, Color.BLACK);
+		backtohomescreen = new SpriteFont("Click the Space Bar twice to go back to Home Screen", 0, 550,
+				"Times New Roman", 30, Color.BLACK);
 		keyLocker.lockKey(Key.SPACE);
 		start = true;
 		try {
@@ -57,10 +57,12 @@ public class ScoreboardScreen extends Screen {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	
 	}
 
 	public void update() {
-		//if(levelstate == LevelState.LEVEL_COMPLETED){
+		// if(levelstate == LevelState.LEVEL_COMPLETED){
 		if (start) {
 			for (int i = 0; i < data.size(); i++) {
 				String line = data.get(i);
@@ -86,11 +88,15 @@ public class ScoreboardScreen extends Screen {
 			fWriter.write(line);
 			fWriter.write("\n");
 		}
-		fWriter.write(name);
-		fWriter.write(" ");
-		fWriter.write(playertime);
-		fWriter.close();
-	}
+		if (name == null) {
+			JOptionPane.getRootFrame().dispose();
+		} else {
+			fWriter.write(name);
+			fWriter.write(" ");
+			fWriter.write(playertime);
+			fWriter.close();
+		}
+		}
 
 	private ArrayList<String> loadTextFile() throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
