@@ -52,21 +52,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if(currentMap == 1) {
 				this.map = new TestMap();
-				this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 
 			}
 			else if (currentMap == 2) {
 				this.map = new Level3();
-				this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 
 
 			}
 		}
-		
 		map.reset();
-		map.update(player);
 		// setup player
-		this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		if(currentMap == 1) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		}
+		else if (currentMap == 2){
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		}
 		this.player.setMap(map);
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
@@ -177,15 +180,5 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	private enum PlayLevelScreenState {
 		RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
 	}
-	public void CatLevel() {
-		if(currentMap == 1) {
-			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-		}
-		else if (currentMap == 2) {
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-
-		}
-	}
+	
 }
