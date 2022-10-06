@@ -19,7 +19,7 @@ private Asteriods asteriod;
 	
     public Level3() {
         super("level3.txt", new SpaceTileset());
-        this.playerStartPosition = getMapTile(1, 2).getLocation(); 
+        this.playerStartPosition = getMapTile(1, 9).getLocation(); 
     }
     
     @Override
