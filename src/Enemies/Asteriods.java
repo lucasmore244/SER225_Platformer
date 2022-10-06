@@ -15,13 +15,18 @@ import Utils.Point;
 import Utils.Stopwatch;
 import java.util.HashMap;
 
+
 public class Asteriods extends Enemy {
 	protected Stopwatch shootTimer = new Stopwatch();
-	private float movementSpeed = 2f;
+	private float movementSpeed = 5f;
 	private float amountMoved = 0;
 	private Direction startFacingDirection;
 	private Direction facingDirection;
 	private AirGroundState airGroundState;
+	protected Direction direction;
+	protected boolean hasCollided;
+	protected Player player;
+	protected int health = player.getPlayerhealth();
 
 	public Asteriods(Point location, Direction facingDirection) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
@@ -39,7 +44,8 @@ public class Asteriods extends Enemy {
 			currentAnimationName = "WALK_LEFT";
 		}
 		airGroundState = AirGroundState.AIR;
-//		System.out.println("Display reset");
+
+		this.setMovementSpeed((int) (Math.random() * 10 + 5));
 	}
 
 	@Override
@@ -56,6 +62,10 @@ public class Asteriods extends Enemy {
 			}
 		}
 
+		if (intersects(player)) {
+			player.setPlayerHealth(health);
+		}
+		
 		// move bug
 		moveYHandleCollision(moveAmountY);
 		moveXHandleCollision(moveAmountX);
@@ -67,74 +77,34 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-		// if bug has collided into something while walking forward,
-		// it turns around (changes facing direction)
-		if (amountMoved > 700 && direction == Direction.RIGHT) {
-			hasCollided = true;
-			amountMoved = 0;
-//			facingDirection = Direction.LEFT;
-//			currentAnimationName = "WALK_LEFT";
-			this.setMovementSpeed((int) (Math.random() *10 + 2));
-		} 
-	//		else if (amountMoved < 5 && direction == Direction.LEFT){
-//			hasCollided = true;
-//			amountMoved = 0;
-//			facingDirection = Direction.RIGHT;
-//			currentAnimationName = "WALK_RIGHT";
-//			this.setMovementSpeed((int) (Math.random() *10 + 2));
-//		}
-//		hasCollided = false;
-		
-//		if (hasCollided) {
-//			if (direction == Direction.RIGHT) {
-//				facingDirection = Direction.LEFT;
-//				currentAnimationName = "WALK_LEFT";
-//			} else {
-//				facingDirection = Direction.RIGHT;
-//				currentAnimationName = "WALK_RIGHT";
-//			}
-//		}
-//		hasCollided = false;
+
 	}
 
 	@Override
 	public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-		// if bug is colliding with the ground, change its air ground state to GROUND
-		// if it is not colliding with the ground, it means that it's currently in the
-		// air, so its air ground state is changed to AIR
-		if (direction == Direction.DOWN) {
-			if (hasCollided) {
-				airGroundState = AirGroundState.GROUND;
-			} else {
-				airGroundState = AirGroundState.AIR;
-			}
-		}
+	
 	}
+
 
 	@Override
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{
-				put("WALK_LEFT",
-						new Frame[] {
-								new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1).withBounds(6, 6, 12, 7)
-										.build(),
-								 });
+				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
+						.withBounds(6, 6, 12, 7).build(), });
 
-				put("WALK_RIGHT", new Frame[] {
-						new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(6, 6, 12, 7).build(),
-					 });
+				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(6, 6, 12, 7).build(), });
 			}
 		};
 	}
-	
+
 	public int getMovementSpeed() {
 		return (int) movementSpeed;
 	}
-	
+
 	public void setMovementSpeed(int movementSpeed) {
-    	this.movementSpeed = movementSpeed;
-    }
+		this.movementSpeed = movementSpeed;
+	}
 
 }

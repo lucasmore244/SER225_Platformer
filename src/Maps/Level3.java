@@ -3,24 +3,10 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Asteriods;
-import Enemies.DinosaurEnemy;
-import Enemies.RatEnemy;
-import Enemies.UFO;
-import Engine.ImageLoader;
-import EnhancedMapTiles.Checkpoint;
-import EnhancedMapTiles.Coin;
-import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import EnhancedMapTiles.Mushrooms;
-import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
-import Level.TileType;
-import NPCs.Walrus;
-import Screens.LevelLoseScreen;
-import Tilesets.CommonTileset;
 import Tilesets.SpaceTileset;
 import Utils.Direction;
 import Utils.Point;
@@ -38,7 +24,7 @@ private Asteriods asteriod;
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(asteriod =new Asteriods(getMapTile(1,5).getLocation().addY(20), Direction.RIGHT));
+        enemies.add(asteriod =new Asteriods(getMapTile(0,2).getLocation().addY(20), Direction.RIGHT));
         return enemies;
     }
 
@@ -71,4 +57,8 @@ private Asteriods asteriod;
     public void setPlayerStartPosition(Point x) {
     	playerStartPosition = x;
     }
+    
+    
+    
+    
 }
