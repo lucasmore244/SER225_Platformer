@@ -15,7 +15,6 @@ import Utils.Point;
 import Utils.Stopwatch;
 import java.util.HashMap;
 
-
 public class Asteriods extends Enemy {
 	protected Stopwatch shootTimer = new Stopwatch();
 	private float movementSpeed = 5f;
@@ -26,7 +25,6 @@ public class Asteriods extends Enemy {
 	protected Direction direction;
 	protected boolean hasCollided;
 	protected Player player;
-//	protected int health = player.getPlayerhealth();
 
 	public Asteriods(Point location, Direction facingDirection) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
@@ -61,11 +59,12 @@ public class Asteriods extends Enemy {
 				moveAmountX -= movementSpeed;
 			}
 		}
-
-//		if (intersects(player)) {
-//			player.setPlayerHealth(health - 1);
-//		}
 		
+		
+		if (intersects(player)) {
+			player.hurtPlayer(this);
+		}
+
 		// move bug
 		moveYHandleCollision(moveAmountY);
 		moveXHandleCollision(moveAmountX);
@@ -82,9 +81,8 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-	
-	}
 
+	}
 
 	@Override
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
