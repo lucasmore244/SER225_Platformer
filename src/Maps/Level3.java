@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Asteriods;
+import EnhancedMapTiles.Checkpoint;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -31,6 +32,7 @@ private Asteriods asteriod;
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+        enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 
 
         return enhancedMapTiles; 
