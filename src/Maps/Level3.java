@@ -3,11 +3,21 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Asteriods;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
+import EnhancedMapTiles.Coin;
+import EnhancedMapTiles.SpaceshipParts;
+import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnhancedMapTile;
+import Level.LevelState;
 import Level.Map;
 import Level.NPC;
+import Level.PlayerListener;
+import Level.PlayerState;
 import Tilesets.SpaceTileset;
+import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
@@ -31,7 +41,8 @@ private Asteriods asteriod;
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
+        
+        enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
 
         return enhancedMapTiles; 
     }
