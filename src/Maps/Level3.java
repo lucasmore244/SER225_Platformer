@@ -2,24 +2,11 @@ package Maps;
 
 import java.util.ArrayList;
 
-import Enemies.DinosaurEnemy;
-import Enemies.RatEnemy;
-import Enemies.UFO;
-import Engine.ImageLoader;
-import EnhancedMapTiles.Checkpoint;
-import EnhancedMapTiles.Coin;
-import EnhancedMapTiles.EndLevelBox;
-import EnhancedMapTiles.HorizontalMovingPlatform;
-import EnhancedMapTiles.Mushrooms;
-import GameObject.Rectangle;
+import Enemies.Asteriods;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
-import Level.TileType;
-import NPCs.Walrus;
-import Screens.LevelLoseScreen;
-import Tilesets.CommonTileset;
 import Tilesets.SpaceTileset;
 import Utils.Direction;
 import Utils.Point;
@@ -27,6 +14,7 @@ import Utils.Point;
 public class Level3 extends Map{
 	
 private int coinCount = 0;
+private Asteriods asteriod;
 	
     public Level3() {
         super("level3.txt", new SpaceTileset());
@@ -36,8 +24,7 @@ private int coinCount = 0;
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-      
-        
+        enemies.add(asteriod =new Asteriods(getMapTile(0,4).getLocation().addY(20), Direction.RIGHT));
         return enemies;
     }
 
@@ -70,4 +57,8 @@ private int coinCount = 0;
     public void setPlayerStartPosition(Point x) {
     	playerStartPosition = x;
     }
+    
+    
+    
+    
 }

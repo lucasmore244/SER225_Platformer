@@ -2,6 +2,7 @@ package Screens;
 
 import java.awt.Color;
 
+import Enemies.Asteriods;
 import Engine.DisplayTime;
 import Engine.GraphicsHandler;
 import Engine.Screen;
@@ -19,6 +20,7 @@ import Players.CatLevel3;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
+import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
@@ -41,7 +43,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
-	
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -50,7 +51,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void initialize() {
 		// define/setup map
 		if (firstGo) {
-			if(currentMap == 1) {
+			if (currentMap == 1) {
 				this.map = new TestMap();
 
 			}
@@ -69,22 +70,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		else if (currentMap == 2){
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 
+			} else if (currentMap == 2) {
+				this.map = new Level3();
+			}
+		
+		if (currentMap == 1) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		} else if (currentMap == 2) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
 		levelClearedScreen = new LevelClearedScreen();
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
-		
-		
 	}
 
-	public void update() {		
+	public void update() {
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
@@ -97,6 +106,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
+			if (map.getCoinCount() >= 3 && player.getPlayerhealth() < 5) {
+				player.setPlayerHealth(player.getPlayerhealth() + 1);
+				map.setCoinCount(-3);
+			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
@@ -104,7 +117,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				screenTimer.setWaitTime(2500);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
-				
+				firstGo = true;
+
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
@@ -144,7 +158,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_LOSE:
 			levelLoseScreen.draw(graphicsHandler);
 			break;
-			
+
 		}
 	}
 
@@ -180,5 +194,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	private enum PlayLevelScreenState {
 		RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
 	}
-	
+
+	public void CatLevel() {
+		if (currentMap == 1) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		} else if (currentMap == 2) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+
+		}
+	}
 }

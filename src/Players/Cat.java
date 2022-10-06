@@ -19,7 +19,7 @@ public class Cat extends Player {
         terminalVelocityY = 6f;
         jumpHeight = 14.5f;
         jumpDegrade = .5f;
-        walkSpeed = 2.3f;
+        walkSpeed =2.3f;
         momentumYIncrease = .5f;
         playerHealth = 5;
     }

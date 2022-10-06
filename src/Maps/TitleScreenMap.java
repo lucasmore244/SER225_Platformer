@@ -33,4 +33,10 @@ public class TitleScreenMap extends Map {
 		return 0;
 	}
 
+	@Override
+	public void setCoinCount(int x) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

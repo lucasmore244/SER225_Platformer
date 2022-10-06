@@ -82,7 +82,6 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
-//        setPlayerHealth(playerHealth);
 
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
