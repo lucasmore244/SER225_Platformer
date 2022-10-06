@@ -24,7 +24,7 @@ private Asteriods asteriod;
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(asteriod =new Asteriods(getMapTile(0,2).getLocation().addY(20), Direction.RIGHT));
+        enemies.add(asteriod =new Asteriods(getMapTile(0,4).getLocation().addY(20), Direction.RIGHT));
         return enemies;
     }
 

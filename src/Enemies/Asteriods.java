@@ -26,7 +26,7 @@ public class Asteriods extends Enemy {
 	protected Direction direction;
 	protected boolean hasCollided;
 	protected Player player;
-	protected int health = player.getPlayerhealth();
+//	protected int health = player.getPlayerhealth();
 
 	public Asteriods(Point location, Direction facingDirection) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
@@ -62,9 +62,9 @@ public class Asteriods extends Enemy {
 			}
 		}
 
-		if (intersects(player)) {
-			player.setPlayerHealth(health);
-		}
+//		if (intersects(player)) {
+//			player.setPlayerHealth(health - 1);
+//		}
 		
 		// move bug
 		moveYHandleCollision(moveAmountY);
