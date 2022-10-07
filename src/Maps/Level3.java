@@ -3,6 +3,8 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Asteriods;
+import EnhancedMapTiles.Castle;
+import EnhancedMapTiles.Spaceship;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
@@ -32,7 +34,9 @@ private Asteriods asteriod;
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-
+        enhancedMapTiles.add(new Castle(
+                getMapTile(67, 5).getLocation()
+        ));
         return enhancedMapTiles; 
     }
     
