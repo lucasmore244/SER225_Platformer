@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
+import Players.CatLevel3;
 
 import java.util.HashMap;
 // This is the class for the Cat player character
