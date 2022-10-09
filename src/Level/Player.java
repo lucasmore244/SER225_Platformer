@@ -46,7 +46,7 @@ public abstract class Player extends GameObject {
     protected int playerHealth = 0;
     //protected Calendar c = Calendar.getInstance();
     protected int waterFlag = 0;
-    protected long waterTime = 0;
+    protected long waterTime = 0; 
     protected int monsterTouchFlag = 0;
     protected long monsterTime = 0;
     protected int mushroomFlag = 0;
