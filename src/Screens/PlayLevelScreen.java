@@ -12,6 +12,8 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
+import Level.PlayerLevel3;
+
 import Level.PlayerListener;
 import Maps.Level3;
 import Maps.TestMap;
@@ -29,6 +31,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
 	protected Map map;
 	protected Player player;
+
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
@@ -81,6 +84,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 		}
 		this.player.setMap(map);
+
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
