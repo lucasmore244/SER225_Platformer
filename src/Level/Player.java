@@ -446,10 +446,8 @@ public abstract class Player extends GameObject {
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
             	//System.out.println(playerState);
-            	if (playerState == PlayerState.STANDING) {
-            		
+            	if (playerState == PlayerState.STANDING) {		
             		this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
-
             	}
             	
             	if (playerState == PlayerState.JUMPING) {
