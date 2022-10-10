@@ -63,6 +63,8 @@ public class Cat extends Player {
             put("STAND_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 1))
                             .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
                             .withBounds(8, 9, 8, 9)
                             .build()
             });

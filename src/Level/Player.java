@@ -308,8 +308,23 @@ public abstract class Player extends GameObject {
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
+        	if (damageFlag == 0) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        	}
+        	else {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
+                Date date = new Date();
+            	long temp = date.getTime();
+        		System.out.println(this.currentAnimationName);
+
+            	
+            	if (temp - damageTime >= 800) {
+            		damageFlag = 0;
+            	}
+            	
+        	}
             // sets animation to a STAND animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
 
             // handles putting goggles on when standing in water
             // checks if the center of the player is currently touching a water tile
@@ -359,7 +374,18 @@ public abstract class Player extends GameObject {
 
         }
         else if (playerState == PlayerState.WALKING) {
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+        	if (damageFlag == 0) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+        	}
+        	else {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
+                Date date = new Date();
+            	long temp = date.getTime();
+            	if (temp - damageTime >= 800) {
+
+            		damageFlag = 0;
+            	}
+        	}
 
             // sets animation to a WALK animation based on which way player is facing
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
@@ -391,6 +417,20 @@ public abstract class Player extends GameObject {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
         }
         else if (playerState == PlayerState.JUMPING) {
+        	
+        	if (damageFlag == 0) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+        	}
+        	else {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+                Date date = new Date();
+            	long temp = date.getTime();
+            	if (temp - damageTime >= 800) {
+
+            		damageFlag = 0;
+            	}
+        	}
+        	
             // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
             if (lastAmountMovedY <= 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
@@ -438,14 +478,21 @@ public abstract class Player extends GameObject {
                // levelState = LevelState.PLAYER_DEAD;
                 playerHealth--;
             	monsterTouchFlag = 1;
-
+            	
                 //drop life
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
             	}
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
+            	damageFlag = 1;
+            	Date date = new Date();          	
+            	long temp = date.getTime();
+            	if (temp - monsterTime >= 1000) {
+                	//playerState = PlayerState.TAKING_DAMAGE;               	
+            		monsterTouchFlag = 0;
             	//System.out.println(playerState);
+            		/*
             	if (playerState == PlayerState.STANDING) {
             		
             		this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
@@ -461,11 +508,7 @@ public abstract class Player extends GameObject {
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
                     //System.out.println(this.currentAnimationName);
             	}
-            	Date date = new Date();          	
-            	long temp = date.getTime();
-            	if (temp - monsterTime >= 1000) {
-                	//playerState = PlayerState.TAKING_DAMAGE;               	
-            		monsterTouchFlag = 0;
+            	*/
             	}
             }
         }
