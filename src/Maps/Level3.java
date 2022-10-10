@@ -6,12 +6,14 @@ import Enemies.Asteriods;
 
 import EnhancedMapTiles.Castle;
 import EnhancedMapTiles.Spaceship;
-
+import EnhancedMapTiles.SpaceshipBody;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.SpaceshipParts;
+import EnhancedMapTiles.SpaceshipTWing;
+import EnhancedMapTiles.SpaceshipWing;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnhancedMapTile;
@@ -51,6 +53,15 @@ private Asteriods asteriod;
         ));
         
         enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipWing(getMapTile(16, 3).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipBody(getMapTile(30, 3).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipTWing(getMapTile(56, 3).getLocation(), this));
+
+
+
 
         return enhancedMapTiles; 
     }
