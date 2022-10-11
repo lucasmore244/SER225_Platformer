@@ -7,7 +7,7 @@ import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.Checkpoint;
-import EnhancedMapTiles.EndLevelBox;
+import EnhancedMapTiles.Spaceship;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Mushrooms;
 import GameObject.Rectangle;
@@ -96,7 +96,7 @@ public class TestMap extends Map {
                 Direction.LEFT
         ));
 
-        enhancedMapTiles.add(new EndLevelBox(
+        enhancedMapTiles.add(new Spaceship(
                 getMapTile(64, 10).getLocation()
         ));
         

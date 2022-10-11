@@ -7,7 +7,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.Player;
+import Level.PlayerLevel3;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +19,7 @@ import GameObject.GameObject;
 import Players.Cat;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Level.Player;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -4,11 +4,26 @@ import java.util.ArrayList;
 
 import Enemies.Asteriods;
 import EnhancedMapTiles.Checkpoint;
+import EnhancedMapTiles.Castle;
+import EnhancedMapTiles.Spaceship;
+import EnhancedMapTiles.SpaceshipBody;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
+import EnhancedMapTiles.Coin;
+import EnhancedMapTiles.SpaceshipParts;
+import EnhancedMapTiles.SpaceshipTWing;
+import EnhancedMapTiles.SpaceshipWing;
+import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.EnhancedMapTile;
+import Level.LevelState;
 import Level.Map;
 import Level.NPC;
+import Level.PlayerListener;
+import Level.PlayerState;
 import Tilesets.SpaceTileset;
+import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 
@@ -33,6 +48,20 @@ private Asteriods asteriod;
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
+
+        enhancedMapTiles.add(new Castle(
+                getMapTile(67, 5).getLocation()
+        ));
+        
+        enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipWing(getMapTile(16, 3).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipBody(getMapTile(30, 3).getLocation(), this));
+        
+        enhancedMapTiles.add(new SpaceshipTWing(getMapTile(56, 3).getLocation(), this));
+
+
 
 
         return enhancedMapTiles; 

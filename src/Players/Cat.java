@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
+import Players.CatLevel3;
 
 import java.util.HashMap;
 // This is the class for the Cat player character
@@ -21,7 +22,7 @@ public class Cat extends Player {
         jumpDegrade = .5f;
         walkSpeed =2.3f;
         momentumYIncrease = .5f;
-        playerHealth = 5;
+        playerHealth =5;
     }
 
     public void update() {
@@ -62,6 +63,8 @@ public class Cat extends Player {
             put("STAND_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 1))
                             .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
