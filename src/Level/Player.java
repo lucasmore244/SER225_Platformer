@@ -315,7 +315,7 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
                 Date date = new Date();
             	long temp = date.getTime();
-        		System.out.println(this.currentAnimationName);
+//        		System.out.println(this.currentAnimationName);
 
             	
             	if (temp - damageTime >= 800) {
