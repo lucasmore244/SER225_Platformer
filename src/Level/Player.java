@@ -247,13 +247,14 @@ public abstract class Player extends GameObject {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
+        	//sSystem.out.println("Jump:" + this.gravity);
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
-            if (jumpForce > 0) {
+            if (Math.abs(jumpForce) /*jumpForce*/ > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
                 if (jumpForce < 0) {
@@ -448,22 +449,44 @@ public abstract class Player extends GameObject {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if player collides with a map tile below it, it is now on the ground
         // if player does not collide with a map tile below, it is in air
-        if (direction == Direction.DOWN) {
-            if (hasCollided) {
-                momentumY = 0;
-                airGroundState = AirGroundState.GROUND;
-            } else {
-                playerState = PlayerState.JUMPING;
-                airGroundState = AirGroundState.AIR;
-            }
-        }
+    	if(this.gravity > 0) {
+    		if (direction == Direction.DOWN) {
+    			if (hasCollided) {
+                	momentumY = 0;
+                	airGroundState = AirGroundState.GROUND;
+            	} else {
+                	playerState = PlayerState.JUMPING;
+                	airGroundState = AirGroundState.AIR;
+            	}
+        	}	
 
         // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
-        else if (direction == Direction.UP) {
-            if (hasCollided) {
-                jumpForce = 0;
-            }
-        }
+        	else if (direction == Direction.UP) {
+            	if (hasCollided) {
+                	jumpForce = 0;
+            	}
+        	}
+    	}
+    	else if(this.gravity < 0) {
+    		if (direction == Direction.UP) {
+    			if (hasCollided) {
+                	momentumY = 0;
+                	airGroundState = AirGroundState.GROUND;
+                	//System.out.println("Landed");
+            	} else {
+                	playerState = PlayerState.JUMPING;
+                	airGroundState = AirGroundState.AIR;
+                	//System.out.println("Airborne");
+            	}
+        	}	
+
+        // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
+        	else if (direction == Direction.DOWN) {
+            	if (hasCollided) {
+                	jumpForce = 0;
+            	}
+        	}
+    	}
     }
 
     // other entities can call this method to hurt the player
