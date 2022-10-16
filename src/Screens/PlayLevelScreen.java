@@ -15,6 +15,7 @@ import Level.Player;
 import Level.PlayerLevel3;
 
 import Level.PlayerListener;
+import Maps.Level2;
 import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
@@ -59,6 +60,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 			}
 			else if (currentMap == 2) {
+				this.map = new Level2();
+			}
+			else if (currentMap == 3) {
 				this.map = new Level3();
 
 
@@ -66,20 +70,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		}
 		map.reset();
 		// setup player
-		if(currentMap == 1) {
-			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-		}
-		else if (currentMap == 2){
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-			} else if (currentMap == 2) {
-				this.map = new Level3();
-			}
-		
+//		if(currentMap == 1) {
+//			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+//
+//		}
+//		else if (currentMap == 2){
+//			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+//
+//			} else if (currentMap == 2) {
+//				this.map = new Level3();
+//			}
+//		
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if (currentMap == 2) {
+		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 
 		}

@@ -30,11 +30,11 @@ public class CatLevel3 extends Player {
 	public CatLevel3(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("CatLevel3.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = -.5f;
-        terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        terminalVelocityY = -6f;
+        jumpHeight = -14.5f;
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
-        momentumYIncrease = .5f;
+        momentumYIncrease = -.5f;
         playerHealth = 5;
     }	
 	
