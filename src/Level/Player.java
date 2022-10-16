@@ -493,26 +493,7 @@ public abstract class Player extends GameObject {
             		monsterTouchFlag = 0;
             	//System.out.println(playerState);
 
-            	if (playerState == PlayerState.STANDING) {		
-
-            		/*
-            	if (playerState == PlayerState.STANDING) {
-            		
->>>>>>> aa67724f4ccda0da46e28d87c5bfffe589d3c063
-            		this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
-            	}
             	
-            	if (playerState == PlayerState.JUMPING) {
-            		this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
-            	}
-            	if (playerState == PlayerState.WALKING) {
-            		//System.out.println(playerState);
-            		//this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
-                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
-                    //System.out.println(this.currentAnimationName);
-            	}
-            	*/
-            	}
             }
             }
     }
