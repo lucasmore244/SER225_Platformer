@@ -577,6 +577,8 @@ public abstract class Player extends GameObject {
             }
         }
     }
+   
+    
     public int getPlayerhealth(){
     	return playerHealth;
     }
