@@ -14,13 +14,9 @@ import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Random;
 
-import javax.swing.Timer;
 
 public class Asteriods extends Enemy {
 	private float movementSpeed = 5f;
@@ -74,7 +70,6 @@ public class Asteriods extends Enemy {
 			player.hurtPlayer(this);
 		}
 		if(this.getX2() < 2) {
-			Random random = new Random();
 			  this.setLocation(740, (float) (Math.random() * (400) + 1) );
 		}
 		// move bug
