@@ -8,15 +8,21 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Random;
+
+import javax.swing.Timer;
 
 public class Asteriods extends Enemy {
-	protected Stopwatch shootTimer = new Stopwatch();
 	private float movementSpeed = 5f;
 	private float amountMoved = 0;
 	private Direction startFacingDirection;
@@ -25,11 +31,15 @@ public class Asteriods extends Enemy {
 	protected Direction direction;
 	protected boolean hasCollided;
 	protected Player player;
+	private Stopwatch stopwatch = new Stopwatch();
+
 
 	public Asteriods(Point location, Direction facingDirection) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
 		this.startFacingDirection = facingDirection;
+		isRespawnable = false;
 		this.initialize();
+		
 	}
 
 	@Override
@@ -42,8 +52,8 @@ public class Asteriods extends Enemy {
 			currentAnimationName = "WALK_LEFT";
 		}
 		airGroundState = AirGroundState.AIR;
-
 		this.setMovementSpeed((int) (Math.random() * 10 + 5));
+//		stopwatch.setWaitTime(1000);
 	}
 
 	@Override
@@ -59,12 +69,14 @@ public class Asteriods extends Enemy {
 				moveAmountX -= movementSpeed;
 			}
 		}
-		
-		
+
 		if (intersects(player)) {
 			player.hurtPlayer(this);
 		}
-
+		if(this.getX2() < 2) {
+			Random random = new Random();
+			  this.setLocation(740, (float) (Math.random() * (400) + 1) );
+		}
 		// move bug
 		moveYHandleCollision(moveAmountY);
 		moveXHandleCollision(moveAmountX);
@@ -73,6 +85,8 @@ public class Asteriods extends Enemy {
 
 		amountMoved = amountMoved + movementSpeed;
 	}
+	
+
 
 	@Override
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
