@@ -15,7 +15,6 @@ import Players.CatLevel3;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Level.MapEntity;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
