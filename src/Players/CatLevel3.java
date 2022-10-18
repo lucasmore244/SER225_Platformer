@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class CatLevel3 extends Player {
 
 	public CatLevel3(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("CatLevel3.png"), 24, 24), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("CatUpsideDown.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = -.5f;
         terminalVelocityY = -6f;
         jumpHeight = -14.5f;
