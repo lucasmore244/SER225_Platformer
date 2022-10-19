@@ -27,15 +27,13 @@ public class Asteriods extends Enemy {
 	protected Direction direction;
 	protected boolean hasCollided;
 	protected Player player;
-	private Stopwatch stopwatch = new Stopwatch();
 
 
 	public Asteriods(Point location, Direction facingDirection) {
-		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Asteriod.png"), 90, 90), "WALK_LEFT");
+		super(location.x, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89), "WALK_LEFT");
 		this.startFacingDirection = facingDirection;
 		isRespawnable = false;
 		this.initialize();
-		
 	}
 
 	@Override
@@ -49,14 +47,12 @@ public class Asteriods extends Enemy {
 		}
 		airGroundState = AirGroundState.AIR;
 		this.setMovementSpeed((int) (Math.random() * 10 + 5));
-//		stopwatch.setWaitTime(1000);
 	}
 
 	@Override
 	public void update(Player player) {
 		float moveAmountX = 0;
 		float moveAmountY = 0;
-
 		// if on air, walk forward based on facing direction
 		if (airGroundState == AirGroundState.AIR) {
 			if (facingDirection == Direction.RIGHT) {
@@ -65,7 +61,6 @@ public class Asteriods extends Enemy {
 				moveAmountX -= movementSpeed;
 			}
 		}
-
 		if (intersects(player)) {
 			player.hurtPlayer(this);
 		}
@@ -75,22 +70,17 @@ public class Asteriods extends Enemy {
 		// move bug
 		moveYHandleCollision(moveAmountY);
 		moveXHandleCollision(moveAmountX);
-
 		super.update(player);
-
 		amountMoved = amountMoved + movementSpeed;
 	}
 	
 
-
 	@Override
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-
 	}
 
 	@Override
 	public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-
 	}
 
 	@Override
@@ -98,6 +88,8 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
+						.withBounds(6, 6, 12, 7).build(), });
+				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
 						.withBounds(6, 6, 12, 7).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)

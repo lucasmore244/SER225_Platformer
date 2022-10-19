@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class Castle extends EnhancedMapTile {
 
 	public Castle(Point location) {
-		super(location.x, location.y, new SpriteSheet(ImageLoader.load("castle.png"), 87, 83), TileType.PASSABLE);
+		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Castle.png"), 87, 83), TileType.PASSABLE);
 	}
 
 	@Override

@@ -32,7 +32,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
 	protected Map map;
 	protected Player player;
-
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
