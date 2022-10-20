@@ -33,7 +33,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
 	protected Map map;
 	protected Player player;
-
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
@@ -97,7 +96,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-		levelClearedScreen = new LevelClearedScreen();
+		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
@@ -199,6 +198,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void goBackToMenu() {
 		screenCoordinator.setGameState(GameState.MENU);
+	}
+	
+	public int getCurrentMap() {
+		return currentMap;
+		
 	}
 
 	// This enum represents the different states this screen can be in
