@@ -82,7 +82,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
-    protected Key SHOOT_KEY = Key.Q;
+   // protected Key SHOOT_KEY = Key.Q;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -159,10 +159,10 @@ public abstract class Player extends GameObject {
             case JUMPING:
                 playerJumping();
                 break;
-            case SHOOT:
+           /* case SHOOT:
             	playerShooting();
             	break;
-            
+            */
         }
     }
     
@@ -216,11 +216,11 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
-        
+        /*
         else if(Keyboard.isKeyDown(SHOOT_KEY)) {
         	playerState = PlayerState.SHOOT;
         }
-        
+        */
         
         
         
@@ -251,12 +251,12 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
-        
+        /*
         if (Keyboard.isKeyDown(SHOOT_KEY)) {
         	playerState = PlayerState.SHOOT;
         }
         System.out.println(playerState);
-        
+        */
 
      
         
@@ -288,7 +288,7 @@ public abstract class Player extends GameObject {
     
     
     
-	
+	/*
     protected void playerShooting() {
    
     	System.out.println(playerState);
@@ -311,7 +311,7 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.SHOOT;
         }
     }
-    
+    */
     
     
     
