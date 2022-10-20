@@ -9,6 +9,7 @@ import Engine.ImageLoader;
 import Engine.Key;
 import Engine.Keyboard;
 import EnhancedMapTiles.Coin;
+import EnhancedMapTiles.EndLevel2Block;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Spaceship;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -62,7 +63,7 @@ public class TestMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
+        
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getMapTile(24, 6).getLocation(),

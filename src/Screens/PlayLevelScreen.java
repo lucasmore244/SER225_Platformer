@@ -18,7 +18,11 @@ import Level.Player;
 import Level.PlayerLevel3;
 
 import Level.PlayerListener;
+
 import Level.PlayerState;
+
+import Maps.Level2;
+
 import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
@@ -35,7 +39,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
 	protected Map map;
 	protected Player player;
-
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
@@ -61,31 +64,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-
 			}
 			else if (currentMap == 2) {
+				this.map = new Level2();
+			}
+			else if (currentMap == 3) {
 				this.map = new Level3();
 
 
 			}
 		}
 		map.reset();
-		// setup player
-		if(currentMap == 1) {
-			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		}
-		else if (currentMap == 2){
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
-			} else if (currentMap == 2) {
-				this.map = new Level3();
-			}
 		
+		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if (currentMap == 2) {
+		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		}
 		this.player.setMap(map);
 
@@ -94,7 +89,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-		levelClearedScreen = new LevelClearedScreen();
+		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
@@ -196,6 +191,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void goBackToMenu() {
 		screenCoordinator.setGameState(GameState.MENU);
+	}
+	
+	public int getCurrentMap() {
+		return currentMap;
+		
 	}
 
 	// This enum represents the different states this screen can be in

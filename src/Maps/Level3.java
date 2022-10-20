@@ -41,7 +41,6 @@ private Asteriods asteriod;
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-        enemies.add(asteriod =new Asteriods(getMapTile(0,4).getLocation().addY(20), Direction.RIGHT));
         return enemies;
     }
 
@@ -50,9 +49,7 @@ private Asteriods asteriod;
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 
-        enhancedMapTiles.add(new Castle(
-                getMapTile(67, 5).getLocation()
-        ));
+        enhancedMapTiles.add(new Castle(getMapTile(67, 5).getLocation()));
         
         enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
         

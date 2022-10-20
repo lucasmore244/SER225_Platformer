@@ -28,13 +28,13 @@ import java.util.ArrayList;
 public class CatLevel3 extends Player {
 
 	public CatLevel3(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("CatLevel3.png"), 24, 24), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("CatUpsideDown.png"), 24, 24), x, y, "STAND_RIGHT");
         gravity = -.5f;
-        terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        terminalVelocityY = -6f;
+        jumpHeight = -14.5f;
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
-        momentumYIncrease = .5f;
+        momentumYIncrease = -.5f;
         playerHealth = 5;
     }	
 	
@@ -57,6 +57,7 @@ public class CatLevel3 extends Player {
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
+            
 
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(6, 3))
@@ -66,6 +67,19 @@ public class CatLevel3 extends Player {
                             .build()
             });
 
+            put("STAND_LEFT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 2))
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+            put("STAND_RIGHT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 2))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(5, 3), 200)
                             .withScale(3)
@@ -107,6 +121,49 @@ public class CatLevel3 extends Player {
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
+            
+            
+            put("WALK_LEFT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 1), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 0), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 1), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 0), 200)
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+
+            put("WALK_RIGHT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(6, 1), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 0), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 1), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(6, 0), 200)
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
 
             put("JUMP_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(4, 3))
@@ -122,7 +179,20 @@ public class CatLevel3 extends Player {
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
-
+            put("JUMP_LEFT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 2))
+                    .withScale(3)
+                    .withBounds(8, 9, 8, 9)
+                    .build()
+            });
+            put("JUMP_RIGHT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 2))
+                    .withScale(3)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withBounds(8, 9, 8, 9)
+                    .build()
+            });
+            
             put("FALL_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(3, 3))
                             .withScale(3)
@@ -137,7 +207,20 @@ public class CatLevel3 extends Player {
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
-
+            
+            put("FALL_LEFT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 1))
+                            .withScale(3)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+            put("FALL_RIGHT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 1))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
             put("CROUCH_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 3))
                             .withScale(3)
@@ -145,6 +228,19 @@ public class CatLevel3 extends Player {
                             .build()
             });
 
+            put("CROUCH_LEFT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 0))
+                            .withScale(3)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
+            put("CROUCH_RIGHT_RED", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(4, 0))
+                            .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(8, 12, 8, 6)
+                            .build()
+            });
             put("CROUCH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(2, 3))
                             .withScale(3)
