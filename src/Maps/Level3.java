@@ -31,6 +31,7 @@ public class Level3 extends Map{
 	
 private int coinCount = 0;
 private Asteriods asteriod;
+
 	
     public Level3() {
         super("level3.txt", new SpaceTileset());

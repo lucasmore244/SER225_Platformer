@@ -3,24 +3,37 @@ package Level;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+
 import Level.Map;
 import Screens.PlayLevelScreen;
+import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.DinosaurEnemy;
+import Enemies.Fireball;
+import Enemies.RatEnemy;
+import Enemies.UFO;
+import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import EnhancedMapTiles.Mushrooms;
+import GameObject.Frame;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Players.Cat;
 import Players.CatLevel3;
 import Utils.AirGroundState;
 import Utils.Direction;
+import Utils.Point;
 import Level.MapEntity;
+
 
 import java.awt.Color;
 import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
-    // values that affect player movement
+	
+	// values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
     protected float gravity = 0;
@@ -39,6 +52,7 @@ public abstract class Player extends GameObject {
     // values used to keep track of player's current state
     protected PlayerState playerState;
     protected PlayerState previousPlayerState;
+    protected PlayerState playerShootState;
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
@@ -68,6 +82,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key SHOOT_KEY = Key.Q;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -104,7 +119,7 @@ public abstract class Player extends GameObject {
 
             handlePlayerAnimation();
 
-            updateLockedKeys();
+            updateLockedKeys();           
 
             // update player's animation
             super.update();
@@ -119,6 +134,7 @@ public abstract class Player extends GameObject {
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
+        
     }
 
     // add gravity to player, which is a downward force
@@ -142,7 +158,10 @@ public abstract class Player extends GameObject {
                 break;
             case JUMPING:
                 playerJumping();
-                break;          
+                break;
+            case SHOOT:
+            	playerShooting();
+            	break;
             
         }
     }
@@ -197,6 +216,14 @@ public abstract class Player extends GameObject {
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+        
+        else if(Keyboard.isKeyDown(SHOOT_KEY)) {
+        	playerState = PlayerState.SHOOT;
+        }
+        
+        
+        
+        
     }
 
     // player WALKING state logic
@@ -220,11 +247,19 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
         }
-
         // if crouch key is pressed,
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
         }
+        
+        if (Keyboard.isKeyDown(SHOOT_KEY)) {
+        	playerState = PlayerState.SHOOT;
+        }
+        System.out.println(playerState);
+        
+
+     
+        
     }
 
     // player CROUCHING state logic
@@ -240,6 +275,54 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
     }
+    
+    
+    
+    
+    
+    
+    // attempt to make the thing shoot
+    
+    
+    
+    
+    
+    
+	
+    protected void playerShooting() {
+   
+    	System.out.println(playerState);
+    	Fireball fireball = new Fireball(getLocation(), 6, 10000);
+    	map.addEnemy(fireball);
+    	
+    	
+    	
+    	
+        // if shoot key is pressed, player enters JUMPING state
+        if (Keyboard.isKeyUp(SHOOT_KEY) && (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY))) {
+            playerState = PlayerState.STANDING;
+        }
+        else if (Keyboard.isKeyUp(SHOOT_KEY) && ((Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)))) {
+        	playerState = PlayerState.WALKING;
+        }    
+        
+        if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
+            keyLocker.lockKey(SHOOT_KEY);
+            playerState = PlayerState.SHOOT;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     // player JUMPING state logic
     protected void playerJumping() {

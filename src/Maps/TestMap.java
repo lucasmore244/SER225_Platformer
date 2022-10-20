@@ -4,7 +4,10 @@ import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.Asteriods;
 import Enemies.DinosaurEnemy;
+import Enemies.Fireball;
 import Engine.ImageLoader;
+import Engine.Key;
+import Engine.Keyboard;
 import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Spaceship;
@@ -16,6 +19,7 @@ import NPCs.Walrus;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.util.ArrayList;
 
@@ -24,6 +28,8 @@ public class TestMap extends Map {
 	
 	private int coinCount = 0;
 	private Player player;
+	private Stopwatch spawnblock = new Stopwatch();
+
 	
     public TestMap() {
         super("test_map.txt", new CommonTileset());
@@ -40,6 +46,7 @@ public class TestMap extends Map {
         enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT));
         enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2), Direction.RIGHT));
         enemies.add(new Mushrooms(getMapTile(16, 8).getLocation()));
+        
         
         enemies.add(new Mushrooms(getMapTile(24, 10).getLocation()));
         
@@ -99,7 +106,7 @@ public class TestMap extends Map {
         enhancedMapTiles.add(new Spaceship(
                 getMapTile(64, 10).getLocation()
         ));
-        
+                      
         enhancedMapTiles.add(new Coin(getMapTile(7, 11).getLocation(), this));
       
         enhancedMapTiles.add(new Coin(
@@ -141,4 +148,5 @@ public class TestMap extends Map {
     public void setPlayerStartPosition(Point x) {
     	playerStartPosition = x;
     }
+    
 }

@@ -3,8 +3,11 @@ package Screens;
 import java.awt.Color;
 
 import Enemies.Asteriods;
+import Enemies.Fireball;
 import Engine.DisplayTime;
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.Keyboard;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
@@ -15,6 +18,7 @@ import Level.Player;
 import Level.PlayerLevel3;
 
 import Level.PlayerListener;
+import Level.PlayerState;
 import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
@@ -46,6 +50,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
+	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -68,7 +73,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if(currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		}
 		else if (currentMap == 2){
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);

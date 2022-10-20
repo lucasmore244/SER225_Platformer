@@ -8,6 +8,7 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.util.HashMap;
 
@@ -17,9 +18,11 @@ import java.util.HashMap;
 // This class is for the end level gold box tile
 // when the player touches it, it will tell the player that the level has been completed
 public class Spaceship extends EnhancedMapTile {
+	
+	
     public Spaceship(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rocket.png"), 50, 35), TileType.PASSABLE);
-    }
+        }
 
     @Override
     public void update(Player player) {
@@ -27,6 +30,7 @@ public class Spaceship extends EnhancedMapTile {
         if (intersects(player)) {
             player.completeLevel();
         }
+        
     }
 
     @Override
