@@ -27,6 +27,7 @@ import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
 import Players.CatLevel3;
+import Players.SpaceshipLevel2;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
@@ -81,7 +82,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		}else if(currentMap == 2) {
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			this.player.setLevelMap(1);
 		}
+		
 		this.player.setMap(map);
 
 		this.player.addListener(this);

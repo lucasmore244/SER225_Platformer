@@ -25,7 +25,9 @@ import Players.CatLevel3;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Stopwatch;
 import Level.MapEntity;
+
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -57,7 +59,8 @@ public abstract class Player extends GameObject {
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
     
-    
+    protected Stopwatch cooldown = new Stopwatch();
+    protected int currentMap = 0;
     protected int playerHealth = 0;
     //protected Calendar c = Calendar.getInstance();
     protected int waterFlag = 0;
@@ -74,7 +77,7 @@ public abstract class Player extends GameObject {
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
-
+  
     // define keys
     protected KeyLocker keyLocker = new KeyLocker();
     protected Key JUMP_KEY = Key.UP;
@@ -94,6 +97,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        cooldown.setWaitTime(7000);
     }
 
     public void update() {
@@ -145,7 +149,10 @@ public abstract class Player extends GameObject {
 
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
-        switch (playerState) {
+        if (currentMap == 1) {
+        	playerLevel2();
+        } else {
+    	switch (playerState) {
             case STANDING:
                 playerStanding();
                 break;
@@ -163,6 +170,7 @@ public abstract class Player extends GameObject {
             	break;
             */
         }
+    	}
     }
     
     /*
@@ -374,6 +382,25 @@ public abstract class Player extends GameObject {
         }
     }
 
+    protected void playerLevel2() {
+    	//sSystem.out.println("Jump:" + this.gravity);
+        // sets animation to a JUMP animation based on which way player is facing
+    	if (Keyboard.isKeyDown(JUMP_KEY)) {
+        currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+
+        // player is set to be in air and then player is sent into the air
+        airGroundState = AirGroundState.AIR;
+        jumpForce = jumpHeight;
+        if (Math.abs(jumpForce) /*jumpForce*/ > 0) {
+            moveAmountY -= jumpForce;
+            jumpForce -= jumpDegrade;
+            if (jumpForce < 0) {
+                jumpForce = 0;
+            }
+        }
+        applyGravity();
+    }
+    }
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
@@ -697,5 +724,8 @@ public abstract class Player extends GameObject {
 
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
+    }
+    public void setLevelMap(int currentMap) {
+    	this.currentMap = currentMap;
     }
 }
