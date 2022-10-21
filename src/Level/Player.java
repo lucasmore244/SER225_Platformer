@@ -11,6 +11,7 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
+import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.DinosaurEnemy.DinosaurState;
@@ -84,7 +85,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
-   // protected Key SHOOT_KEY = Key.Q;
+    protected Key SHOOT_KEY = Key.Q;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -97,7 +98,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
-        cooldown.setWaitTime(7000);
+        cooldown.setWaitTime(300);
     }
 
     public void update() {
@@ -292,8 +293,7 @@ public abstract class Player extends GameObject {
     
     
     
-    
-    
+
     
 	/*
     protected void playerShooting() {
@@ -400,6 +400,11 @@ public abstract class Player extends GameObject {
         }
         applyGravity();
     }
+    	if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
+    		Laser laser = new Laser(getLocation(), 4, 4000);
+        	map.addEnemy(laser);
+        	cooldown.setWaitTime(300);
+    	}
     }
     // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
     protected void increaseMomentum() {
