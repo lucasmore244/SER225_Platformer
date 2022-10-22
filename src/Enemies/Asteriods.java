@@ -10,7 +10,6 @@ import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
-import Level.SpaceshipLevel2;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -27,7 +26,7 @@ public class Asteriods extends Enemy {
 	private AirGroundState airGroundState;
 	protected Direction direction;
 	protected boolean hasCollided;
-	protected SpaceshipLevel2 spaceship;
+	protected Players.SpaceshipLevel2 spaceship;
 
 
 	public Asteriods(Point location, Direction facingDirection) {

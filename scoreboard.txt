@@ -2,5 +2,13 @@ Ohm 00:00
 Ohm 00:00
 Ohm 00:00
 Ohm 00:00
+<<<<<<< HEAD
 kkhb 00:00
 Valantine 00:00
+=======
+<<<<<<< HEAD
+Lucas 00:00
+=======
+kkhb 00:00
+>>>>>>> 64eb26ee904fac45fe8bbfb06753ca48267a9f05
+>>>>>>> 1abc7c09bce863f73ccf20c6976cf3f54ac5dd9e
