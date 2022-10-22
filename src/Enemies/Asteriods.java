@@ -10,6 +10,7 @@ import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
+import Level.SpaceshipLevel2;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -26,7 +27,7 @@ public class Asteriods extends Enemy {
 	private AirGroundState airGroundState;
 	protected Direction direction;
 	protected boolean hasCollided;
-	protected Player player;
+	protected SpaceshipLevel2 spaceship;
 
 
 	public Asteriods(Point location, Direction facingDirection) {
@@ -61,9 +62,9 @@ public class Asteriods extends Enemy {
 				moveAmountX -= movementSpeed;
 			}
 		}
-		if (intersects(player)) {
-			player.hurtPlayer(this);
-		}
+//		if (intersects(player)) {
+//			player.hurtPlayer(this);
+//		}
 		if(this.getX2() < 2) {
 			  this.setLocation(740, (float) (Math.random() * (400) + 1) );
 		}
