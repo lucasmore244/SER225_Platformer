@@ -47,7 +47,7 @@ public class SpaceshipPlayer extends Player {
         playerHealth = 5;
    	}
 	public void update() {
-		new SpaceshipLevel2();
+		//new SpaceshipLevel2();
         super.update();
     }
 

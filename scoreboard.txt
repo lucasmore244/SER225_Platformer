@@ -2,4 +2,8 @@ Ohm 00:00
 Ohm 00:00
 Ohm 00:00
 Ohm 00:00
+<<<<<<< HEAD
+Lucas 00:00
+=======
 kkhb 00:00
+>>>>>>> 64eb26ee904fac45fe8bbfb06753ca48267a9f05

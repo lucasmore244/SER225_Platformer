@@ -31,6 +31,7 @@ public class Level3 extends Map{
 	
 private int coinCount = 0;
 private Asteriods asteriod;
+
 	
     public Level3() {
         super("level3.txt", new SpaceTileset());
@@ -48,9 +49,7 @@ private Asteriods asteriod;
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 
-        enhancedMapTiles.add(new Castle(
-                getMapTile(67, 5).getLocation()
-        ));
+        enhancedMapTiles.add(new Castle(getMapTile(67, 5).getLocation()));
         
         enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
         

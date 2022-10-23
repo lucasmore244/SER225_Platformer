@@ -12,22 +12,19 @@ import Utils.Stopwatch;
 
 import java.util.HashMap;
 
-// this class has been edited in order to display a spaceship at the end of the level to match the games theme
-// The image of the spaceship at the end is an animation but i think thats fine because it works and ive been stuck on it for 4 hours
-
-// This class is for the end level gold box tile
-// when the player touches it, it will tell the player that the level has been completed
-public class Spaceship extends EnhancedMapTile {
+public class EndLevel2Block extends EnhancedMapTile{
 	
+	private Stopwatch levelTimer = new Stopwatch();
 	
-    public Spaceship(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rocket.png"), 50, 35), TileType.PASSABLE);
+	public EndLevel2Block(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("SpaceTileset.png"), 16, 16), TileType.PASSABLE);
+        levelTimer.setWaitTime(30000);
         }
 
     @Override
     public void update(Player player) {
         super.update(player);
-        if (intersects(player)) {
+        if (levelTimer.isTimeUp()) {
             player.completeLevel();
         }
         
@@ -37,7 +34,7 @@ public class Spaceship extends EnhancedMapTile {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
+                new FrameBuilder(spriteSheet.getSprite(3, 4), 500)
                         .withScale(4)
                         .withBounds(1, 1, 25, 17)
                         .build(),

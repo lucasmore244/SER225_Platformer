@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class SpaceTileset extends Tileset {
 
     public SpaceTileset() {
-        super(ImageLoader.load("SpaceTileset2.png"), 16, 16, 3);
+        super(ImageLoader.load("SpaceTileset.png"), 16, 16, 3);
     }
 
     @Override

@@ -138,8 +138,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            case JUMPING:
 	                playerJumping();
 	                break;
-	            case TAKING_DAMAGE:
-	            	break;
+	           
 	            
 	        }
 	    }

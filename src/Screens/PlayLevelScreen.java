@@ -3,8 +3,11 @@ package Screens;
 import java.awt.Color;
 
 import Enemies.Asteriods;
+import Enemies.Fireball;
 import Engine.DisplayTime;
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.Keyboard;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
@@ -15,12 +18,16 @@ import Level.Player;
 import Level.PlayerLevel3;
 
 import Level.PlayerListener;
+
+import Level.PlayerState;
+
 import Maps.Level2;
+
 import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
 import Players.CatLevel3;
-import Players.SpaceshipPlayer;
+import Players.SpaceshipLevel2;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
@@ -46,7 +53,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
+	protected int currentMap = 2;
+	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -57,7 +65,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-
 			}
 			else if (currentMap == 2) {
 				this.map = new Level2();
@@ -69,24 +76,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			}
 		}
 		map.reset();
+		
 		// setup player
-//		if(currentMap == 1) {
-//			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-//
-//		}
-//		else if (currentMap == 2){
-//			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-//
-//			} else if (currentMap == 2) {
-//				this.map = new Level3();
-//			}
-//		
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}else if(currentMap == 2) {
-			this.player = new SpaceshipPlayer(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			this.player.setLevelMap(1);
 		}
 		
 		this.player.setMap(map);

@@ -8,8 +8,10 @@ import Enemies.DinosaurEnemy;
 import Enemies.RatEnemy;
 import Enemies.UFO;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Castle;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
+import EnhancedMapTiles.EndLevel2Block;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Mushrooms;
 import EnhancedMapTiles.Spaceship;
@@ -39,7 +41,7 @@ public class Level2 extends Map{
 
 	 public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
 		 ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
+		 enhancedMapTiles.add(new EndLevel2Block(getMapTile(1, 1).getLocation()));
 		 return enhancedMapTiles; 
 	    } 
 	@Override
