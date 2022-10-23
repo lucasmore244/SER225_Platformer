@@ -32,6 +32,9 @@ public class SpaceshipPlayer extends Player {
 	private int height;
 	private int x;
 	private int y;
+	
+	
+	
 
 	public SpaceshipPlayer(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Rocket1.png"), 42, 35), x, y, "STAND_RIGHT");
