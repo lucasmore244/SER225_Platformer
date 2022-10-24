@@ -279,7 +279,7 @@ public abstract class Map {
         return camera;
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<Enemy> getEnemies() { 
         return enemies;
     }
     public ArrayList<EnhancedMapTile> getEnhancedMapTiles() {

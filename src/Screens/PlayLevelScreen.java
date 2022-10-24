@@ -71,8 +71,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			}
 			else if (currentMap == 3) {
 				this.map = new Level3();
-
-
 			}
 		}
 		map.reset();
@@ -86,7 +84,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(1);
 		}
-		
 		this.player.setMap(map);
 
 		this.player.addListener(this);

@@ -73,8 +73,6 @@ public abstract class Player extends GameObject {
     protected int damageFlag = 0;
     protected long damageTime = 0;
 
-	
-
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -319,16 +317,6 @@ public abstract class Player extends GameObject {
         }
     }
     */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
     // player JUMPING state logic
@@ -605,7 +593,9 @@ public abstract class Player extends GameObject {
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
+   
         if (!isInvincible) {
+
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
             	
