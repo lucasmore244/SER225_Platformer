@@ -379,7 +379,7 @@ public abstract class Player extends GameObject {
         // player is set to be in air and then player is sent into the air
         airGroundState = AirGroundState.AIR;
         jumpForce = jumpHeight;
-        if (Math.abs(jumpForce) /*jumpForce*/ > 0) {
+        if (Math.abs(jumpForce) > 0) {
             moveAmountY -= jumpForce;
             jumpForce -= jumpDegrade;
             if (jumpForce < 0) {
@@ -388,6 +388,21 @@ public abstract class Player extends GameObject {
         }
         applyGravity();
     }
+    	if (Keyboard.isKeyDown(CROUCH_KEY)) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+
+             //player is set to be in air and then player is sent into the air
+            airGroundState = AirGroundState.AIR;
+            jumpForce = jumpHeight;
+            if (Math.abs(jumpForce) > 0) {
+                moveAmountY += jumpForce;
+                jumpForce += jumpDegrade;
+                if (jumpForce < 0) {
+                    jumpForce = 0;
+                }
+          }
+          applyGravity();
+        }
     	if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
     		Laser laser = new Laser(getLocation(), 4, 4000);
         	map.addEnemy(laser);

@@ -20,6 +20,9 @@ import java.util.Random;
 
 public class Asteriods extends Enemy {
 	private float movementSpeed = 5f;
+
+public class Asteriods extends Enemy {	
+	private float movementSpeed = 3f;
 	private float amountMoved = 0;
 	private Direction startFacingDirection;
 	private Direction facingDirection;
@@ -95,6 +98,10 @@ public class Asteriods extends Enemy {
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
+		
+		if(this.intersects(player)) {
+			player.setPlayerHealth(player.getPlayerhealth() - 1);
+		}
 	}
 
 	@Override

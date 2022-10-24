@@ -16,11 +16,11 @@ public class SpaceshipLevel2 extends Player {
 
     public SpaceshipLevel2(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Rocket.png"), 49, 35), x, y, "STAND_RIGHT");
-        gravity = .5f;
+        gravity = (float) .001;
         terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
+        jumpHeight = 10.5f;
         jumpDegrade = .5f;
-        walkSpeed =2.3f;
+        walkSpeed = 8f;
         momentumYIncrease = .5f;
         playerHealth = 99;
 
@@ -40,14 +40,22 @@ public class SpaceshipLevel2 extends Player {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             
             put("STAND_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
@@ -55,7 +63,11 @@ public class SpaceshipLevel2 extends Player {
 
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
@@ -63,7 +75,11 @@ public class SpaceshipLevel2 extends Player {
             
             put("STAND_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
 
                             .withBounds(8, 9, 8, 9)
@@ -74,6 +90,7 @@ public class SpaceshipLevel2 extends Player {
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
                             .withBounds(8, 9, 8, 9)
                             .build(),
@@ -87,12 +104,28 @@ public class SpaceshipLevel2 extends Player {
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
                             .withScale(4)
+=======
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             
             put("WALK_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
                             .withBounds(8, 9, 8, 9)
                             .build(),
@@ -106,28 +139,59 @@ public class SpaceshipLevel2 extends Player {
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
                             .withScale(4)
+=======
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
 
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
@@ -135,22 +199,38 @@ public class SpaceshipLevel2 extends Player {
             
             put("WALK_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 200)
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
@@ -158,21 +238,33 @@ public class SpaceshipLevel2 extends Player {
 
             put("JUMP_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             
             put("JUMP_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
 
             put("JUMP_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
@@ -180,7 +272,11 @@ public class SpaceshipLevel2 extends Player {
             
             put("JUMP_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
@@ -189,55 +285,87 @@ public class SpaceshipLevel2 extends Player {
 
             put("FALL_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             
             put("FALL_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             
             put("FALL_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             put("FALL_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
             put("CROUCH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 12, 8, 6)
                             .build()
             });
             put("CROUCH_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 12, 8, 6)
                             .build()
             });
 
             put("CROUCH_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 12, 8, 6)
                             .build()
             });
             put("CROUCH_LEFT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 12, 8, 6)
                             .build()
@@ -245,6 +373,7 @@ public class SpaceshipLevel2 extends Player {
 
             put("DEATH_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+<<<<<<< HEAD
                             .withScale(4)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
@@ -252,10 +381,20 @@ public class SpaceshipLevel2 extends Player {
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
                             .withScale(4)
+=======
+                            .withScale(2)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+                            .withScale(2)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .build()
             });
             put ("TAKING_DAMAGE_RIGHT",new Frame[] {
             	new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+<<<<<<< HEAD
                 .withScale(4)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
@@ -263,11 +402,21 @@ public class SpaceshipLevel2 extends Player {
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
                 .withScale(4)
+=======
+                .withScale(2)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+                .withScale(2)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
+                .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                 .build()
             });
 
             put ("DEATH_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+<<<<<<< HEAD
                             .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build(),
@@ -277,11 +426,23 @@ public class SpaceshipLevel2 extends Player {
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
                             .withScale(4)
+=======
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
             put ("TAKING_DAMAGE_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+<<<<<<< HEAD
                             .withScale(4)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build(),
@@ -291,20 +452,39 @@ public class SpaceshipLevel2 extends Player {
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
                             .withScale(4)
+=======
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), 100)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 0), -1)
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
 
             put("SWIM_STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withBounds(8, 9, 8, 9)
                             .build()
             });
 
             put("SWIM_STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
+<<<<<<< HEAD
                             .withScale(4)
+=======
+                            .withScale(2)
+>>>>>>> 8fa4107b6d17616e7939c01a1192d10e730a35ab
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(8, 9, 8, 9)
                             .build()
