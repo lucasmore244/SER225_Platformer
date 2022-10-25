@@ -57,15 +57,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-
 			}
 			else if (currentMap == 2) {
 				this.map = new Level2();
 			}
 			else if (currentMap == 3) {
 				this.map = new Level3();
-
-
 			}
 		}
 		map.reset();
