@@ -378,6 +378,11 @@ public abstract class Player extends GameObject {
            
         }
         applyGravity();
+        System.out.println(playerState);
+
+    }
+    	
+    	else if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
         
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {

@@ -193,7 +193,9 @@ public class SpaceTileset extends Tileset {
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder topWaterTile = new MapTileBuilder(topWaterFrame);
+        MapTileBuilder topWaterTile = new MapTileBuilder(topWaterFrame)
+                .withTileType(TileType.WATER);
+
 
         mapTiles.add(topWaterTile);
 
