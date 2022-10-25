@@ -71,8 +71,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			}
 			else if (currentMap == 3) {
 				this.map = new Level3();
-
-
 			}
 		}
 		map.reset();
@@ -86,7 +84,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(1);
 		}
-		
 		this.player.setMap(map);
 
 		this.player.addListener(this);
@@ -211,10 +208,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void CatLevel() {
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		} else if (currentMap == 2) {
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		} else if(currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		}
 	}
 }

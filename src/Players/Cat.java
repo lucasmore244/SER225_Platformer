@@ -22,8 +22,7 @@ public class Cat extends Player {
         jumpDegrade = .5f;
         walkSpeed =2.3f;
         momentumYIncrease = .5f;
-        playerHealth = 99;
-
+        playerHealth = 5;
     }
 
     public void update() {
