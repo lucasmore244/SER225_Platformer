@@ -362,10 +362,17 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
-
+    	System.out.println(playerHealth);
+    	System.out.println(playerState);
+    	if (playerHealth == 2) {
+    		
+            for (PlayerListener listener : listeners) {
+                listener.onDeath();
+            }
+        }
+    	
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
         currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-
         // player is set to be in air and then player is sent into the air
         airGroundState = AirGroundState.AIR;
         jumpForce = jumpHeight;
@@ -377,12 +384,7 @@ public abstract class Player extends GameObject {
             }
            
         }
-        applyGravity();
-        if(getPlayerhealth() < 1) {
-        	levelState = LevelState.PLAYER_DEAD;
         }
-
-    }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
@@ -396,7 +398,6 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
           }
-          applyGravity();
         }
     	if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
     		Laser laser = new Laser(getLocation(), 4, 4000);
@@ -676,7 +677,6 @@ public abstract class Player extends GameObject {
             } else {
                 currentAnimationName = "DEATH_LEFT";
             }
-          
             super.update();
         }
         // if death animation not on last frame yet, continue to play out death animation
