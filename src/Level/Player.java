@@ -615,6 +615,12 @@ public abstract class Player extends GameObject {
                 //drop life
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
+            		if(currentMap == 1) {
+            			levelState = LevelState.PLAYER_DEAD;
+            			for(PlayerListener listener : listeners) {
+            				listener.onDeath();
+            			}
+            		}
             	}
             	
             	
