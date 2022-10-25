@@ -23,6 +23,7 @@ import GameObject.GameObject;
 import GameObject.SpriteSheet;
 import Players.Cat;
 import Players.CatLevel3;
+import Players.SpaceshipLevel2;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
@@ -282,26 +283,14 @@ public abstract class Player extends GameObject {
         }
     }
     
-    
-    
-    
-    
-    
     // attempt to make the thing shoot
-    
-    
-    
-
     
 	/*
     protected void playerShooting() {
    
     	System.out.println(playerState);
     	Fireball fireball = new Fireball(getLocation(), 6, 10000);
-    	map.addEnemy(fireball);
-    	
-    	
-    	
+    	map.addEnemy(fireball);    	
     	
         // if shoot key is pressed, player enters JUMPING state
         if (Keyboard.isKeyUp(SHOOT_KEY) && (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY))) {
@@ -373,6 +362,7 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
+
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
         currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
@@ -385,8 +375,10 @@ public abstract class Player extends GameObject {
             if (jumpForce < 0) {
                 jumpForce = 0;
             }
+           
         }
         applyGravity();
+        
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
@@ -435,7 +427,6 @@ public abstract class Player extends GameObject {
             	long temp = date.getTime();
 //        		System.out.println(this.currentAnimationName);
 
-            	
             	if (temp - damageTime >= 800) {
             		damageFlag = 0;
             	}
@@ -625,6 +616,9 @@ public abstract class Player extends GameObject {
             	if (playerHealth == 0) {
             		levelState = LevelState.PLAYER_DEAD;
             	}
+            	
+            	
+            	
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
             	damageFlag = 1;
@@ -679,6 +673,7 @@ public abstract class Player extends GameObject {
             } else {
                 currentAnimationName = "DEATH_LEFT";
             }
+          
             super.update();
         }
         // if death animation not on last frame yet, continue to play out death animation
@@ -693,6 +688,7 @@ public abstract class Player extends GameObject {
                 // tell all player listeners that the player has died in the level
                 for (PlayerListener listener : listeners) {
                     listener.onDeath();
+                    
                 }
             }
         }

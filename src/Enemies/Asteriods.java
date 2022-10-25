@@ -18,11 +18,9 @@ import Utils.Stopwatch;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Asteriods extends Enemy {
-	private float movementSpeed = 5f;
 
 public class Asteriods extends Enemy {	
-	private float movementSpeed = 3f;
+	private float movementSpeed = 5f;
 	private float amountMoved = 0;
 	private Direction startFacingDirection;
 	private Direction facingDirection;
@@ -79,6 +77,7 @@ public class Asteriods extends Enemy {
 					if (othertime.isTimeUp()) {
 						this.initialize();
 						this.mapEntityStatus = MapEntityStatus.ACTIVE;
+						this.setLocation(740, (float) (Math.random() * (400) + 1) );
 					}
 				}
 			}
@@ -98,10 +97,6 @@ public class Asteriods extends Enemy {
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
-		
-		if(this.intersects(player)) {
-			player.setPlayerHealth(player.getPlayerhealth() - 1);
-		}
 	}
 
 	@Override
@@ -117,14 +112,14 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withBounds(6, 6, 12, 7).build(), });
+						.withBounds(10, 10, 40, 35).build(), });
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
-						.withBounds(6, 6, 12, 7).build(), });
+						.withBounds(10, 10, 40, 35).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(6, 6, 12, 7).build(), });
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
 				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
-						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(6, 6, 12, 7).build(), });
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
 			}
 		};
 	}

@@ -53,7 +53,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
+	protected int currentMap = 2;
 	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -208,10 +208,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void CatLevel() {
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		} else if (currentMap == 2) {
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		} else if(currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		}
 	}
 }
