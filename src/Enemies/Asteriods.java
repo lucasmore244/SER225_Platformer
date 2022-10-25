@@ -111,14 +111,14 @@ public class Asteriods extends Enemy {
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{
-				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
+				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .5)
 						.withBounds(10, 10, 40, 35).build(), });
-				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
+				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float).5)
 						.withBounds(10, 10, 40, 35).build(), });
 
-				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
+				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float).5)
 						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
-				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
+				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float).5)
 						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
 
 			}
