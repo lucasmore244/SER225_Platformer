@@ -399,6 +399,10 @@ public abstract class Player extends GameObject {
             }
         }
         applyGravity();
+        
+        if(getPlayerhealth() < 1) {
+        	levelState = LevelState.PLAYER_DEAD;
+        }
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";

@@ -92,12 +92,12 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withBounds(6, 6, 12, 7).build(), });
+						.withBounds(40, 40, 45, 24).build(), });
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
-						.withBounds(6, 6, 12, 7).build(), });
+						.withBounds(40, 40, 45, 45).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(6, 6, 12, 7).build(), });
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(40, 40, 45, 45).build(), });
 			}
 		};
 	}

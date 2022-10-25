@@ -49,9 +49,22 @@ public class Laser extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    	 if (entityCollidedWith instanceof Enemy) {
+    		 this.mapEntityStatus = MapEntityStatus.REMOVED;
+    	 }
+    	// if fireball collides with anything solid on the x axis, it is removed
+        if (hasCollided) {
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+            System.out.println("yes");
+        }
+    }
+    
+    @Override
+    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
+            System.out.println("yes");
         }
     }
     
