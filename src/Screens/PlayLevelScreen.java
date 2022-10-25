@@ -3,8 +3,11 @@ package Screens;
 import java.awt.Color;
 
 import Enemies.Asteriods;
+import Enemies.Fireball;
 import Engine.DisplayTime;
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.Keyboard;
 import Engine.Screen;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
@@ -15,11 +18,16 @@ import Level.Player;
 import Level.PlayerLevel3;
 
 import Level.PlayerListener;
+
+import Level.PlayerState;
+
 import Maps.Level2;
+
 import Maps.Level3;
 import Maps.TestMap;
 import Players.Cat;
 import Players.CatLevel3;
+import Players.SpaceshipLevel2;
 import SpriteFont.HealthDisplay;
 import SpriteFont.SpriteFont;
 import SpriteFont.TimeDisplay;
@@ -32,7 +40,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
 	protected Map map;
 	protected Player player;
-
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
@@ -47,6 +54,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
+	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -66,23 +74,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			}
 		}
 		map.reset();
+		
 		// setup player
-//		if(currentMap == 1) {
-//			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-//
-//		}
-//		else if (currentMap == 2){
-//			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-//
-//			} else if (currentMap == 2) {
-//				this.map = new Level3();
-//			}
-//		
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
+		}else if(currentMap == 2) {
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			this.player.setLevelMap(1);
 		}
 		this.player.setMap(map);
 
@@ -91,7 +91,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-		levelClearedScreen = new LevelClearedScreen();
+		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
@@ -194,6 +194,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void goBackToMenu() {
 		screenCoordinator.setGameState(GameState.MENU);
 	}
+	
+	public int getCurrentMap() {
+		return currentMap;
+		
+	}
 
 	// This enum represents the different states this screen can be in
 	private enum PlayLevelScreenState {
@@ -203,10 +208,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void CatLevel() {
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		} else if (currentMap == 2) {
+			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+		} else if(currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-
 		}
 	}
 }
