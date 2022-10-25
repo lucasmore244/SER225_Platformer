@@ -2,6 +2,7 @@ package Level;
 
 import Engine.Key;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -60,6 +61,7 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    protected SpaceshipLevel2 spaceship;
     
     protected Stopwatch cooldown = new Stopwatch();
     protected int currentMap = 0;
@@ -73,7 +75,6 @@ public abstract class Player extends GameObject {
     protected long mushroomTime = 0;
     protected int damageFlag = 0;
     protected long damageTime = 0;
-
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -103,7 +104,6 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
-
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();
@@ -362,7 +362,9 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
-
+//    	if (playerHealth == 1) {
+//    		
+//    	}
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
         currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
@@ -617,8 +619,6 @@ public abstract class Player extends GameObject {
             		levelState = LevelState.PLAYER_DEAD;
             	}
             	
-            	
-            	
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
             	damageFlag = 1;
@@ -626,10 +626,7 @@ public abstract class Player extends GameObject {
             	long temp = date.getTime();
             	if (temp - monsterTime >= 1000) {
                 	//playerState = PlayerState.TAKING_DAMAGE;               	
-            		monsterTouchFlag = 0;
-            	//System.out.println(playerState);
-
-            	
+            		monsterTouchFlag = 0;      	
             }
             }
     }
@@ -678,7 +675,7 @@ public abstract class Player extends GameObject {
         }
         // if death animation not on last frame yet, continue to play out death animation
         else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-          super.update();
+          super.update(); 
         }
         // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
         else if (currentFrameIndex == getCurrentAnimation().length - 1) {
@@ -688,6 +685,7 @@ public abstract class Player extends GameObject {
                 // tell all player listeners that the player has died in the level
                 for (PlayerListener listener : listeners) {
                     listener.onDeath();
+     
                     
                 }
             }
