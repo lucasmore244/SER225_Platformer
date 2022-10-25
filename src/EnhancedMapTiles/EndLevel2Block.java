@@ -5,8 +5,10 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
+import Level.LevelState;
 import Level.Player;
 import Level.TileType;
+import Players.SpaceshipLevel2;
 import Utils.Point;
 import Utils.Stopwatch;
 
@@ -15,6 +17,8 @@ import java.util.HashMap;
 public class EndLevel2Block extends EnhancedMapTile{
 	
 	private Stopwatch levelTimer = new Stopwatch();
+	protected LevelState levelState;
+	protected SpaceshipLevel2 spaceship;
 	
 	public EndLevel2Block(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("SpaceTileset.png"), 16, 16), TileType.PASSABLE);
@@ -27,7 +31,6 @@ public class EndLevel2Block extends EnhancedMapTile{
         if (levelTimer.isTimeUp()) {
             player.completeLevel();
         }
-        
     }
 
     @Override

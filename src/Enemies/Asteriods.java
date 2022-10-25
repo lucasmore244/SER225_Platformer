@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.Map;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
@@ -19,20 +20,24 @@ import java.util.Random;
 
 
 public class Asteriods extends Enemy {	
-	private float movementSpeed = 3f;
+	private float movementSpeed = 5f;
 	private float amountMoved = 0;
 	private Direction startFacingDirection;
 	private Direction facingDirection;
 	private AirGroundState airGroundState;
 	protected Direction direction;
 	protected boolean hasCollided;
-	protected Player player;
+	protected Laser laser;
+	protected Stopwatch time = new Stopwatch();
+	protected Stopwatch othertime = new Stopwatch();
+	protected Map map;
 
-
-	public Asteriods(Point location, Direction facingDirection) {
-		super(location.x, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89), "WALK_LEFT");
+	public Asteriods(Point location, Direction facingDirection, Map map) {
+		super(location.x, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89),
+				"WALK_LEFT");
 		this.startFacingDirection = facingDirection;
-		isRespawnable = false;
+		this.map = map;
+		isRespawnable = true;
 		this.initialize();
 	}
 
@@ -46,6 +51,8 @@ public class Asteriods extends Enemy {
 			currentAnimationName = "WALK_LEFT";
 		}
 		airGroundState = AirGroundState.AIR;
+		time.setWaitTime(1000);
+		othertime.setWaitTime(500);
 		this.setMovementSpeed((int) (Math.random() * 10 + 5));
 	}
 
@@ -61,23 +68,36 @@ public class Asteriods extends Enemy {
 				moveAmountX -= movementSpeed;
 			}
 		}
+		for (int i = 0; i < map.getEnemies().size(); i++) {
+			if (map.getEnemies().get(i) instanceof Laser) {
+				if (intersects(map.getEnemies().get(i))) {
+					if (time.isTimeUp()) {
+						this.mapEntityStatus = MapEntityStatus.REMOVED;
+					}
+					if (othertime.isTimeUp()) {
+						this.initialize();
+						this.mapEntityStatus = MapEntityStatus.ACTIVE;
+						this.setLocation(740, (float) (Math.random() * (400) + 1) );
+					}
+				}
+			}
+		}
+
 		if (intersects(player)) {
-			player.hurtPlayer(this);
+		 this.currentAnimationName = facingDirection == Direction.LEFT ? "WALK_LEFT_BROKEN" : "WALK_RIGHT_BROKEN";
 		}
-		if(this.getX2() < 2) {
-			  this.setLocation(740, (float) (Math.random() * (400) + 1) );
+		
+		if(currentAnimationName == "WALK_LEFT_BROKEN" && this.getX2() < 2) {
+			 this.currentAnimationName = facingDirection == Direction.LEFT ? "WALK_LEFT" : "WALK_RIGHT";
+			this.setLocation(740, (float) (Math.random() * (400) + 1) );
 		}
-		// move bug
+
+		// move asteriod
 		moveYHandleCollision(moveAmountY);
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
-		
-		if(this.intersects(player)) {
-			player.setPlayerHealth(player.getPlayerhealth() - 1);
-		}
 	}
-	
 
 	@Override
 	public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -92,12 +112,15 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withBounds(40, 40, 45, 24).build(), });
+						.withBounds(10, 10, 40, 35).build(), });
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
-						.withBounds(40, 40, 45, 45).build(), });
+						.withBounds(10, 10, 40, 35).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale(1)
-						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(40, 40, 45, 45).build(), });
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
+				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale(1)
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 40, 35).build(), });
+
 			}
 		};
 	}
