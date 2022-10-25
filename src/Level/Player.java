@@ -399,8 +399,11 @@ public abstract class Player extends GameObject {
             }
         }
         applyGravity();
+        System.out.println(playerState);
+
     }
-    	if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
+    	
+    	else if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
     		Laser laser = new Laser(getLocation(), 4, 4000);
         	map.addEnemy(laser);
         	cooldown.setWaitTime(300);

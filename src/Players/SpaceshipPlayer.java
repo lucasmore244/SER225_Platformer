@@ -8,7 +8,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.PlayerLevel3;
-import Level.SpaceshipLevel2;
+import Players.SpaceshipLevel2;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,7 +47,7 @@ public class SpaceshipPlayer extends Player {
         playerHealth = 5;
    	}
 	public void update() {
-		//new SpaceshipLevel2();
+		// new SpaceshipLevel2();
         super.update();
     }
 
