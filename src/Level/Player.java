@@ -2,7 +2,6 @@ package Level;
 
 import Engine.Key;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -61,7 +60,6 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
-    protected SpaceshipLevel2 spaceship;
     
     protected Stopwatch cooldown = new Stopwatch();
     protected int currentMap = 0;
@@ -76,6 +74,7 @@ public abstract class Player extends GameObject {
     protected int damageFlag = 0;
     protected long damageTime = 0;
 
+
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
   
@@ -88,7 +87,7 @@ public abstract class Player extends GameObject {
     protected Key SHOOT_KEY = Key.Q;
 
     // flags
-    protected boolean isInvincible = true; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -104,6 +103,7 @@ public abstract class Player extends GameObject {
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
+
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
             applyGravity();
@@ -135,7 +135,7 @@ public abstract class Player extends GameObject {
 
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
-            updatePlayerDead(); 
+            updatePlayerDead();
         }
         
     }
@@ -144,7 +144,7 @@ public abstract class Player extends GameObject {
     protected void applyGravity() {  
     	
             moveAmountY += gravity + momentumY;
-            
+    	
     }
 
     // based on player's current state, call appropriate player state handling method
@@ -180,7 +180,6 @@ public abstract class Player extends GameObject {
               // if map entity is an enemy, kill player on touch
               if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
                  // this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
               	playerState = PlayerState.TAKING_DAMAGE;
               	monsterTouchFlag = 1;
               	Date date = new Date();          	
@@ -194,7 +193,6 @@ public abstract class Player extends GameObject {
               }
               if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
                   //this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
               	Date date = new Date();          	
               	long temp = date.getTime();
               	if (temp - monsterTime >= 1000) {
@@ -203,7 +201,6 @@ public abstract class Player extends GameObject {
               	}
               }
           }
-
     }
     */
     // player STANDING state logic
@@ -314,14 +311,14 @@ public abstract class Player extends GameObject {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
-        	//System.out.println("Jump:" + this.gravity);
+        	//sSystem.out.println("Jump:" + this.gravity);
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
-            if (jumpForce > 0) {
+            if (Math.abs(jumpForce) /*jumpForce*/ > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
                 if (jumpForce < 0) {
@@ -346,7 +343,6 @@ public abstract class Player extends GameObject {
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed;
             }
-           // System.out.println("Move Amount Y: " + moveAmountY);
 
             // if player is falling, increases momentum as player falls so it falls faster over time
             if (moveAmountY > 0) {
@@ -363,6 +359,7 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
+
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
         currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
@@ -378,11 +375,6 @@ public abstract class Player extends GameObject {
            
         }
         applyGravity();
-        System.out.println(playerState);
-
-    }
-    	
-    	else if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
         
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
@@ -412,7 +404,6 @@ public abstract class Player extends GameObject {
         if (momentumY > terminalVelocityY) {
             momentumY = terminalVelocityY;
         }
-        //System.out.println("Momentum: " + momentumY);
     }
 
     protected void updateLockedKeys() {
@@ -563,27 +554,45 @@ public abstract class Player extends GameObject {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if player collides with a map tile below it, it is now on the ground
         // if player does not collide with a map tile below, it is in air
-    	
-    	if (direction == Direction.DOWN) {
-    		if (hasCollided) {
-               	momentumY = 0;
-               	airGroundState = AirGroundState.GROUND;
-               //	System.out.println("Landed");
-           	} else {
-               	playerState = PlayerState.JUMPING;
-               	airGroundState = AirGroundState.AIR;
-               	//System.out.println("Airborne");
-           	}
-       	}	
+    	if(this.gravity > 0) {
+    		if (direction == Direction.DOWN) {
+    			if (hasCollided) {
+                	momentumY = 0;
+                	airGroundState = AirGroundState.GROUND;
+            	} else {
+                	playerState = PlayerState.JUMPING;
+                	airGroundState = AirGroundState.AIR;
+            	}
+        	}	
 
         // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
-       	else if (direction == Direction.UP) {
-           	if (hasCollided) {
-               	jumpForce = 0;
-           	}
-       	}
-   	}
-    	
+        	else if (direction == Direction.UP) {
+            	if (hasCollided) {
+                	jumpForce = 0;
+            	}
+        	}
+    	}
+    	else if(this.gravity < 0) {
+    		if (direction == Direction.UP) {
+    			if (hasCollided) {
+                	momentumY = 0;
+                	airGroundState = AirGroundState.GROUND;
+                	//System.out.println("Landed");
+            	} else {
+                	playerState = PlayerState.JUMPING;
+                	airGroundState = AirGroundState.AIR;
+                	//System.out.println("Airborne");
+            	}
+        	}	
+
+        // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
+        	else if (direction == Direction.DOWN) {
+            	if (hasCollided) {
+                	jumpForce = 0;
+            	}
+        	}
+    	}
+    }
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
@@ -611,6 +620,8 @@ public abstract class Player extends GameObject {
             		}
             	}
             	
+            	
+            	
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
             	damageFlag = 1;
@@ -618,7 +629,10 @@ public abstract class Player extends GameObject {
             	long temp = date.getTime();
             	if (temp - monsterTime >= 1000) {
                 	//playerState = PlayerState.TAKING_DAMAGE;               	
-            		monsterTouchFlag = 0;      	
+            		monsterTouchFlag = 0;
+            	//System.out.println(playerState);
+
+            	
             }
             }
     }
@@ -667,7 +681,7 @@ public abstract class Player extends GameObject {
         }
         // if death animation not on last frame yet, continue to play out death animation
         else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-          super.update(); 
+          super.update();
         }
         // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
         else if (currentFrameIndex == getCurrentAnimation().length - 1) {
@@ -677,7 +691,6 @@ public abstract class Player extends GameObject {
                 // tell all player listeners that the player has died in the level
                 for (PlayerListener listener : listeners) {
                     listener.onDeath();
-     
                     
                 }
             }
