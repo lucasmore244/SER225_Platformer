@@ -573,44 +573,24 @@ public abstract class Player extends GameObject {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if player collides with a map tile below it, it is now on the ground
         // if player does not collide with a map tile below, it is in air
-    	if(this.gravity > 0) {
-    		if (direction == Direction.DOWN) {
-    			if (hasCollided) {
-                	momentumY = 0;
-                	airGroundState = AirGroundState.GROUND;
-            	} else {
-                	playerState = PlayerState.JUMPING;
-                	airGroundState = AirGroundState.AIR;
-            	}
-        	}	
-
+    	//System.out.println(airGroundState + " " + hasCollided+ " " + moveAmountY + " " + direction + " " + entityCollidedWith);
+    	if (direction == Direction.DOWN) {
+    		if (hasCollided) {
+               	momentumY = 0;
+               	airGroundState = AirGroundState.GROUND;
+               //	System.out.println("Landed");
+           	} else {
+               	playerState = PlayerState.JUMPING;
+               	airGroundState = AirGroundState.AIR;
+               	//System.out.println("Airborne");
+           	}
+       	}	
         // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
         	else if (direction == Direction.UP) {
             	if (hasCollided) {
                 	jumpForce = 0;
             	}
         	}
-    	}
-    	else if(this.gravity < 0) {
-    		if (direction == Direction.UP) {
-    			if (hasCollided) {
-                	momentumY = 0;
-                	airGroundState = AirGroundState.GROUND;
-                	//System.out.println("Landed");
-            	} else {
-                	playerState = PlayerState.JUMPING;
-                	airGroundState = AirGroundState.AIR;
-                	//System.out.println("Airborne");
-            	}
-        	}	
-
-        // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
-        	else if (direction == Direction.DOWN) {
-            	if (hasCollided) {
-                	jumpForce = 0;
-            	}
-        	}
-    	}
     }
 
     // other entities can call this method to hurt the player
