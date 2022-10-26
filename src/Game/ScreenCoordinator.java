@@ -3,6 +3,7 @@ package Game;
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Screens.BeginningScreen;
 import Screens.CreditsScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
@@ -15,7 +16,6 @@ import Screens.ScoreboardScreen;
 public class ScreenCoordinator extends Screen {
 	// currently shown Screen
 	protected Screen currentScreen = new DefaultScreen();
-
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
 	protected GameState previousGameState;
@@ -24,7 +24,8 @@ public class ScreenCoordinator extends Screen {
 		return gameState;
 	}
 
-	// Other Screens can set the gameState of this class to force it to change the currentScreen
+	// Other Screens can set the gameState of this class to force it to change the
+	// currentScreen
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
@@ -38,26 +39,29 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void update() {
 		do {
-			// if previousGameState does not equal gameState, it means there was a change in gameState
-			// this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
+			// if previousGameState does not equal gameState, it means there was a change in
+			// gameState
+			// this triggers ScreenCoordinator to bring up a new Screen based on what the
+			// gameState is
 			if (previousGameState != gameState) {
-				switch(gameState) {
-					case MENU:
-						currentScreen = new MenuScreen(this);
-						break;
-					case LEVEL:
-						currentScreen = new PlayLevelScreen(this);
-						break;
-					case CREDITS:
-						currentScreen = new CreditsScreen(this);
-						break;
-					case SCOREBOARD:
-						currentScreen = new ScoreboardScreen(this);
+				switch (gameState) {
+				case BEGINNINGSCENE:
+					currentScreen = new BeginningScreen(this);
+				case MENU:
+					currentScreen = new MenuScreen(this);
+					break;
+				case LEVEL:
+					currentScreen = new PlayLevelScreen(this);
+					break;
+				case CREDITS:
+					currentScreen = new CreditsScreen(this);
+					break;
+				case SCOREBOARD:
+					currentScreen = new ScoreboardScreen(this);
 				}
 				currentScreen.initialize();
 			}
 			previousGameState = gameState;
-
 			// call the update method for the currentScreen
 			currentScreen.update();
 		} while (previousGameState != gameState);
