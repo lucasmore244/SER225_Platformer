@@ -359,9 +359,21 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
+    	playerState = PlayerState.JUMPING;
+    	if (damageFlag == 0 ) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+    	}
+        else {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            Date date = new Date();
+        	long temp = date.getTime();
+//    		System.out.println(this.currentAnimationName);
 
+        	if (temp - damageTime >= 600) {
+        		damageFlag = 0;
+        	}
+        }
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
-        currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
         // player is set to be in air and then player is sent into the air
         airGroundState = AirGroundState.AIR;
@@ -378,7 +390,7 @@ public abstract class Player extends GameObject {
         
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+           // currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
              //player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
@@ -414,6 +426,7 @@ public abstract class Player extends GameObject {
 
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
+    	//System.out.println(playerState);
         if (playerState == PlayerState.STANDING) {
         	if (damageFlag == 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
@@ -531,6 +544,12 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
                 Date date = new Date();
             	long temp = date.getTime();
+            	if (currentMap == 1) {
+            		if (temp - damageTime >= 600) {
+
+                		damageFlag = 0;
+                	}
+            	}
             	if (temp - damageTime >= 800) {
 
             		damageFlag = 0;
@@ -624,6 +643,10 @@ public abstract class Player extends GameObject {
             	
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
+            	/*if(currentMap == 1) {
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            	}
+            	*/
             	damageFlag = 1;
             	Date date = new Date();          	
             	long temp = date.getTime();

@@ -35,7 +35,7 @@ public class SpaceshipPlayer extends Player {
 	private int y;
 
 	public SpaceshipPlayer(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("Rocket1.png"), 42, 35), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("rockerLevel2.png"), 42, 35), x, y, "STAND_RIGHT");
         gravity = 0;
         terminalVelocityY = 0;
         jumpHeight = 0;
@@ -104,6 +104,12 @@ public class SpaceshipPlayer extends Player {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 500)
+                            .withScale(2)
+                            .withBounds(8, 9, 8, 9)
+                            .build()
+            });
+            put("JUMP_RIGHT_RED", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                             .withScale(2)
                             .withBounds(8, 9, 8, 9)
