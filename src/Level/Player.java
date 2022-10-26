@@ -144,7 +144,7 @@ public abstract class Player extends GameObject {
     protected void applyGravity() {  
     	
             moveAmountY += gravity + momentumY;
-            
+    	
     }
 
     // based on player's current state, call appropriate player state handling method
@@ -180,7 +180,6 @@ public abstract class Player extends GameObject {
               // if map entity is an enemy, kill player on touch
               if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
                  // this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
               	playerState = PlayerState.TAKING_DAMAGE;
               	monsterTouchFlag = 1;
               	Date date = new Date();          	
@@ -194,7 +193,6 @@ public abstract class Player extends GameObject {
               }
               if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
                   //this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
               	Date date = new Date();          	
               	long temp = date.getTime();
               	if (temp - monsterTime >= 1000) {
@@ -203,7 +201,6 @@ public abstract class Player extends GameObject {
               	}
               }
           }
-
     }
     */
     // player STANDING state logic
@@ -314,14 +311,14 @@ public abstract class Player extends GameObject {
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
-        	//System.out.println("Jump:" + this.gravity);
+        	//sSystem.out.println("Jump:" + this.gravity);
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
             // player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
             jumpForce = jumpHeight;
-            if (jumpForce > 0) {
+            if (Math.abs(jumpForce) /*jumpForce*/ > 0) {
                 moveAmountY -= jumpForce;
                 jumpForce -= jumpDegrade;
                 if (jumpForce < 0) {
@@ -346,7 +343,6 @@ public abstract class Player extends GameObject {
             } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
                 moveAmountX += walkSpeed;
             }
-           // System.out.println("Move Amount Y: " + moveAmountY);
 
             // if player is falling, increases momentum as player falls so it falls faster over time
             if (moveAmountY > 0) {
@@ -363,9 +359,21 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
+    	playerState = PlayerState.JUMPING;
+    	if (damageFlag == 0 ) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+    	}
+        else {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            Date date = new Date();
+        	long temp = date.getTime();
+//    		System.out.println(this.currentAnimationName);
 
+        	if (temp - damageTime >= 600) {
+        		damageFlag = 0;
+        	}
+        }
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
-        currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
         // player is set to be in air and then player is sent into the air
         airGroundState = AirGroundState.AIR;
@@ -382,7 +390,7 @@ public abstract class Player extends GameObject {
         
     }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+           // currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
              //player is set to be in air and then player is sent into the air
             airGroundState = AirGroundState.AIR;
@@ -408,7 +416,6 @@ public abstract class Player extends GameObject {
         if (momentumY > terminalVelocityY) {
             momentumY = terminalVelocityY;
         }
-        //System.out.println("Momentum: " + momentumY);
     }
 
     protected void updateLockedKeys() {
@@ -419,6 +426,7 @@ public abstract class Player extends GameObject {
 
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
+    	//System.out.println(playerState);
         if (playerState == PlayerState.STANDING) {
         	if (damageFlag == 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
@@ -536,6 +544,12 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
                 Date date = new Date();
             	long temp = date.getTime();
+            	if (currentMap == 1) {
+            		if (temp - damageTime >= 600) {
+
+                		damageFlag = 0;
+                	}
+            	}
             	if (temp - damageTime >= 800) {
 
             		damageFlag = 0;
@@ -571,15 +585,13 @@ public abstract class Player extends GameObject {
                	//System.out.println("Airborne");
            	}
        	}	
-
         // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
-       	else if (direction == Direction.UP) {
-           	if (hasCollided) {
-               	jumpForce = 0;
-           	}
-       	}
-   	}
-    	
+        	else if (direction == Direction.UP) {
+            	if (hasCollided) {
+                	jumpForce = 0;
+            	}
+        	}
+    }
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
@@ -611,6 +623,10 @@ public abstract class Player extends GameObject {
             	
             }
             if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
+            	/*if(currentMap == 1) {
+                    this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            	}
+            	*/
             	damageFlag = 1;
             	Date date = new Date();          	
             	long temp = date.getTime();

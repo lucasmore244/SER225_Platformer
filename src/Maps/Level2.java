@@ -38,6 +38,8 @@ public class Level2 extends Map{
 	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(10)).getLocation().addY(20), Direction.LEFT, this));
 	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(4)).getLocation().addY(20), Direction.LEFT, this));
 	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(8)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(10)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(10)).getLocation().addY(20), Direction.LEFT, this));
 	        return enemies;
 	    }
 
