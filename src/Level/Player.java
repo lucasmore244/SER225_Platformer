@@ -87,7 +87,7 @@ public abstract class Player extends GameObject {
     protected Key SHOOT_KEY = Key.Q;
 
     // flags
-    protected boolean isInvincible = true; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -559,7 +559,7 @@ public abstract class Player extends GameObject {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if player collides with a map tile below it, it is now on the ground
         // if player does not collide with a map tile below, it is in air
-    	
+    	//System.out.println(airGroundState + " " + hasCollided+ " " + moveAmountY + " " + direction + " " + entityCollidedWith);
     	if (direction == Direction.DOWN) {
     		if (hasCollided) {
                	momentumY = 0;
