@@ -362,14 +362,6 @@ public abstract class Player extends GameObject {
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
         // sets animation to a JUMP animation based on which way player is facing
-    	System.out.println(playerHealth);
-    	System.out.println(playerState);
-    	if (playerHealth == 2) {
-    		
-            for (PlayerListener listener : listeners) {
-                listener.onDeath();
-            }
-        }
     	
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
         currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
