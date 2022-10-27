@@ -53,7 +53,7 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
-		this.setMovementSpeed((int) (Math.random() * 10 + 5));
+		this.setMovementSpeed((int) (Math.random() * 5 + 5));
 	}
 
 	@Override
