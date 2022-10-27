@@ -31,12 +31,12 @@ public class CatLevel3 extends Player {
 
 	public CatLevel3(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("CatUpsideDown.png"), 24, 24), x, y, "STAND_RIGHT");
-        gravity = -.5f;
+        gravity = -.8f;
         terminalVelocityY = -6f;
-        jumpHeight = -14.5f;
+        jumpHeight = -16.5f;
         jumpDegrade = -.5f;
         walkSpeed = 2.3f;
-        momentumYIncrease = -.5f;
+        momentumYIncrease = -.15f;
         playerHealth = 5;
     }	 
 	
@@ -110,7 +110,7 @@ public class CatLevel3 extends Player {
     // if player collides with a map tile above it, it is now on the ground
     // if player does not collide with a map tile above, it is in air
 	
-    	//System.out.println(airGroundState +" "+ hasCollided);
+    	//System.out.println(airGroundState + " " + hasCollided + " " + moveAmountY + " " + direction  + " " + entityCollidedWith);
     	if (direction == Direction.UP) {
     		if (hasCollided) {
     			momentumY = 0;
@@ -130,9 +130,10 @@ public class CatLevel3 extends Player {
 	}
     protected void applyGravity() {  
     	
-    	if (airGroundState != AirGroundState.GROUND) {
+    	//if (airGroundState != AirGroundState.GROUND) {
     		moveAmountY += gravity - momentumY;	
-    	}
+    	//}
+    	
     	
     	
 	
