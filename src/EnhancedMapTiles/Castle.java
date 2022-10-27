@@ -32,7 +32,7 @@ public class Castle extends EnhancedMapTile {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("DEFAULT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 500).withScale(2)
-						.withBounds(0, 0, 25, 17).build(), });
+						.withBounds(1, 1, 87, 17).build(), });
 			}
 		};
 	}

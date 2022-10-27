@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Enemies.Asteriods;
+import Enemies.UFO;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Castle;
 import EnhancedMapTiles.Spaceship;
@@ -41,6 +42,7 @@ private Asteriods asteriod;
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+        enemies.add(new UFO(getMapTile(7, 10).getLocation().addY(2), getMapTile(15, 10).getLocation().addY(2), Direction.RIGHT));
         return enemies;
     }
 
