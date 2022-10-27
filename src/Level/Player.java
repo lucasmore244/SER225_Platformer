@@ -369,7 +369,7 @@ public abstract class Player extends GameObject {
         	long temp = date.getTime();
 //    		System.out.println(this.currentAnimationName);
 
-        	if (temp - damageTime >= 600) {
+        	if (temp - damageTime >= 1000) {
         		damageFlag = 0;
         	}
         }
@@ -545,7 +545,7 @@ public abstract class Player extends GameObject {
                 Date date = new Date();
             	long temp = date.getTime();
             	if (currentMap == 1) {
-            		if (temp - damageTime >= 600) {
+            		if (temp - damageTime >= 1000) {
 
                 		damageFlag = 0;
                 	}
