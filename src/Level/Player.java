@@ -62,6 +62,7 @@ public abstract class Player extends GameObject {
     protected LevelState levelState;
     
     protected Stopwatch cooldown = new Stopwatch();
+    protected int levelNum = 0;
     protected int currentMap = 0;
     protected int playerHealth = 0;
     //protected Calendar c = Calendar.getInstance();
@@ -98,14 +99,19 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         cooldown.setWaitTime(300);
+
     }
 
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
 
+
+
+
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
+
             applyGravity();
 
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
@@ -130,6 +136,8 @@ public abstract class Player extends GameObject {
 
         // if player has beaten level
         else if (levelState == LevelState.LEVEL_COMPLETED) {
+        	
+        	
             updateLevelCompleted();
         }
 
@@ -450,7 +458,11 @@ public abstract class Player extends GameObject {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+            	playerHealth = 0;
+        		levelState = LevelState.PLAYER_DEAD;
+            }        
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {            	
             	playerHealth--;
             	Date date = new Date();
             	waterTime = date.getTime();
@@ -473,7 +485,12 @@ public abstract class Player extends GameObject {
 
             
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
-                //System.out.println(playerState);                            
+            /*	if (PlayLevelScreen.currentMap == 2) {
+            		playerHealth = 0;
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            	*/
+                //System.out.println(playerState);       
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";                                              
             	Date date = new Date();
             	long temp = date.getTime();
@@ -510,8 +527,13 @@ public abstract class Player extends GameObject {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
-            	
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+            	playerHealth = 0;
+            	levelState = LevelState.PLAYER_DEAD;
+
+            }            	                       	
+
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {            	                       	
             	playerHealth--;
             	Date date = new Date();
             	waterTime = date.getTime();
@@ -522,6 +544,11 @@ public abstract class Player extends GameObject {
             	}
             }
             	if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
+            		/*if ( ) {
+                		playerHealth = 0;
+                		levelState = LevelState.PLAYER_DEAD;
+                	}
+                	*/
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
             		Date date = new Date();
                 	long temp = date.getTime();
@@ -664,9 +691,11 @@ public abstract class Player extends GameObject {
         } else {
             // tell all player listeners that the player has finished the level
             for (PlayerListener listener : listeners) {
-                listener.onLevelCompleted();
+
+                    listener.onLevelCompleted();
             }
         }
+
         //currentMap++;
     }
 
@@ -699,8 +728,6 @@ public abstract class Player extends GameObject {
             }
         }
     }
-   
-    
     public int getPlayerhealth(){
     	return playerHealth;
     }

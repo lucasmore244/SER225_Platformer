@@ -194,7 +194,7 @@ public class SpaceTileset extends Tileset {
                 .build();
 
         MapTileBuilder topWaterTile = new MapTileBuilder(topWaterFrame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.WATERLEVEL3);
 
 
         mapTiles.add(topWaterTile);
@@ -205,7 +205,7 @@ public class SpaceTileset extends Tileset {
                 .build();
 
         MapTileBuilder waterTile = new MapTileBuilder(waterFrame)
-                .withTileType(TileType.WATER);
+                .withTileType(TileType.WATERLEVEL3);
 
         mapTiles.add(waterTile);
 
