@@ -9,6 +9,7 @@ import Level.Map;
 import Screens.PlayLevelScreen;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 import Enemies.Laser;
@@ -63,6 +64,7 @@ public abstract class Player extends GameObject {
     protected LevelState levelState;
     
     protected Stopwatch cooldown = new Stopwatch();
+    private Stopwatch reloadTimeBossFight = new Stopwatch();
     protected int levelNum = 0;
     protected int currentMap = 0;
     protected int playerHealth = 0;
@@ -100,6 +102,7 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         cooldown.setWaitTime(300);
+        reloadTimeBossFight.setWaitTime(1000);
 
     }
 
@@ -356,6 +359,13 @@ public abstract class Player extends GameObject {
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
+            
+            // If player is in the air this will shoot down (for boss fight)
+            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp()) {
+            	CatProjectile laser = new CatProjectile(getLocation(), 10, 4000);
+            	map.addEnemy(laser);
+            	reloadTimeBossFight.setWaitTime(1000);
+            }
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
@@ -425,10 +435,6 @@ public abstract class Player extends GameObject {
 
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
-//        	if(Keyboard.isKeyDown(SHOOT_KEY)) {
-//            	UFOFireball laser = new UFOFireball(getLocation(), 4, 4000);
-//            	map.addEnemy(laser);
-//            }
             keyLocker.unlockKey(JUMP_KEY);
         }
     }
