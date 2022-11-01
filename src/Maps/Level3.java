@@ -43,6 +43,7 @@ private Asteriods asteriod;
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new UFO(getMapTile(7, 10).getLocation().addY(2), getMapTile(15, 10).getLocation().addY(2), Direction.RIGHT));
+        enemies.add(new UFO(getMapTile(40, 10).getLocation().addY(2), getMapTile(47, 10).getLocation().addY(2), Direction.RIGHT));
         return enemies;
     }
 

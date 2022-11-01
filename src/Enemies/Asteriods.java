@@ -33,7 +33,7 @@ public class Asteriods extends Enemy {
 	protected Map map;
 
 	public Asteriods(Point location, Direction facingDirection, Map map) {
-		super(location.x, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89),
+		super(800, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89),
 				"WALK_LEFT");
 		this.startFacingDirection = facingDirection;
 		this.map = map;
@@ -53,7 +53,7 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
-		this.setMovementSpeed((int) (Math.random() * 10 + 5));
+		this.setMovementSpeed((int) (Math.random() * 8 + 5));
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Asteriods extends Enemy {
 					if (othertime.isTimeUp()) {
 						this.initialize();
 						this.mapEntityStatus = MapEntityStatus.ACTIVE;
-						this.setLocation(740, (float) (Math.random() * (400) + 1) );
+						this.setLocation(1000, (float) (Math.random() * (400) + 10) );
 					}
 				}
 			}
@@ -111,14 +111,15 @@ public class Asteriods extends Enemy {
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{
-				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .5)
-						.withBounds(10, 10, 80, 89).build(), });
-				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .5)
+				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
 						.withBounds(10, 10, 80, 89).build(), });
 
-				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .5)
+				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .6)
+						.withBounds(10, 10, 80, 389).build(), });
+
+				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
 						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 80, 89).build(), });
-				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .5)
+				put("WALK_RIGHT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .6)
 						.withBounds(10, 10,80, 89).build(), });
 
 			}
