@@ -38,10 +38,10 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
 
     @Override
     public void update(Player player) {
-        float startBound = startLocation.x;
-        float endBound = endLocation.x;
+        float startBound = startLocation.y;
+        float endBound = endLocation.y;
 
-        // move platform left or right based on its current direction
+        // move platform Up or Down based on its current direction
         int moveAmountY = 0;
         if (direction == Direction.RIGHT) {
             moveAmountY += movementSpeed;
@@ -68,10 +68,10 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
 
         // if tile type is NOT PASSABLE, if the platform is moving and hits into the player (x axis), it will push the player
         if (tileType == TileType.NOT_PASSABLE) {
-            if (intersects(player) && moveAmountY >= 0 && player.getBoundsX1() <= getBoundsX2()) {
-                player.moveXHandleCollision(getBoundsX2() - player.getBoundsX1());
-            } else if (intersects(player) && moveAmountY <= 0 && player.getBoundsX2() >= getBoundsX1()) {
-                player.moveXHandleCollision(getBoundsX1() - player.getBoundsX2());
+            if (intersects(player) && moveAmountY >= 0 && player.getBoundsY1() <= getBoundsY2()) {
+                player.moveYHandleCollision(getBoundsY2() - player.getBoundsY1());
+            } else if (intersects(player) && moveAmountY <= 0 && player.getBoundsY2() >= getBoundsY1()) {
+                player.moveYHandleCollision(getBoundsY1() - player.getBoundsY2());
             }
         }
 
@@ -79,7 +79,7 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
         // this will cause the player to "ride" with the moving platform
         // without this code, the platform would slide right out from under the player
         if (overlaps(player) && player.getBoundsY2() == getBoundsY1() && player.getAirGroundState() == AirGroundState.GROUND) {
-            player.moveXHandleCollision(moveAmountY);
+            player.moveYHandleCollision(moveAmountY);
         }
 
         super.update(player);

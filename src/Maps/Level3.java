@@ -58,9 +58,9 @@ private Asteriods asteriod;
         
         enhancedMapTiles.add(new VerticalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
-                getMapTile(10, 3).getLocation(),
-                getMapTile(15, 3).getLocation(),
-                TileType.JUMP_THROUGH_PLATFORM,
+                getMapTile(4, 4).getLocation(),
+                getMapTile(6, 8).getLocation(),
+                TileType.NOT_PASSABLE,
                 3,
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
