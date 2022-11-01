@@ -9,11 +9,13 @@ import Level.Map;
 import Screens.PlayLevelScreen;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
+import Enemies.UFOFireball;
 import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -62,6 +64,8 @@ public abstract class Player extends GameObject {
     protected LevelState levelState;
     
     protected Stopwatch cooldown = new Stopwatch();
+    private Stopwatch reloadTimeBossFight = new Stopwatch();
+    protected int levelNum = 0;
     protected int currentMap = 0;
     protected int playerHealth = 0;
     //protected Calendar c = Calendar.getInstance();
@@ -98,14 +102,20 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         cooldown.setWaitTime(300);
+        reloadTimeBossFight.setWaitTime(1000);
+
     }
 
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
 
+
+
+
         // if player is currently playing through level (has not won or lost)
         if (levelState == LevelState.RUNNING) {
+
             applyGravity();
 
             // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
@@ -130,6 +140,8 @@ public abstract class Player extends GameObject {
 
         // if player has beaten level
         else if (levelState == LevelState.LEVEL_COMPLETED) {
+        	
+        	
             updateLevelCompleted();
         }
 
@@ -310,7 +322,6 @@ public abstract class Player extends GameObject {
     	
         // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-
         	//sSystem.out.println("Jump:" + this.gravity);
             // sets animation to a JUMP animation based on which way player is facing
             currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
@@ -348,6 +359,13 @@ public abstract class Player extends GameObject {
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
+            
+            // If player is in the air this will shoot down (for boss fight)
+            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp()) {
+            	CatProjectile laser = new CatProjectile(getLocation(), 10, 4000);
+            	map.addEnemy(laser);
+            	reloadTimeBossFight.setWaitTime(1000);
+            }
         }
 
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
@@ -369,12 +387,12 @@ public abstract class Player extends GameObject {
         	long temp = date.getTime();
 //    		System.out.println(this.currentAnimationName);
 
-        	if (temp - damageTime >= 600) {
+        	if (temp - damageTime >= 1000) {
         		damageFlag = 0;
         	}
         }
+    	
     	if (Keyboard.isKeyDown(JUMP_KEY)) {
-
         // player is set to be in air and then player is sent into the air
         airGroundState = AirGroundState.AIR;
         jumpForce = jumpHeight;
@@ -386,9 +404,7 @@ public abstract class Player extends GameObject {
             }
            
         }
-        applyGravity();
-        
-    }
+        }
     	if (Keyboard.isKeyDown(CROUCH_KEY)) {
            // currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 
@@ -402,7 +418,6 @@ public abstract class Player extends GameObject {
                     jumpForce = 0;
                 }
           }
-          applyGravity();
         }
     	if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()){
     		Laser laser = new Laser(getLocation(), 4, 4000);
@@ -450,7 +465,11 @@ public abstract class Player extends GameObject {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+            	playerHealth = 0;
+        		levelState = LevelState.PLAYER_DEAD;
+            }        
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {            	
             	playerHealth--;
             	Date date = new Date();
             	waterTime = date.getTime();
@@ -473,7 +492,12 @@ public abstract class Player extends GameObject {
 
             
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
-                //System.out.println(playerState);                            
+            /*	if (PlayLevelScreen.currentMap == 2) {
+            		playerHealth = 0;
+            		levelState = LevelState.PLAYER_DEAD;
+            	}
+            	*/
+                //System.out.println(playerState);       
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";                                              
             	Date date = new Date();
             	long temp = date.getTime();
@@ -510,8 +534,13 @@ public abstract class Player extends GameObject {
             int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
-            	
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+            	playerHealth = 0;
+            	levelState = LevelState.PLAYER_DEAD;
+
+            }            	                       	
+
+            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {            	                       	
             	playerHealth--;
             	Date date = new Date();
             	waterTime = date.getTime();
@@ -522,6 +551,11 @@ public abstract class Player extends GameObject {
             	}
             }
             	if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
+            		/*if ( ) {
+                		playerHealth = 0;
+                		levelState = LevelState.PLAYER_DEAD;
+                	}
+                	*/
                     this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
             		Date date = new Date();
                 	long temp = date.getTime();
@@ -545,7 +579,7 @@ public abstract class Player extends GameObject {
                 Date date = new Date();
             	long temp = date.getTime();
             	if (currentMap == 1) {
-            		if (temp - damageTime >= 600) {
+            		if (temp - damageTime >= 1000) {
 
                 		damageFlag = 0;
                 	}
@@ -664,9 +698,11 @@ public abstract class Player extends GameObject {
         } else {
             // tell all player listeners that the player has finished the level
             for (PlayerListener listener : listeners) {
-                listener.onLevelCompleted();
+
+                    listener.onLevelCompleted();
             }
         }
+
         //currentMap++;
     }
 
@@ -679,7 +715,6 @@ public abstract class Player extends GameObject {
             } else {
                 currentAnimationName = "DEATH_LEFT";
             }
-          
             super.update();
         }
         // if death animation not on last frame yet, continue to play out death animation
@@ -699,8 +734,6 @@ public abstract class Player extends GameObject {
             }
         }
     }
-   
-    
     public int getPlayerhealth(){
     	return playerHealth;
     }

@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class SpaceshipLevel2 extends Player {
 	private LevelState levelState;
 
+
 	public SpaceshipLevel2(float x, float y) {
 		super(new SpriteSheet(ImageLoader.load("newRocketSheet.png"), 42, 35), x, y, "STAND_RIGHT");
 		gravity = (float) .001;
@@ -27,6 +28,7 @@ public class SpaceshipLevel2 extends Player {
 		momentumYIncrease = .5f;
 		playerHealth = 99;
 	}
+
 
 	public void update() {
 		super.update();

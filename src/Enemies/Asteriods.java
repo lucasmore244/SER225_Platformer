@@ -113,6 +113,7 @@ public class Asteriods extends Enemy {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
 						.withBounds(10, 10, 80, 89).build(), });
+
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .6)
 						.withBounds(10, 10, 80, 389).build(), });
 

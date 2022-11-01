@@ -279,7 +279,13 @@ public abstract class PlayerLevel3 extends GameObject {
 	            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 	            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 	            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER /* && waterFlag == 0 */) {
+		            System.out.println(levelState);
+	            	playerHealth = 0;
+            		levelState = LevelState.PLAYER_DEAD;
+
+	            }
+	            	/*
 	            	playerHealth--;
 	            	Date date = new Date();
 	            	waterTime = date.getTime();
@@ -289,6 +295,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            		levelState = LevelState.PLAYER_DEAD;
 	            	}
 	            }
+	            */
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM && mushroomFlag == 0) {
 	            	Date date = new Date();
 	            	mushroomTime = date.getTime();
@@ -300,7 +307,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            }
 	            
 
-	            
+	           /* 
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
 	                Date date = new Date();
 	            	long temp = date.getTime();
@@ -309,7 +316,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            		waterFlag = 0;
 	            	}
 	            }
-	            
+	            */
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM && mushroomFlag == 1) {
 	                Date date = new Date();
 	            	long temp = date.getTime();
@@ -325,7 +332,12 @@ public abstract class PlayerLevel3 extends GameObject {
 	            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 	            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 	            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
+	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER /* && waterFlag == 0 */) {
+	            System.out.println(levelState);
+	            playerHealth = 0;
+            	levelState = LevelState.PLAYER_DEAD;
+	            }
+	            	/*
 	            	playerHealth--;
 	            	Date date = new Date();
 	            	waterTime = date.getTime();
@@ -335,6 +347,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            		levelState = LevelState.PLAYER_DEAD;
 	            	}
 	            }
+	            
 	            	if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
 	                    Date date = new Date();
 	                	long temp = date.getTime();
@@ -343,7 +356,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	                		waterFlag = 0;
 	                	}
 	                }
-	            
+	            */
 	        else if (playerState == PlayerState.CROUCHING) {
 	            // sets animation to a CROUCH animation based on which way player is facing
 	            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";

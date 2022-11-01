@@ -11,8 +11,10 @@ import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
+import java.util.Random;
 
 import java.util.HashMap;
+import java.util.Random;
 
 // This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
@@ -20,6 +22,9 @@ import java.util.HashMap;
 public class UFOFireball extends Enemy {
     private float movementSpeed;
     private Stopwatch existenceTimer = new Stopwatch();
+    private float diagonalBall = 0;
+    Random rand = new Random();
+    private float rando = rand.nextFloat()-0.5f*10;
 
     public UFOFireball(Point location, float movementSpeed, int existenceTime) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
@@ -43,6 +48,19 @@ public class UFOFireball extends Enemy {
         } else {
             // move fireball forward
             moveYHandleCollision(movementSpeed);
+            // determines if fireball goes on a diagonal
+            if(diagonalBall == 0) {
+            	moveXHandleCollision(0);
+            } else if (diagonalBall == 1) {
+            	moveXHandleCollision(movementSpeed);
+            } else if (diagonalBall == 2){
+            	moveXHandleCollision(-movementSpeed);
+            }else if (diagonalBall == 3){
+            	moveXHandleCollision(movementSpeed/4);
+            }else if (diagonalBall == 4){
+            	moveXHandleCollision(-movementSpeed/4);
+            }
+            
             super.update(player);
         }
     }
@@ -72,5 +90,10 @@ public class UFOFireball extends Enemy {
                             .build()
             });
         }};
+    }
+    
+    // Allows for ufo to shoot a fireball at a diagonal (0 = straight, 1 = diagonal, 2 = diagonal on other side)
+    public void setDiagonal(float isDiagonal) {
+    	diagonalBall = isDiagonal;
     }
 }
