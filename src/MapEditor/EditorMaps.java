@@ -4,6 +4,7 @@ import Level.Map;
 import Maps.BeginningMap;
 import Maps.Level2;
 import Maps.Level3;
+import Maps.Level4;
 import Maps.TestMap;
 import Maps.TitleScreenMap;
 
@@ -16,6 +17,7 @@ public class EditorMaps {
             add("TitleScreen");
             add("Level2");
             add("Level3");
+            add("Level4");
             add("BeginningMap");
         }};
     }
@@ -30,6 +32,8 @@ public class EditorMaps {
             	return new Level2();
             case "Level3":
             	return new Level3();
+            case "Level4":
+            	return new Level4();
             case "BeginningMap":
             return new BeginningMap();
             default:
