@@ -24,6 +24,7 @@ import Level.PlayerState;
 import Maps.Level2;
 
 import Maps.Level3;
+import Maps.Level4;
 import Maps.TestMap;
 import Players.Cat;
 import Players.CatLevel3;
@@ -53,7 +54,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 2;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -72,6 +73,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			else if (currentMap == 3) {
 				this.map = new Level3();
 			}
+			else if (currentMap == 4) {
+				this.map = new Level4();
+			}
 		}
 		map.reset();
 		
@@ -83,6 +87,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		}else if(currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(1);
+		}
+		else if (currentMap == 4) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
 		this.player.setMap(map);
 
