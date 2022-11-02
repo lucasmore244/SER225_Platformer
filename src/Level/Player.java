@@ -161,7 +161,7 @@ public abstract class Player extends GameObject {
 
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
-        if (currentMap == 1) {
+        if (currentMap == 2) {
         	playerLevel2();
         } else {
     	switch (playerState) {
@@ -361,9 +361,9 @@ public abstract class Player extends GameObject {
             }
             
             // If player is in the air this will shoot down (for boss fight)
-            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp()) {
-            	CatProjectile laser = new CatProjectile(getLocation(), 10, 4000);
-            	map.addEnemy(laser);
+            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
+            	CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
+            	map.addEnemy(poop);
             	reloadTimeBossFight.setWaitTime(1000);
             }
         }
