@@ -31,6 +31,10 @@ public class Asteriods extends Enemy {
 	protected Stopwatch time = new Stopwatch();
 	protected Stopwatch othertime = new Stopwatch();
 	protected Map map;
+	
+	Random rand = new Random();
+    private float moveAmountY = rand.nextFloat()*2;
+    private boolean bool = true;
 
 	public Asteriods(Point location, Direction facingDirection, Map map) {
 		super(800, location.y, new SpriteSheet(ImageLoader.load("AsteriodSpriteSheet.png"), 80, 89),
@@ -54,12 +58,19 @@ public class Asteriods extends Enemy {
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));
+		if (bool == true) {
+			moveAmountY = -moveAmountY;
+			bool = false;
+		}else {
+			
+			bool = true;
+		}
 	}
 
 	@Override
 	public void update(Player player) {
 		float moveAmountX = 0;
-		float moveAmountY = 0;
+		
 		// if on air, walk forward based on facing direction
 		if (airGroundState == AirGroundState.AIR) {
 			if (facingDirection == Direction.RIGHT) {
@@ -91,6 +102,7 @@ public class Asteriods extends Enemy {
 			 this.currentAnimationName = facingDirection == Direction.LEFT ? "WALK_LEFT" : "WALK_RIGHT";
 			this.setLocation(740, (float) (Math.random() * (400) + 1) );
 		}
+		
 
 		// move asteriod
 		moveYHandleCollision(moveAmountY);
