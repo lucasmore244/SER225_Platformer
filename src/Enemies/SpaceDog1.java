@@ -15,9 +15,9 @@ import Utils.Stopwatch;
 
 import java.util.HashMap;
 
-// This class is for the green di enemy that shoots fireballs
+// This class is for the green di enemy that shoots boness
 // It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
+// Every so often (based on shootTimer) it will shoot a bones enemy
 public class SpaceDog1 extends Enemy {
 
     // start and end location defines the two points that it walks between
@@ -30,7 +30,7 @@ public class SpaceDog1 extends Enemy {
     protected Direction facingDirection;
     protected AirGroundState airGroundState;
 
-    // timer is used to determine when a fireball is to be shot out
+    // timer is used to determine when a bones is to be shot out
     protected Stopwatch shootTimer = new Stopwatch();
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
@@ -58,8 +58,8 @@ public class SpaceDog1 extends Enemy {
         }
         airGroundState = AirGroundState.GROUND;
 
-        // every 2 seconds, the fireball will be shot out
-        shootTimer.setWaitTime(1500);
+        // every 2 seconds, the bones will be shot out
+        shootTimer.setWaitTime(2000);
     }
 
     @Override
@@ -98,33 +98,33 @@ public class SpaceDog1 extends Enemy {
             }
 
             // if space dog is shooting, it first turns red for 1 second
-            // then the fireball is actually shot out
+            // then the bones is actually shot out
         } else if (SpaceDogState == SpaceDogState.SHOOT) {
             if (previousSpaceDogState == SpaceDogState.WALK) {
                 shootTimer.setWaitTime(1000);
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer.isTimeUp()) {
 
-                // define where fireball will spawn on map (x location) relative to space dog enemy's location
+                // define where bones will spawn on map (x location) relative to space dog enemy's location
                 // and define its movement speed
-                int fireballX;
+                int bonesX;
                 float movementSpeed;
                 if (facingDirection == Direction.RIGHT) {
-                    fireballX = Math.round(getX()) + getWidth();
+                    bonesX = Math.round(getX()) + getWidth();
                     movementSpeed = 1.5f;
                 } else {
-                    fireballX = Math.round(getX());
+                    bonesX = Math.round(getX());
                     movementSpeed = -1.5f;
                 }
 
-                // define where fireball will spawn on the map (y location) relative to space dog enemy's location
-                int fireballY = Math.round(getY()) + 4;
+                // define where bones will spawn on the map (y location) relative to space dog enemy's location
+                int bonesY = Math.round(getY()) + 20;
 
-                // create Fireball enemy
-                Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 1000);
+                // create bones enemy
+                Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);
 
-                // add fireball enemy to the map for it to offically spawn in the level
-                map.addEnemy(fireball);
+                // add bones enemy to the map for it to offically spawn in the level
+                map.addEnemy(bones);
 
                 // change space dog back to its WALK state after shooting, reset shootTimer to wait another 2 seconds before shooting again
                 SpaceDogState = SpaceDogState.WALK;
