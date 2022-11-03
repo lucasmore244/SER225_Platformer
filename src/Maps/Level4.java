@@ -2,13 +2,16 @@ package Maps;
 
 import java.util.ArrayList;
 
-
+import Enemies.DinosaurEnemy;
+import Enemies.SpaceDog;
+import Enemies.SpaceDog1;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
 import Tilesets.SpaceTileset;
 import Tilesets.SpaceTileset2;
+import Utils.Direction;
 import Utils.Point;
 
 public class Level4 extends Map{
@@ -22,6 +25,8 @@ public class Level4 extends Map{
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+        enemies.add(new SpaceDog1(getMapTile(7, 6).getLocation(), getMapTile(13, 6).getLocation(), Direction.RIGHT));
+
         return enemies;
     }
 
