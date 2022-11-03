@@ -93,7 +93,6 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
             player.moveYHandleCollision(moveAmountY);
         }
         
-        System.out.println(player.getAirGroundState());
         
         super.update(player);
     }
