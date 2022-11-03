@@ -11,21 +11,23 @@ import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
+import java.util.Random;
 
 import java.util.HashMap;
+import java.util.Random;
 
-// This class is for the laser enemy that the DinosaurEnemy class shoots out
+// This class is for the fireball enemy that the DinosaurEnemy class shoots out
 // it will travel in a straight line (x axis) for a set time before disappearing
 // it will disappear early if it collides with a solid map tile
-public class Laser extends Enemy {
+public class CatProjectile extends Enemy {
     private float movementSpeed;
     private Stopwatch existenceTimer = new Stopwatch();
 
-    public Laser(Point location, float movementSpeed, int existenceTime) {
-        super(location.x+50, location.y+35, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
+    public CatProjectile(Point location, float movementSpeed, int existenceTime) {
+        super(location.x+20, location.y+10, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
-        // how long the laser will exist for before disappearing
+        // how long the fireball will exist for before disappearing
         existenceTimer.setWaitTime(existenceTime);
 
         // this enemy will not respawn after it has been removed
@@ -41,39 +43,37 @@ public class Laser extends Enemy {
         if (existenceTimer.isTimeUp()) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
-            // move laser forward
-            moveXHandleCollision(movementSpeed);
-//            super.update(player);
+            // move fireball forward
+            moveYHandleCollision(movementSpeed);
+            super.update(player);
         }
     }
 
-    @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-    	// if fireball collides with anything solid on the x axis, it is removed
-        if (hasCollided) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
-        }
-    }
-    
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
-//            System.out.println("yes");
         }
     }
-    
+
+    @Override
+    public void touchedPlayer(Player player) {
+        // if fireball touches player, it disappears
+        super.touchedPlayer(player);
+        this.mapEntityStatus = MapEntityStatus.REMOVED;
+    }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
+                            .withScale(0.5f)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });
         }};
     }
+    
 }

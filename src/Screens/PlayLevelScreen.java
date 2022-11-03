@@ -32,6 +32,7 @@ import MapEditor.MusicPanel;
 import Maps.Level2;
 
 import Maps.Level3;
+import Maps.Level4;
 import Maps.TestMap;
 import Players.Cat;
 import Players.CatLevel3;
@@ -62,7 +63,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 3;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -75,14 +76,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void initialize() {
 		// define/setup map
-		playMusic(6);
+		
+		
+//		stopMusic();
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
+				playMusic(6);
 			} else if (currentMap == 2) {
 				this.map = new Level2();
 			} else if (currentMap == 3) {
 				this.map = new Level3();
+			} else if (currentMap == 4) {
+				this.map = new Level4();
 			}
 		}
 		map.reset();
@@ -93,7 +99,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-			this.player.setLevelMap(1);
+			this.player.setLevelMap(2);
+		} else if (currentMap == 4) {
+			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			this.player.setLevelMap(4);
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);
@@ -137,26 +146,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_COMPLETED:
 			if (levelCompletedStateChangeStart) {
 				screenTimer.setWaitTime(2500);
-				scoreboardtime.setWaitTime(2000);
+				scoreboardtime.setWaitTime(5000);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
 				firstGo = true;
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				initialize();
 			} else {
-				levelClearedScreen.update();
+//				levelClearedScreen.update();
 				if (screenTimer.isTimeUp()) {
 					goBackToMenu();
 				}
 			}
-			if (scoreboardtime.isTimeUp()) {
+			if (scoreboardtime.isTimeUp() && getCurrentMap() == 4) {
 				screenCoordinator.setGameState(GameState.SCOREBOARD);
-//				screenCoordinator.setGameState(GameState.MENU);
 			}
 			break;
 		// wait on level lose screen to make a decision (either resets level or sends
@@ -198,16 +205,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	@Override
 	public void onLevelCompleted() {
 		scoreboardtime.setWaitTime(100);
-		if (currentMap <= 4) {
-			if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
-				playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-				levelCompletedStateChangeStart = true;
-				playSE(2);
-			}
-			if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && currentMap == 4) {
-				levelClearedScreen.update();
-//				System.exit(0);
-			}
+		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
+			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+			levelCompletedStateChangeStart = true;
+			playSE(2);
+		}
+		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
+			levelClearedScreen.update();
 		}
 	}
 

@@ -46,7 +46,7 @@ public class Level2 extends Map{
 
 	 public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
 		 ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-		 enhancedMapTiles.add(new EndLevel2Block(getMapTile(1, 1).getLocation()));
+		 enhancedMapTiles.add(new EndLevel2Block(getMapTile(19, 14).getLocation()));
 		 return enhancedMapTiles; 
 	    } 
 	@Override

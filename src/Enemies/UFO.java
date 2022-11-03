@@ -23,19 +23,22 @@ public class UFO extends Enemy {
 	
 	 // timer is used to determine when a fireball is to be shot out
     protected Stopwatch shootTimer = new Stopwatch();
+    protected Stopwatch shootReloadTimer = new Stopwatch();
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected DinosaurState dinosaurState;
-    protected DinosaurState previousDinosaurState;
+    protected Point startLocation;
+    protected Point endLocation;
 
-    private float movementSpeed = 1f;
+    private float movementSpeed = 0.6f;
     private float amountMoved = 0;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
 
-    public UFO(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("UFO.png"), 39, 39), "WALK_LEFT");
+    public UFO(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("UFO.png"), 39, 39), "WALK_RIGHT");
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
@@ -53,46 +56,76 @@ public class UFO extends Enemy {
         
      // every 2 seconds, the fireball will be shot out
         shootTimer.setWaitTime(2000);
+        shootReloadTimer.setWaitTime(3000);
     }
 
     @Override
     public void update(Player player) {
-        float moveAmountX = 0;
+    	super.update(player);
+    	
+    	float startBound = startLocation.x;
+        float endBound = endLocation.x;
+        
+        
+        if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WALK_RIGHT";
+                moveXHandleCollision(movementSpeed);
+        } else {
+                currentAnimationName = "WALK_LEFT";
+                moveXHandleCollision(-movementSpeed);
+        }
+        
+    	if (getX1() + getWidth() >= endBound) {
+            float difference = endBound - (getX2());
+//            System.out.println(difference);
+            moveXHandleCollision(-difference);
+            facingDirection = Direction.LEFT;
+        } else if (getX1() <= startBound) {
+            float difference = startBound - getX1();
+            moveXHandleCollision(difference);
+            facingDirection = Direction.RIGHT;
+        }
+    	
+    	// INITIALIZE FIREBALL
+    	
+    	float moveAmountX = 0;
         float moveAmountY = 0;
 
-     // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
-        if (shootTimer.isTimeUp() && dinosaurState != DinosaurState.SHOOT) {
-            dinosaurState = DinosaurState.SHOOT;
+        // if shoot timer is up and UFO is not currently shooting, make it shoot
+        if (shootTimer.isTimeUp()) {
+        		int fireballY = Math.round(getY()) + 20;
+        		int fireballX = Math.round(getX()) + 20;
+        		UFOFireball fireball1 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		UFOFireball fireball2 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		UFOFireball fireball3 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		UFOFireball fireball4 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		UFOFireball fireball5 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		fireball1.setDiagonal(0);
+        		fireball2.setDiagonal(1);
+        		fireball3.setDiagonal(2);
+        		fireball4.setDiagonal(3);
+        		fireball5.setDiagonal(4);
+        		// add fireball enemy to the map for it to offically spawn in the level
+        		map.addEnemy(fireball1);
+        		map.addEnemy(fireball2);
+        		map.addEnemy(fireball3);
+        		map.addEnemy(fireball4);
+        		map.addEnemy(fireball5);
+        		shootTimer.setWaitTime(200);
+        		
+        }
+        if (shootReloadTimer.isTimeUp()) {
+        	shootTimer.setWaitTime(2000);
+        	shootReloadTimer.setWaitTime(3000);
         }
         
-        // if on air, walk forward based on facing direction
-        if (airGroundState == AirGroundState.AIR) {
-            if (facingDirection == Direction.RIGHT) {
-                moveAmountX += movementSpeed;
-            } else {
-                moveAmountX -= movementSpeed;
-            }
-        }
-
-        // move bug
-        moveYHandleCollision(moveAmountY);
-        moveXHandleCollision(moveAmountX);
-
-        super.update(player);
         
-        amountMoved = amountMoved + moveAmountX;
     }
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
-        if(amountMoved == 300 || amountMoved == -300) {
-        	hasCollided = true;
-        	amountMoved =0;
-        }
-        	
-    	
     	if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -102,7 +135,6 @@ public class UFO extends Enemy {
                 currentAnimationName = "WALK_RIGHT";
             }
         }
-    	hasCollided = false;
     }
 
     @Override
@@ -123,26 +155,17 @@ public class UFO extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
+                    		.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    		.withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
             });
         }};
     }

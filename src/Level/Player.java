@@ -9,11 +9,13 @@ import Level.Map;
 import Screens.PlayLevelScreen;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
+import Enemies.UFOFireball;
 import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -29,7 +31,6 @@ import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 import Level.MapEntity;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -57,6 +58,8 @@ public abstract class Player extends GameObject {
 	protected LevelState levelState;
 	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	protected Stopwatch cooldown = new Stopwatch();
+	private Stopwatch reloadTimeBossFight = new Stopwatch();
+	protected int levelNum = 0;
 	protected int currentMap = 0;
 	protected int playerHealth = 0;
 	// protected Calendar c = Calendar.getInstance();
@@ -89,6 +92,7 @@ public abstract class Player extends GameObject {
 		previousPlayerState = playerState;
 		levelState = LevelState.RUNNING;
 		cooldown.setWaitTime(300);
+		reloadTimeBossFight.setWaitTime(1000);
 	}
 
 	public void update() {
@@ -131,7 +135,7 @@ public abstract class Player extends GameObject {
 	// based on player's current state, call appropriate player state handling
 	// method
 	protected void handlePlayerState() {
-		if (currentMap == 1) {
+		if (currentMap == 2) {
 			playerLevel2();
 		} else {
 			switch (playerState) {
@@ -232,23 +236,23 @@ public abstract class Player extends GameObject {
 	}
 	// attempt to make the thing shoot
 	/*
-	 * protected void playerShooting() {
-	 * 
-	 * System.out.println(playerState); Fireball fireball = new
-	 * Fireball(getLocation(), 6, 10000); map.addEnemy(fireball);
-	 * 
-	 * // if shoot key is pressed, player enters JUMPING state if
-	 * (Keyboard.isKeyUp(SHOOT_KEY) && (Keyboard.isKeyUp(MOVE_LEFT_KEY) &&
-	 * Keyboard.isKeyUp(MOVE_RIGHT_KEY))) { playerState = PlayerState.STANDING; }
-	 * else if (Keyboard.isKeyUp(SHOOT_KEY) && ((Keyboard.isKeyDown(MOVE_LEFT_KEY)
-	 * || Keyboard.isKeyDown(MOVE_RIGHT_KEY)))) { playerState = PlayerState.WALKING;
-	 * }
-	 * 
-	 * if (Keyboard.isKeyDown(SHOOT_KEY) && !keyLocker.isKeyLocked(SHOOT_KEY)) {
-	 * keyLocker.lockKey(SHOOT_KEY); playerState = PlayerState.SHOOT; } }
+	 * protected void takingDamage() { this.mapEntity = mapEntity; if
+	 * (!isInvincible) { // if map entity is an enemy, kill player on touch if
+	 * (mapEntity instanceof Enemy && monsterTouchFlag == 0) { //
+	 * this.currentAnimationName = facingDirection == Direction.RIGHT ?
+	 * "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; playerState =
+	 * PlayerState.TAKING_DAMAGE; monsterTouchFlag = 1; Date date = new Date();
+	 * monsterTime = date.getTime(); // levelState = LevelState.PLAYER_DEAD;
+	 * playerHealth--; //drop life if (playerHealth == 0) { levelState =
+	 * LevelState.PLAYER_DEAD; } } if (mapEntity instanceof Enemy &&
+	 * monsterTouchFlag == 1) { //this.currentAnimationName = facingDirection ==
+	 * Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; Date date =
+	 * new Date(); long temp = date.getTime(); if (temp - monsterTime >= 1000) {
+	 * //playerState = PlayerState.TAKING_DAMAGE; monsterTouchFlag = 0; } } } }
 	 */
-
+	// player STANDING state logic
 	// player JUMPING state logic
+
 	protected void playerJumping() {
 		// if last frame player was on ground and this frame player is still on ground,
 		// the jump needs to be setup
@@ -386,6 +390,10 @@ public abstract class Player extends GameObject {
 			int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 			int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 			MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+			if(currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+				playerHealth = 0;
+				levelState = LevelState.PLAYER_DEAD;
+			}
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
 				playscreen.playSE(10);
@@ -524,7 +532,7 @@ public abstract class Player extends GameObject {
 				} else if(playscreen.getCurrentMap() == 2) {
 					playscreen.playSE(9);
 				}
-				
+
 
 				Date date = new Date();
 				monsterTime = date.getTime();
@@ -622,6 +630,7 @@ public abstract class Player extends GameObject {
 		return playerHealth;
 	}
 
+
 	public void setPlayerHealth(int playerHealth) {
 		this.playerHealth = playerHealth;
 	}
@@ -657,4 +666,5 @@ public abstract class Player extends GameObject {
 	public void setLevelMap(int currentMap) {
 		this.currentMap = currentMap;
 	}
+
 }

@@ -72,10 +72,6 @@ public class MusicPanel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setMap(Map map) {
-		this.map = map;
-	}
-
 	public void show() {
 		dialog.setVisible(true);
 	}

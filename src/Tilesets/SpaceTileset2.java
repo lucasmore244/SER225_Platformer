@@ -1,5 +1,7 @@
 package Tilesets;
 
+import java.util.ArrayList;
+
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Engine.ImageLoader;
@@ -8,17 +10,13 @@ import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
 
-import java.util.ArrayList;
+public class SpaceTileset2 extends Tileset{
 
-// This class represents a "space" tileset of standard tiles defined in the SpaceTileset.png file
-public class SpaceTileset extends Tileset {
-
-    public SpaceTileset() {
-        super(ImageLoader.load("SpaceTileset.png"), 16, 16, 3);
+	public SpaceTileset2() {
+        super(ImageLoader.load("SpaceTileset2.png"), 16, 16, 3);
     }
-
-    @Override
-    public ArrayList<MapTileBuilder> defineTiles() {
+	
+	public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
 
         // grass
@@ -190,11 +188,12 @@ public class SpaceTileset extends Tileset {
 
         // top water
         Frame topWaterFrame = new FrameBuilder(getSubImage(0, 5))
+        		.withImageEffect(ImageEffect.FLIP_VERTICAL)
                 .withScale(tileScale)
                 .build();
 
         MapTileBuilder topWaterTile = new MapTileBuilder(topWaterFrame)
-                .withTileType(TileType.WATERLEVEL3);
+                .withTileType(TileType.WATER);
 
 
         mapTiles.add(topWaterTile);
@@ -205,7 +204,7 @@ public class SpaceTileset extends Tileset {
                 .build();
 
         MapTileBuilder waterTile = new MapTileBuilder(waterFrame)
-                .withTileType(TileType.WATERLEVEL3);
+                .withTileType(TileType.WATER);
 
         mapTiles.add(waterTile);
 
