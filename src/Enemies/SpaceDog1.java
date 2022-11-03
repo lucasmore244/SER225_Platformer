@@ -7,6 +7,7 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
 import Utils.AirGroundState;
 import Utils.Direction;
@@ -24,6 +25,7 @@ public class SpaceDog1 extends Enemy {
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
+    protected int dogLives = 3;
 
     protected float movementSpeed = 1f;
     private Direction startFacingDirection;
@@ -57,7 +59,7 @@ public class SpaceDog1 extends Enemy {
             currentAnimationName = "WALK_LEFT";
         }
         airGroundState = AirGroundState.GROUND;
-
+        isRespawnable = false;
         // every 2 seconds, the bones will be shot out
         shootTimer.setWaitTime(2000);
     }
@@ -71,8 +73,16 @@ public class SpaceDog1 extends Enemy {
         if (shootTimer.isTimeUp() && SpaceDogState != SpaceDogState.SHOOT) {
             SpaceDogState = SpaceDogState.SHOOT;
         }
-
-        super.update(player);
+        
+        for (int i = 0; i < map.getEnemies().size(); i++) {
+			if (map.getEnemies().get(i) instanceof CatProjectile) {
+				if (intersects(map.getEnemies().get(i))) {
+						dogLives = dogLives - 1;
+						System.out.println("Hello");
+				}
+			}
+		}
+        
 
         // if space dog is walking, determine which direction to walk in based on facing direction
         if (SpaceDogState == SpaceDogState.WALK) {
@@ -132,6 +142,10 @@ public class SpaceDog1 extends Enemy {
             }
         }
         previousSpaceDogState = SpaceDogState;
+        if (dogLives <= 0) {
+        	this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
+        super.update(player);
     }
 
     @Override

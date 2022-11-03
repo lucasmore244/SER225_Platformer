@@ -54,6 +54,7 @@ public class TestMap extends Map {
 		return enemies;
 	}
 
+
 	@Override
 	public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
 		ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
@@ -75,8 +76,11 @@ public class TestMap extends Map {
 		enhancedMapTiles.add(new Coin(getMapTile(44, 5).getLocation(), this));
 		enhancedMapTiles.add(new Coin(getMapTile(58, 11).getLocation(), this));
 		enhancedMapTiles.add(new Checkpoint(getMapTile(32, 10).getLocation(), this));
+		
 		return enhancedMapTiles;
 	}
+
+
 
 	public void setCoinCount(int x) {
 		coinCount = coinCount + x;
