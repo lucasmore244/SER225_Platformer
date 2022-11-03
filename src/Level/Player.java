@@ -759,6 +759,9 @@ public abstract class Player extends GameObject {
         return facingDirection;
     }
 
+    public AirGroundState setAirGroundState(AirGroundState airGroundState) {
+        return airGroundState;
+    }
     public void setFacingDirection(Direction facingDirection) {
         this.facingDirection = facingDirection;
     }

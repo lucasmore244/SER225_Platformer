@@ -12,6 +12,7 @@ import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.EndLevel2Block;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Spaceship;
+import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Mushrooms;
 import GameObject.Rectangle;
@@ -61,6 +62,16 @@ public class TestMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+        
+        enhancedMapTiles.add(new VerticalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(4, 4).getLocation(),
+                getMapTile(6, 8).getLocation(),
+                TileType.JUMP_THROUGH_PLATFORM,
+                3,
+                new Rectangle(0, 6, 16, 7),
+                Direction.RIGHT
+        ));
         
         enhancedMapTiles.add(new HorizontalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
