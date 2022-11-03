@@ -596,75 +596,76 @@ public abstract class Player extends GameObject {
 		// currentMap++;
 	}
 
-	// if player has died, this will be the update cycle
-	public void updatePlayerDead() {
-		// change player animation to DEATH
-		if (!currentAnimationName.startsWith("DEATH")) {
-			if (facingDirection == Direction.RIGHT) {
-				currentAnimationName = "DEATH_RIGHT";
-			} else {
-				currentAnimationName = "DEATH_LEFT";
-			}
-			super.update();
-		}
-		// if death animation not on last frame yet, continue to play out death
-		// animation
-		else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-			super.update();
-		}
-		// if death animation on last frame (it is set up not to loop back to start),
-		// player should continually fall until it goes off screen
-		else if (currentFrameIndex == getCurrentAnimation().length - 1) {
-			if (map.getCamera().containsDraw(this)) {
-				moveY(3);
-			} else {
-				// tell all player listeners that the player has died in the level
-				for (PlayerListener listener : listeners) {
-					listener.onDeath();
-				}
-			}
-		}
-	}
-
-	public int getPlayerhealth() {
-		return playerHealth;
-	}
 
 
-	public void setPlayerHealth(int playerHealth) {
-		this.playerHealth = playerHealth;
-	}
+    // if player has died, this will be the update cycle
+    public void updatePlayerDead() {
+        // change player animation to DEATH
+        if (!currentAnimationName.startsWith("DEATH")) {
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "DEATH_RIGHT";
+            } else {
+                currentAnimationName = "DEATH_LEFT";
+            }
+            super.update();
+        }
+        // if death animation not on last frame yet, continue to play out death animation
+        else if (currentFrameIndex != getCurrentAnimation().length - 1) {
+          super.update();
+        }
+        // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
+        else if (currentFrameIndex == getCurrentAnimation().length - 1) {
+            if (map.getCamera().containsDraw(this)) {
+                moveY(3);
+            } else {
+                // tell all player listeners that the player has died in the level
+                for (PlayerListener listener : listeners) {
+                    listener.onDeath();
+                    
+                }
+            }
+        }
+    }
+    public int getPlayerhealth(){
+    	return playerHealth;
+    }
+    
+    public void setPlayerHealth(int playerHealth) {
+    	this.playerHealth = playerHealth;
+    }
 
-	public PlayerState getPlayerState() {
-		return playerState;
-	}
+   
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
 
-	public void setPlayerState(PlayerState playerState) {
-		this.playerState = playerState;
-	}
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
+    }
 
-	public AirGroundState getAirGroundState() {
-		return airGroundState;
-	}
+    public AirGroundState getAirGroundState() {
+        return airGroundState;
+    }
 
-	public Direction getFacingDirection() {
-		return facingDirection;
-	}
+    public Direction getFacingDirection() {
+        return facingDirection;
+    }
 
-	public void setFacingDirection(Direction facingDirection) {
-		this.facingDirection = facingDirection;
-	}
+    public AirGroundState setAirGroundState(AirGroundState airGroundState) {
+        return airGroundState;
+    }
+    public void setFacingDirection(Direction facingDirection) {
+        this.facingDirection = facingDirection;
+    }
 
-	public void setLevelState(LevelState levelState) {
-		this.levelState = levelState;
-	}
+    public void setLevelState(LevelState levelState) {
+        this.levelState = levelState;
+    }
 
-	public void addListener(PlayerListener listener) {
-		listeners.add(listener);
-	}
-
-	public void setLevelMap(int currentMap) {
-		this.currentMap = currentMap;
-	}
-
+    public void addListener(PlayerListener listener) {
+        listeners.add(listener);
+    }
+    public void setLevelMap(int currentMap) {
+    	this.currentMap = currentMap;
+    }
 }

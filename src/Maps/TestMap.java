@@ -13,6 +13,7 @@ import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.EndLevel2Block;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Spaceship;
+import EnhancedMapTiles.VerticalMovingPlatform;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Mushrooms;
 import GameObject.Rectangle;
@@ -37,26 +38,21 @@ public class TestMap extends Map {
 		this.playerStartPosition = getMapTile(2, 11).getLocation();
 	}
 
-    @Override
-    public ArrayList<Enemy> loadEnemies() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
-       
-        enemies.add(new RatEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
-        enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT));
-        enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2), Direction.RIGHT));
-        enemies.add(new Mushrooms(getMapTile(16, 8).getLocation()));
-        
-        
-        enemies.add(new Mushrooms(getMapTile(24, 10).getLocation()));
-        
-        enemies.add(new Mushrooms(getMapTile(34, 10).getLocation()));
-        
-        enemies.add(new Mushrooms(getMapTile(54, 10).getLocation()));
-      
-        enemies.add(new Mushrooms(getMapTile(11, 10).getLocation()));
-        
-        return enemies;
-    }
+	@Override
+	public ArrayList<Enemy> loadEnemies() {
+		ArrayList<Enemy> enemies = new ArrayList<>();
+		enemies.add(new RatEnemy(getMapTile(15, 8).getLocation().addY(20), Direction.LEFT));
+		enemies.add(new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2),
+				Direction.RIGHT));
+		enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2),
+				Direction.RIGHT));
+		enemies.add(new Mushrooms(getMapTile(16, 8).getLocation()));
+		enemies.add(new Mushrooms(getMapTile(24, 10).getLocation()));
+		enemies.add(new Mushrooms(getMapTile(34, 10).getLocation()));
+		enemies.add(new Mushrooms(getMapTile(54, 10).getLocation()));
+		enemies.add(new Mushrooms(getMapTile(11, 10).getLocation()));
+		return enemies;
+	}
 
 	@Override
 	public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -100,5 +96,4 @@ public class TestMap extends Map {
 	public void setPlayerStartPosition(Point x) {
 		playerStartPosition = x;
 	}
-
 }

@@ -9,6 +9,7 @@ import Level.TileType;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
+import Utils.Stopwatch;
 
 import java.awt.image.BufferedImage;
 
@@ -18,15 +19,22 @@ import java.awt.image.BufferedImage;
 public class VerticalMovingPlatform extends EnhancedMapTile {
     private Point startLocation;
     private Point endLocation;
-    private float movementSpeed = 1f;
+    private float movementSpeed = 8f;
     private Direction startDirection;
     private Direction direction;
+    private Stopwatch stop = new Stopwatch();
+    private Stopwatch stop2 = new Stopwatch();
+    
+   
+    
 
     public VerticalMovingPlatform(BufferedImage image, Point startLocation, Point endLocation, TileType tileType, float scale, Rectangle bounds, Direction startDirection) {
         super(startLocation.x, startLocation.y, new FrameBuilder(image).withBounds(bounds).withScale(scale).build(), tileType);
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startDirection = startDirection;
+        stop.setWaitTime(1000);
+        stop2.setWaitTime(2000);
         this.initialize();
     }
 
@@ -42,11 +50,13 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
         float endBound = endLocation.y;
 
         // move platform Up or Down based on its current direction
-        int moveAmountY = 0;
-        if (direction == Direction.RIGHT) {
+        float moveAmountY = 0;
+        if (direction == Direction.DOWN && stop.isTimeUp()) {
             moveAmountY += movementSpeed;
-        } else if (direction == Direction.LEFT) {
+            stop2.setWaitTime(1000);
+        } else if (direction == Direction.UP && stop2.isTimeUp()) {
             moveAmountY -= movementSpeed;
+            stop.setWaitTime(1000);
         }
 
         moveY(moveAmountY);
@@ -58,12 +68,13 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
             float difference = endBound - (getY1() + getWidth());
             moveY(-difference);
             moveAmountY -= difference;
-            direction = Direction.LEFT;
+            direction = Direction.UP;
+            
         } else if (getY1() <= startBound) {
             float difference = startBound - getY1();
             moveY(difference);
             moveAmountY += difference;
-            direction = Direction.RIGHT;
+            direction = Direction.DOWN;
         }
 
         // if tile type is NOT PASSABLE, if the platform is moving and hits into the player (x axis), it will push the player
@@ -78,10 +89,12 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
         // if player is on standing on top of platform, move player by the amount the platform is moving
         // this will cause the player to "ride" with the moving platform
         // without this code, the platform would slide right out from under the player
-        if (overlaps(player) && player.getBoundsY2() == getBoundsY1() && player.getAirGroundState() == AirGroundState.GROUND) {
+        if (overlaps(player) && player.getBoundsX2() == getBoundsX1() && player.getAirGroundState() == AirGroundState.GROUND) {
             player.moveYHandleCollision(moveAmountY);
         }
-
+        
+        System.out.println(player.getAirGroundState());
+        
         super.update(player);
     }
 
