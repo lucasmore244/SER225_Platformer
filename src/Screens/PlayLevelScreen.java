@@ -54,7 +54,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap =3;
+	protected int currentMap =1;
+
 	protected Key SHOOT_KEY = Key.Q;
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {

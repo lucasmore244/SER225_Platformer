@@ -54,7 +54,7 @@ public class TestMap extends Map {
         
         enemies.add(new Mushrooms(getMapTile(54, 10).getLocation()));
       
-        enemies.add(new Mushrooms(getMapTile(63, 11).getLocation()));
+        enemies.add(new Mushrooms(getMapTile(11, 10).getLocation()));
         
         return enemies;
     }
