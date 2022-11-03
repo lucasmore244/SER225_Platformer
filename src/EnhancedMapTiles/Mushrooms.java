@@ -18,7 +18,7 @@ import Utils.Point;
 public class Mushrooms extends Enemy {
 	
 	public Mushrooms(Point location ) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom.png"), 80, 80), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom1.png"), 50, 88), "DEFAULT");
 	}
 	
 	public void update(Player player) {
@@ -33,7 +33,7 @@ public class Mushrooms extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
-                        .withScale((float) .7)
+                        .withScale((float) .58)
                         .withBounds(20, 20, 40, 40)
                         .build(),
             });

@@ -25,7 +25,7 @@ public class Coin extends EnhancedMapTile {
 	private TestMap map;
 	
 	public Coin(Point location, TestMap testMap) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Coin.png"), 80, 80), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("CoinSpriteSheet.png"), 80, 80), TileType.PASSABLE);
         this.map = testMap;
     }	
 	
@@ -56,6 +56,22 @@ public class Coin extends EnhancedMapTile {
     		return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
+                        .withScale((float) .5)
+                        .withBounds(40, 40, 40, 40)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(1, 0), 500)
+                        .withScale((float) .5)
+                        .withBounds(40, 40, 40, 40)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(2, 0), 500)
+                        .withScale((float) .5)
+                        .withBounds(40, 40, 40, 40)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(3, 0), 500)
+                        .withScale((float) .5)
+                        .withBounds(40, 40, 40, 40)
+                        .build(),
+                new FrameBuilder(spriteSheet.getSprite(4, 0), 500)
                         .withScale((float) .5)
                         .withBounds(40, 40, 40, 40)
                         .build(),
