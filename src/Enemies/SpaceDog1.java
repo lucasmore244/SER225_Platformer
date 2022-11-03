@@ -38,7 +38,7 @@ public class SpaceDog1 extends Enemy {
     protected SpaceDogState previousSpaceDogState;
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("SpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -154,11 +154,14 @@ public class SpaceDog1 extends Enemy {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build(),
            
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
                             .withBounds(4, 2, 5, 13)
                             .build()
             });
@@ -166,12 +169,12 @@ public class SpaceDog1 extends Enemy {
             put("WALK_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                           // .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build()
             });
@@ -179,6 +182,7 @@ public class SpaceDog1 extends Enemy {
             put("SHOOT_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build(),
             });
@@ -186,7 +190,7 @@ public class SpaceDog1 extends Enemy {
             put("SHOOT_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale((float) .7)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build(),
             });
