@@ -293,6 +293,12 @@ public abstract class Player extends GameObject {
 			if (moveAmountY > 0) {
 				increaseMomentum();
 			}
+			
+			if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
+				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
+				map.addEnemy(poop);
+				reloadTimeBossFight.setWaitTime(1000);
+			}
 		}
 		// if player last frame was in air and this frame is now on ground, player
 		// enters STANDING state
