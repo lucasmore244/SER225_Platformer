@@ -38,7 +38,7 @@ public class SpaceDog1 extends Enemy {
     protected SpaceDogState previousSpaceDogState;
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 ,100), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -151,6 +151,20 @@ public class SpaceDog1 extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
+        	 put("WALK_SHILED_LEFT", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
