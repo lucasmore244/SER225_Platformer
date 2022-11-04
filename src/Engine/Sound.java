@@ -30,6 +30,7 @@ public class Sound {
 		file[11] = new File("./src/Runaway- Kanye West.wav");
 		file[12] = new File("./src/laser sound.wav");
 		file[13] = new File("./src/Unknown Song.wav");
+		file[14] = new File("./src/Fart.wav");
 	}
 
 	public void setFile(int i) {
