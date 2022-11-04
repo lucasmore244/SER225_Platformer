@@ -77,7 +77,7 @@ public class UFO extends Enemy {
         
     	if (getX1() + getWidth() >= endBound) {
             float difference = endBound - (getX2());
-            System.out.println(difference);
+//            System.out.println(difference);
             moveXHandleCollision(-difference);
             facingDirection = Direction.LEFT;
         } else if (getX1() <= startBound) {

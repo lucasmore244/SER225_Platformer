@@ -62,8 +62,8 @@ private Asteriods asteriod;
                 getMapTile(6, 8).getLocation(),
                 TileType.NOT_PASSABLE,
                 3,
-                new Rectangle(0, 6,16,4),
-                Direction.RIGHT
+                new Rectangle(0, 6, 16, 7),
+                Direction.DOWN 
         ));
         
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
