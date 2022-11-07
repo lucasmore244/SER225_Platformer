@@ -296,6 +296,7 @@ public abstract class Player extends GameObject {
 			
 			if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
+				playscreen.playSE(14);
 				map.addEnemy(poop);
 				reloadTimeBossFight.setWaitTime(1000);
 			}
