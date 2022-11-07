@@ -14,6 +14,7 @@ import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
+import java.util.Date;
 import java.util.HashMap;
 
 // This class is for the green di enemy that shoots boness
@@ -26,6 +27,11 @@ public class SpaceDog1 extends Enemy {
     protected Point startLocation;
     protected Point endLocation;
     protected int dogLives = 3;
+    protected int PlayerTouchFlag = 0;
+    protected boolean shieldOn = true;
+    protected float PlayerTime = 0;
+    protected int damageFlag = 0;
+    protected float shieldTime = 0;
 
     protected float movementSpeed = 1f;
     private Direction startFacingDirection;
@@ -147,6 +153,49 @@ public class SpaceDog1 extends Enemy {
         }
         super.update(player);
     }
+    
+	public void hurtPlayer(Player player) {
+		
+		if (intersects(player) && shieldOn == true) {
+			shieldOn = false;
+		}
+		else if (shieldOn == false) {
+			Date date1 = new Date();
+			shieldTime = date1.getTime();
+			long temp1 = date1.getTime();
+			if (temp1 - shieldTime >= 5000) {
+			if (intersects(player) && PlayerTouchFlag == 0 ) {
+				// do a 3 seconds timer for time without shield
+				System.out.println(dogLives);
+				Date date = new Date();
+				PlayerTime = date.getTime();
+				dogLives--;
+				PlayerTouchFlag = 1;
+			}
+			
+			if (intersects(player) && PlayerTouchFlag == 1) {
+				
+				damageFlag = 1;
+				Date date = new Date();
+				long temp = date.getTime();
+				if (temp - PlayerTime >= 1000) {
+					// playerState = PlayerState.TAKING_DAMAGE;
+					PlayerTouchFlag = 0;
+					// System.out.println(playerState);
+					}
+				
+				
+			
+				}
+			}
+			shieldOn = true;
+		}
+		
+		
+		
+		
+	}
+
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
