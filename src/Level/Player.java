@@ -102,7 +102,7 @@ public abstract class Player extends GameObject {
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
         cooldown.setWaitTime(300);
-        reloadTimeBossFight.setWaitTime(1000);
+        reloadTimeBossFight.setWaitTime(100);
 
     }
 
@@ -364,7 +364,7 @@ public abstract class Player extends GameObject {
             if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
             	CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
             	map.addEnemy(poop);
-            	reloadTimeBossFight.setWaitTime(1000);
+            	reloadTimeBossFight.setWaitTime(100);
             }
         }
 
@@ -698,7 +698,6 @@ public abstract class Player extends GameObject {
         } else {
             // tell all player listeners that the player has finished the level
             for (PlayerListener listener : listeners) {
-
                     listener.onLevelCompleted();
             }
         }

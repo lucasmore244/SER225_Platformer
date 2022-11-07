@@ -16,6 +16,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerLevel3;
+import Enemies.SpaceDog1;
 
 import Level.PlayerListener;
 
