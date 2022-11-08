@@ -26,11 +26,12 @@ public class ScoreboardScreen extends Screen {
 	protected KeyLocker keyLocker = new KeyLocker();
 	protected SpriteFont playertimeheader, playertimedisplay, playersnameheader, playersnamedisplay, backtohomescreen;
 	protected DisplayTime time = new DisplayTime();
+	protected PlayLevelScreen timer = new PlayLevelScreen(null);
 	protected String playertime = time.getTime(), playersinput;
 	protected LevelLoseScreen levellose;
 	protected LevelState levelState;
 	protected boolean start;
-	protected String name = JOptionPane.showInputDialog(null, "Please Enter your name");
+	protected String name = JOptionPane.showInputDialog(null, "Please Enter your name to record your time");
 	protected ArrayList<String> data;
 	protected ArrayList<SpriteFont> playerSpriteFonts = new ArrayList<>();
 

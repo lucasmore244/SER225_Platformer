@@ -54,7 +54,7 @@ public class SpaceshipLevel2 extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_UP) {
 					upPressed = true;
-					System.out.println("pressed");
+//					System.out.println("pressed");
 				}
 				else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 					downPressed = true;

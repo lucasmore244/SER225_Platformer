@@ -15,6 +15,7 @@ import Level.Player;
 import Level.TileType;
 import Maps.Level3;
 import Maps.TestMap;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 import Utils.Point;
 public class SpaceshipParts extends EnhancedMapTile {
@@ -25,6 +26,7 @@ public class SpaceshipParts extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
+	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	public SpaceshipParts(Point location, Level3 level3) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Head.png"), 80, 80), TileType.PASSABLE);
@@ -36,6 +38,7 @@ public class SpaceshipParts extends EnhancedMapTile {
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)&&!collected) {
+        	playscreen.playSE(7);
         	parts = parts + 1;
         	super.update(player);
         	super.update(null);

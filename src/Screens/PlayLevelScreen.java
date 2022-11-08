@@ -2,13 +2,21 @@ package Screens;
 
 import java.awt.Color;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import Enemies.Asteriods;
 import Enemies.Fireball;
 import Engine.DisplayTime;
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.Key;
+import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Screen;
+import Engine.Sound;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
 import Game.GameState;
@@ -21,7 +29,7 @@ import Enemies.SpaceDog1;
 import Level.PlayerListener;
 
 import Level.PlayerState;
-
+import MapEditor.MusicPanel;
 import Maps.Level2;
 
 import Maps.Level3;
@@ -40,10 +48,11 @@ import Utils.Stopwatch;
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected ScreenCoordinator screenCoordinator;
-	protected Map map;
+	protected Map map, selectedMap;
 	protected Player player;
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
+	protected Stopwatch scoreboardtime = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
 	protected LevelLoseScreen levelLoseScreen;
 	protected boolean levelCompletedStateChangeStart;
@@ -58,6 +67,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected int currentMap = 4;
 
 	protected Key SHOOT_KEY = Key.Q;
+	protected Sound sound = new Sound();
+	protected MusicPanel musicPanel;
+	protected Key MUSIC_KEY = Key.M;
+	protected KeyLocker keylock = new KeyLocker();
 
 	public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
 		this.screenCoordinator = screenCoordinator;
@@ -65,42 +78,39 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void initialize() {
 		// define/setup map
+		
+		
+//		stopMusic();
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-			}
-			else if (currentMap == 2) {
+				playMusic(6);
+			} else if (currentMap == 2) {
 				this.map = new Level2();
-			}
-			else if (currentMap == 3) {
+			} else if (currentMap == 3) {
 				this.map = new Level3();
-			}
-			else if (currentMap == 4) {
+			} else if (currentMap == 4) {
 				this.map = new Level4();
 			}
 		}
 		map.reset();
-		
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		}else if(currentMap == 2) {
+		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);
-		}
-		else if (currentMap == 4) {
+		} else if (currentMap == 4) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(4);
 		}
 		this.player.setMap(map);
-
 		this.player.addListener(this);
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
 		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
@@ -125,27 +135,37 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				player.setPlayerHealth(player.getPlayerhealth() + 1);
 				map.setCoinCount(-3);
 			}
+			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
+				stopMusic();
+				new MusicPanel(null).show();
+				keylock.lockKey(MUSIC_KEY);
+			}
+			if (Keyboard.isKeyUp(MUSIC_KEY)) {
+				keylock.unlockKey(MUSIC_KEY);
+			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (levelCompletedStateChangeStart) {
 				screenTimer.setWaitTime(2500);
+				scoreboardtime.setWaitTime(5000);
 				levelCompletedStateChangeStart = false;
 				currentMap += 1;
 				firstGo = true;
-
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				initialize();
 			} else {
-				levelClearedScreen.update();
+//				levelClearedScreen.update();
 				if (screenTimer.isTimeUp()) {
 					goBackToMenu();
 				}
+			}
+			if (scoreboardtime.isTimeUp() && getCurrentMap() == 4) {
+				screenCoordinator.setGameState(GameState.SCOREBOARD);
 			}
 			break;
 		// wait on level lose screen to make a decision (either resets level or sends
@@ -173,7 +193,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_LOSE:
 			levelLoseScreen.draw(graphicsHandler);
 			break;
-
 		}
 	}
 
@@ -181,11 +200,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		return playLevelScreenState;
 	}
 
+	public Map getSelectedMap() {
+		return selectedMap;
+	}
+
 	@Override
 	public void onLevelCompleted() {
+		scoreboardtime.setWaitTime(100);
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
+			playSE(2);
+		}
+		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
+			levelClearedScreen.update();
 		}
 	}
 
@@ -193,6 +221,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void onDeath() {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+			playSE(3);
 		}
 	}
 
@@ -204,10 +233,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void goBackToMenu() {
 		screenCoordinator.setGameState(GameState.MENU);
 	}
-	
+
 	public int getCurrentMap() {
 		return currentMap;
-		
 	}
 
 	// This enum represents the different states this screen can be in
@@ -220,8 +248,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if(currentMap == 3) {
+		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
+	}
+
+	public void playMusic(int i) {
+		sound.setFile(i);
+		sound.play();
+		sound.loop();
+	}
+
+	public void stopMusic() {
+		sound.stop();
+	}
+
+	public void playSE(int i) {
+		sound.setFile(i);
+		sound.play();
 	}
 }
