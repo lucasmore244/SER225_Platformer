@@ -17,6 +17,7 @@ import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -29,6 +30,12 @@ public class SpaceDog1 extends Enemy {
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
+    //protected int dogLives = 3;
+    protected int PlayerTouchFlag = 0;
+    protected boolean shieldOn = true;
+    protected float PlayerTime = 0;
+    protected int damageFlag = 0;
+    protected float shieldTime = 0;
     protected static int dogLives = 3;
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
@@ -155,6 +162,53 @@ public class SpaceDog1 extends Enemy {
         }
         super.update(player);
     }
+    
+	public void hurtPlayer(Player player) {
+		
+		if (intersects(player) && shieldOn == true) {
+			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_SHIELD_RIGHT" : "WALK_SHIELD_LEFT";
+			
+			shieldOn = false;
+		}
+		else if (shieldOn == false) {
+			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+
+			Date date1 = new Date();
+			shieldTime = date1.getTime();
+			long temp1 = date1.getTime();
+			if (temp1 - shieldTime >= 5000) {
+			if (intersects(player) && PlayerTouchFlag == 0 ) {
+				// do a 3 seconds timer for time without shield
+				System.out.println(dogLives);
+				Date date = new Date();
+				PlayerTime = date.getTime();
+				dogLives--;
+				PlayerTouchFlag = 1;
+			}
+			
+			if (intersects(player) && PlayerTouchFlag == 1) {
+				
+				damageFlag = 1;
+				Date date = new Date();
+				long temp = date.getTime();
+				if (temp - PlayerTime >= 1000) {
+					// playerState = PlayerState.TAKING_DAMAGE;
+					PlayerTouchFlag = 0;
+					// System.out.println(playerState);
+					}
+				
+				
+			
+				}
+			}
+			shieldOn = true;
+		}
+		
+		
+		
+		
+	}
+
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -173,6 +227,96 @@ public class SpaceDog1 extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
+        	 put("WALK_SHILED_LEFT_RED", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 2), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(2, 0), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 put("WALK_SHILED_RIGHT_RED", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(2, 0), 200)
+                             .withScale((float) .7)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 put("WALK_SHILED_LEFT", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(1, 0), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 put("WALK_SHILED_RIGHT", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(1, 0), 200)
+                             .withScale((float) .7)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 
+        	 
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
@@ -180,10 +324,9 @@ public class SpaceDog1 extends Enemy {
                             .withBounds(20, 20, 70, 60)
                             .build(),
            
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-
                             .withBounds(20, 20, 70, 60)
                             .build()
             });
@@ -201,8 +344,11 @@ public class SpaceDog1 extends Enemy {
                             .build()
             });
 
+
+            
+
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(0, 1))
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 70, 60)
@@ -210,7 +356,7 @@ public class SpaceDog1 extends Enemy {
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(0, 1))
                             .withScale((float) .7)
                             //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 70, 60)
@@ -225,6 +371,9 @@ public class SpaceDog1 extends Enemy {
     
     public static int getDogStatus() {
     	return dogLives;
+    }
+    public static void setDogStatus(int x) {
+    	dogLives = x;
     }
     
     public static void setDogLives(int doglives) {

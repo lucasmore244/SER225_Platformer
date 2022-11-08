@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 Lucas 00:00
 Lucas 00:00
  odpfksdf 00:00
 hello 00:00
 kfisf 00:00
+=======
+asfassjdbdjsh 00:00
+asfajsbdkh 00:00
+asdashdbk;a;sjhdvad 00:00
+asdadf  00:00
+>>>>>>> 9011b10e021e90d55e070c04cad3b8f0d292eff8

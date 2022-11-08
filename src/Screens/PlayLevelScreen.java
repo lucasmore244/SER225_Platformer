@@ -64,6 +64,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
+
 	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
@@ -119,8 +120,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void update() {
 		
+		//System.out.println(SpaceDog1.getDogStatus());
 		if (SpaceDog1.getDogStatus() <= 0) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+			SpaceDog1.setDogStatus(3);
+
 		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
