@@ -53,6 +53,7 @@ public class SpaceDog1 extends Enemy {
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y-15, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
+
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
