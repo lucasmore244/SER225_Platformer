@@ -29,7 +29,7 @@ public class SpaceDog1 extends Enemy {
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
-    protected int dogLives = 3;
+    protected static int dogLives = 3;
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     protected float movementSpeed = 1f;
@@ -219,7 +219,7 @@ public class SpaceDog1 extends Enemy {
         WALK, SHOOT
     }
     
-    public int getDogStatus() {
+    public static int getDogStatus() {
     	return dogLives;
     }
     

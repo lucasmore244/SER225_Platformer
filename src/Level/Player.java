@@ -299,7 +299,7 @@ public abstract class Player extends GameObject {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
 				playscreen.playSE(14);
 				map.addEnemy(poop);
-				reloadTimeBossFight.setWaitTime(1000);
+				reloadTimeBossFight.setWaitTime(100);
 			}
 		}
 		// if player last frame was in air and this frame is now on ground, player
