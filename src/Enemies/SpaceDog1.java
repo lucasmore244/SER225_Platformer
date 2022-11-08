@@ -17,11 +17,8 @@ import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
-<<<<<<< HEAD
 import java.util.Date;
-=======
 import java.util.ArrayList;
->>>>>>> 3dc9c8ae738e8faaeb23b1a74f473e644fc168c4
 import java.util.HashMap;
 
 // This class is for the green di enemy that shoots boness
@@ -33,17 +30,14 @@ public class SpaceDog1 extends Enemy {
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
-<<<<<<< HEAD
-    protected int dogLives = 3;
+    //protected int dogLives = 3;
     protected int PlayerTouchFlag = 0;
     protected boolean shieldOn = true;
     protected float PlayerTime = 0;
     protected int damageFlag = 0;
     protected float shieldTime = 0;
-=======
     protected static int dogLives = 3;
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
->>>>>>> 3dc9c8ae738e8faaeb23b1a74f473e644fc168c4
 
     protected float movementSpeed = 1f;
     private Direction startFacingDirection;
