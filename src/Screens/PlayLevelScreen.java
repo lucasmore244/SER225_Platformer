@@ -24,6 +24,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerLevel3;
+import Enemies.SpaceDog1;
 
 import Level.PlayerListener;
 
@@ -63,8 +64,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
-         
+
+	protected int currentMap = 4;
+
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -118,6 +120,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
+		System.out.println(SpaceDog1.getDogStatus());
+//		if (SpaceDog1.getDogStatus() <= 0) {
+//			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+//		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the

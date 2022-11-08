@@ -158,6 +158,7 @@ public abstract class Player extends GameObject {
 		}
 	}
 
+
 	/*
 	 * protected void takingDamage() { this.mapEntity = mapEntity; if
 	 * (!isInvincible) { // if map entity is an enemy, kill player on touch if
@@ -298,7 +299,7 @@ public abstract class Player extends GameObject {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
 				playscreen.playSE(14);
 				map.addEnemy(poop);
-				reloadTimeBossFight.setWaitTime(1000);
+				reloadTimeBossFight.setWaitTime(100);
 			}
 		}
 		// if player last frame was in air and this frame is now on ground, player
@@ -306,18 +307,42 @@ public abstract class Player extends GameObject {
 		else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
 			playerState = PlayerState.STANDING;
 		}
-	}
+            // allows you to move left and right while in the air
+            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+                moveAmountX -= walkSpeed;
+            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+                moveAmountX += walkSpeed;
+            }
 
-	protected void playerLevel2() {
-		// sSystem.out.println("Jump:" + this.gravity);
-		// sets animation to a JUMP animation based on which way player is facing
-		playerState = PlayerState.JUMPING;
-		if (damageFlag == 0) {
-			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-		} else {
-			this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
-			Date date = new Date();
-			long temp = date.getTime();
+            // if player is falling, increases momentum as player falls so it falls faster over time
+            if (moveAmountY > 0) {
+                increaseMomentum();
+            }
+            
+            // If player is in the air this will shoot down (for boss fight)
+            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
+            	CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
+            	map.addEnemy(poop);
+            	reloadTimeBossFight.setWaitTime(100);
+            }
+
+        // if player last frame was in air and this frame is now on ground, player enters STANDING state
+        if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
+            playerState = PlayerState.STANDING;
+        }
+    }
+
+    protected void playerLevel2() {
+    	//sSystem.out.println("Jump:" + this.gravity);
+        // sets animation to a JUMP animation based on which way player is facing
+    	playerState = PlayerState.JUMPING;
+    	if (damageFlag == 0 ) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+    	}
+        else {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            Date date = new Date();
+        	long temp = date.getTime();
 //    		System.out.println(this.currentAnimationName);
 			if (temp - damageTime >= 600) {
 				damageFlag = 0;
@@ -602,8 +627,6 @@ public abstract class Player extends GameObject {
 		}
 		// currentMap++;
 	}
-
-
 
     // if player has died, this will be the update cycle
     public void updatePlayerDead() {
