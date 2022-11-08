@@ -26,7 +26,6 @@ public class Level4 extends Map{
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
         enemies.add(new SpaceDog1(getMapTile(7, 6).getLocation(), getMapTile(13, 6).getLocation(), Direction.RIGHT));
-
         return enemies;
     }
 
