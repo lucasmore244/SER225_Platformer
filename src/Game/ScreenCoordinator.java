@@ -19,7 +19,7 @@ public class ScreenCoordinator extends Screen {
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
 	protected GameState previousGameState;
-
+	protected String gameTime;
 	public GameState getGameState() {
 		return gameState;
 	}
@@ -57,8 +57,12 @@ public class ScreenCoordinator extends Screen {
 				case CREDITS:
 					currentScreen = new CreditsScreen(this);
 					break;
-				case SCOREBOARD:
+			case SCOREBOARD:
+//				if(currentScreen instanceof PlayLevelScreen) {
 					currentScreen = new ScoreboardScreen(this);
+//					} else {
+//						currentScreen = new ScoreboardScreen(this, (MenuScreen) currentScreen);
+//					}
 				}
 				currentScreen.initialize();
 			}
