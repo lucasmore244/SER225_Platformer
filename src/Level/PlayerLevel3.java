@@ -280,7 +280,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 	            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER /* && waterFlag == 0 */) {
-		            System.out.println(levelState);
+//		            System.out.println(levelState);
 	            	playerHealth = 0;
             		levelState = LevelState.PLAYER_DEAD;
 
@@ -312,7 +312,6 @@ public abstract class PlayerLevel3 extends GameObject {
 	                Date date = new Date();
 	            	long temp = date.getTime();
 	            	if (temp - waterTime >= 500) {
-
 	            		waterFlag = 0;
 	            	}
 	            }
@@ -333,7 +332,7 @@ public abstract class PlayerLevel3 extends GameObject {
 	            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 	            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER /* && waterFlag == 0 */) {
-	            System.out.println(levelState);
+//	            System.out.println(levelState);
 	            playerHealth = 0;
             	levelState = LevelState.PLAYER_DEAD;
 	            }
@@ -352,7 +351,6 @@ public abstract class PlayerLevel3 extends GameObject {
 	                    Date date = new Date();
 	                	long temp = date.getTime();
 	                	if (temp - waterTime >= 1000) {
-
 	                		waterFlag = 0;
 	                	}
 	                }
@@ -374,16 +372,13 @@ public abstract class PlayerLevel3 extends GameObject {
 	        	if (previousPlayerState == PlayerState.STANDING) {
 	        		System.out.println(playerState);
 	                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
-
 	        	}
 	        	else if (previousPlayerState == PlayerState.WALKING) {
 	        		System.out.println(playerState);
 	                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
-
 	        	}
 	            previousPlayerState = playerState;
 	            super.update();
-
 	        }
 	            	*/
 	        }
@@ -537,5 +532,3 @@ public abstract class PlayerLevel3 extends GameObject {
 	        listeners.add(listener);
 	    }
 	}
-
-

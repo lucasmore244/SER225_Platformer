@@ -60,7 +60,7 @@ public class Laser extends Enemy {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
-            System.out.println("yes");
+//            System.out.println("yes");
         }
     }
     

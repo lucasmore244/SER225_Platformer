@@ -6,13 +6,18 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.LevelState;
 import Level.MapEntity;
+import Level.MapEntityStatus;
 import Level.Player;
+import Level.PlayerListener;
+import Level.PlayerState;
 import Utils.AirGroundState;
 import Utils.Direction;
 import Utils.Point;
 import Utils.Stopwatch;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 // This class is for the green space dog enemy that shoots bones
@@ -24,6 +29,8 @@ public class SpaceDog1 extends Enemy {
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
     protected Point startLocation;
     protected Point endLocation;
+    protected static int dogLives = 3;
+    protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     protected float movementSpeed = 1f;
     private Direction startFacingDirection;
@@ -34,7 +41,7 @@ public class SpaceDog1 extends Enemy {
     protected Stopwatch shootTimer = new Stopwatch();
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected SpaceDogState SpaceDogState;
+    protected SpaceDogState spaceDogState;
     protected SpaceDogState previousSpaceDogState;
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
@@ -48,8 +55,8 @@ public class SpaceDog1 extends Enemy {
     @Override
     public void initialize() {
         super.initialize();
-        SpaceDogState = SpaceDogState.WALK;
-        previousSpaceDogState = SpaceDogState;
+        spaceDogState = SpaceDogState.WALK;
+        previousSpaceDogState = spaceDogState;
         facingDirection = Direction.RIGHT;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
@@ -57,7 +64,7 @@ public class SpaceDog1 extends Enemy {
             currentAnimationName = "WALK_LEFT";
         }
         airGroundState = AirGroundState.GROUND;
-
+        isRespawnable = false;
         // every 2 seconds, the bones will be shot out
         shootTimer.setWaitTime(2000);
     }
@@ -67,15 +74,25 @@ public class SpaceDog1 extends Enemy {
         float startBound = startLocation.x;
         float endBound = endLocation.x;
         // if shoot timer is up and space dog is not currently shooting, set its state to SHOOT
-        if (shootTimer.isTimeUp() && SpaceDogState != SpaceDogState.SHOOT) {
-            SpaceDogState = SpaceDogState.SHOOT;
+        if (shootTimer.isTimeUp() && spaceDogState != SpaceDogState.SHOOT) {
+            spaceDogState = SpaceDogState.SHOOT;
         }
 
+
         super.update(player);
+
+        for (int i = 0; i < map.getEnemies().size(); i++) {
+			if (map.getEnemies().get(i) instanceof CatProjectile) {
+				if (intersects(map.getEnemies().get(i))) {
+						dogLives = dogLives - 1;
+				}
+			}
+		}
+
         
 
         // if space dog is walking, determine which direction to walk in based on facing direction
-        if (SpaceDogState == SpaceDogState.WALK) {
+        if (spaceDogState == SpaceDogState.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
                 moveXHandleCollision(movementSpeed);
@@ -99,7 +116,7 @@ public class SpaceDog1 extends Enemy {
 
             // if space dog is shooting, it first turns red for 1 second
             // then the bones is actually shot out
-        } else if (SpaceDogState == SpaceDogState.SHOOT) {
+        } else if (spaceDogState == SpaceDogState.SHOOT) {
             if (previousSpaceDogState == SpaceDogState.WALK) {
                 shootTimer.setWaitTime(1000);
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
@@ -127,11 +144,15 @@ public class SpaceDog1 extends Enemy {
                 map.addEnemy(bones);
 
                 // change space dog back to its WALK state after shooting, reset shootTimer to wait another 2 seconds before shooting again
-                SpaceDogState = SpaceDogState.WALK;
+                spaceDogState = SpaceDogState.WALK;
                 shootTimer.setWaitTime(2000);
             }
         }
-        previousSpaceDogState = SpaceDogState;
+        previousSpaceDogState = spaceDogState;
+        if (dogLives <= 0) {
+        	this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
+        super.update(player);
     }
 
     @Override
@@ -156,7 +177,6 @@ public class SpaceDog1 extends Enemy {
                             .withScale((float) .8)
                             .withBounds(20, 20, 30, 40)
                             .build(),
-           
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .8)
                             .withBounds(20, 20, 30, 40)
@@ -164,7 +184,7 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .8)
                             .withBounds(20, 20, 30, 40)
-                            .build()
+                            .build(),
             });
 
             put("WALK_RIGHT", new Frame[]{
@@ -182,7 +202,7 @@ public class SpaceDog1 extends Enemy {
                             .withScale((float) .8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 30, 40)
-                            .build()
+                            .build(),                           
             });
 
             put("SHOOT_LEFT", new Frame[]{
@@ -198,6 +218,7 @@ public class SpaceDog1 extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 30, 40)
                             .build()
+
             });
         };
     };
@@ -205,6 +226,11 @@ public class SpaceDog1 extends Enemy {
     public enum SpaceDogState {
         WALK, SHOOT, SHIELD
     }
+    
+    public static int getDogStatus() {
+    	return dogLives;
+    }
+    
 }
 
 
