@@ -67,17 +67,9 @@ public class Bones extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
-                            .build()
+                            .withScale((float).35)
+                            .withBounds(20, 20, 40, 30)
+                            .build()  
             });
         }};
     }

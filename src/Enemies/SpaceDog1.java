@@ -15,7 +15,7 @@ import Utils.Stopwatch;
 
 import java.util.HashMap;
 
-// This class is for the green di enemy that shoots boness
+// This class is for the green space dog enemy that shoots bones
 // It walks back and forth between two set points (startLocation and endLocation)
 // Every so often (based on shootTimer) it will shoot a bones enemy
 public class SpaceDog1 extends Enemy {
@@ -38,7 +38,7 @@ public class SpaceDog1 extends Enemy {
     protected SpaceDogState previousSpaceDogState;
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("DogSpriteSheet.png"), 80 , 80), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y - 18, new SpriteSheet(ImageLoader.load("SpaceDogSpriteSheet1.png"), 80 , 80), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -66,13 +66,13 @@ public class SpaceDog1 extends Enemy {
     public void update(Player player) {
         float startBound = startLocation.x;
         float endBound = endLocation.x;
-
         // if shoot timer is up and space dog is not currently shooting, set its state to SHOOT
         if (shootTimer.isTimeUp() && SpaceDogState != SpaceDogState.SHOOT) {
             SpaceDogState = SpaceDogState.SHOOT;
         }
 
         super.update(player);
+        
 
         // if space dog is walking, determine which direction to walk in based on facing direction
         if (SpaceDogState == SpaceDogState.WALK) {
@@ -118,7 +118,7 @@ public class SpaceDog1 extends Enemy {
                 }
 
                 // define where bones will spawn on the map (y location) relative to space dog enemy's location
-                int bonesY = Math.round(getY()) + 20;
+                int bonesY = Math.round(getY()) + 40;
 
                 // create bones enemy
                 Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);
@@ -153,48 +153,57 @@ public class SpaceDog1 extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
-                            .withScale((float) .7)
-                            .withBounds(4, 2, 5, 13)
+                            .withScale((float) .8)
+                            .withBounds(20, 20, 30, 40)
                             .build(),
            
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
-                            .withScale((float) .7)
-                            .withBounds(4, 2, 5, 13)
+                            .withScale((float) .8)
+                            .withBounds(20, 20, 30, 40)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .8)
+                            .withBounds(20, 20, 30, 40)
                             .build()
             });
 
             put("WALK_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
-                            .withScale((float) .7)
+                            .withScale((float) .8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 30, 40)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
-                            .withScale((float) .7)
+                            .withScale((float) .8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 30, 40)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .8)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 30, 40)
                             .build()
             });
 
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale((float) .7)
-                            .withBounds(4, 2, 5, 13)
+                    new FrameBuilder(spriteSheet.getSprite(1, 1))
+                            .withScale((float) .8)
+                            .withBounds(20, 20, 30, 40)
                             .build(),
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale((float) .7)
+                    new FrameBuilder(spriteSheet.getSprite(1, 1))
+                            .withScale((float) .8)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
-                            .build(),
+                            .withBounds(20, 20, 30, 40)
+                            .build()
             });
         };
     };
     }
     public enum SpaceDogState {
-        WALK, SHOOT
+        WALK, SHOOT, SHIELD
     }
 }
 

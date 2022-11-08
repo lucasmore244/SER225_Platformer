@@ -11,6 +11,7 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
+import Enemies.SpaceDog1;
 import Enemies.Fireball;
 import Enemies.Laser;
 import Enemies.RatEnemy;
@@ -185,8 +186,8 @@ public abstract class Player extends GameObject {
     	}
     }
     
-    /*
-    protected void takingDamage() {
+    
+    /*protected void takingDamage() {
     	this.mapEntity = mapEntity;
     	  if (!isInvincible) {
               // if map entity is an enemy, kill player on touch
@@ -213,8 +214,8 @@ public abstract class Player extends GameObject {
               	}
               }
           }
-    }
-    */
+    }*/
+    
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
