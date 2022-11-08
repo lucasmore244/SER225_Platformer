@@ -57,17 +57,9 @@ private Asteriods asteriod;
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         
+        
         enhancedMapTiles.add(new VerticalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
-                getMapTile(4, 4).getLocation(),
-                getMapTile(6, 8).getLocation(),
-                TileType.NOT_PASSABLE,
-                3,
-                new Rectangle(0, 6,16,4),
-                Direction.RIGHT
-        ));
-        enhancedMapTiles.add(new VerticalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
+                ImageLoader.load("GreyPlatform.png"),
                 getMapTile(40, 3).getLocation(),
                 getMapTile(40, 8).getLocation(),
                 TileType.NOT_PASSABLE,
@@ -76,7 +68,7 @@ private Asteriods asteriod;
                 Direction.RIGHT
         ));
         enhancedMapTiles.add(new VerticalMovingPlatform(
-                ImageLoader.load("GreenPlatform.png"),
+                ImageLoader.load("GreyPlatform.png"),
                 getMapTile(53, 1).getLocation(),
                 getMapTile(53, 7).getLocation(),
                 TileType.NOT_PASSABLE,

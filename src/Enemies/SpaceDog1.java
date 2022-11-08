@@ -45,7 +45,7 @@ public class SpaceDog1 extends Enemy {
     protected SpaceDogState previousSpaceDogState;
 
     public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y-15, new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100 , 100), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -79,13 +79,17 @@ public class SpaceDog1 extends Enemy {
             spaceDogState = SpaceDogState.SHOOT;
         }
         
+//        System.out.println(map.getEnemies().size());
         for (int i = 0; i < map.getEnemies().size(); i++) {
 			if (map.getEnemies().get(i) instanceof CatProjectile) {
 				if (intersects(map.getEnemies().get(i))) {
-						dogLives = dogLives - 1;
+					System.out.println("hit");	
+					dogLives = dogLives - 1;
 				}
 			}
 		}
+        
+        
         
 
         // if space dog is walking, determine which direction to walk in based on facing direction
@@ -173,14 +177,14 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build(),
            
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
 
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build()
             });
 
@@ -188,12 +192,12 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
                             //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
                            // .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build()
             });
 
@@ -201,7 +205,7 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build(),
             });
 
@@ -209,7 +213,7 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale((float) .7)
                             //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 2, 5, 13)
+                            .withBounds(20, 20, 70, 60)
                             .build(),
             });
         };
@@ -221,6 +225,10 @@ public class SpaceDog1 extends Enemy {
     
     public static int getDogStatus() {
     	return dogLives;
+    }
+    
+    public static void setDogLives(int doglives) {
+    	 dogLives = doglives;
     }
     
 }

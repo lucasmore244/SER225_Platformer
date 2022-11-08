@@ -65,7 +65,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 4;
-
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -119,10 +118,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
-		System.out.println(SpaceDog1.getDogStatus());
-//		if (SpaceDog1.getDogStatus() <= 0) {
-//			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-//		}
+		
+		if (SpaceDog1.getDogStatus() <= 0) {
+			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
@@ -168,9 +167,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 					goBackToMenu();
 				}
 			}
-			if (scoreboardtime.isTimeUp() && getCurrentMap() == 4) {
-				screenCoordinator.setGameState(GameState.SCOREBOARD);
-			}
+//			if (scoreboardtime.isTimeUp() && getCurrentMap() == 4) {
+//				screenCoordinator.setGameState(GameState.SCOREBOARD);
+//			}
 			break;
 		// wait on level lose screen to make a decision (either resets level or sends
 		// player back to main menu)
