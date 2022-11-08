@@ -162,9 +162,13 @@ public class SpaceDog1 extends Enemy {
 	public void hurtPlayer(Player player) {
 		
 		if (intersects(player) && shieldOn == true) {
+			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_SHIELD_RIGHT" : "WALK_SHIELD_LEFT";
+			
 			shieldOn = false;
 		}
 		else if (shieldOn == false) {
+			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+
 			Date date1 = new Date();
 			shieldTime = date1.getTime();
 			long temp1 = date1.getTime();
@@ -219,20 +223,96 @@ public class SpaceDog1 extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-        	 put("WALK_SHILED_LEFT", new Frame[]{
-                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+        	 put("WALK_SHILED_LEFT_RED", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 2), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
                              .withScale((float) .7)
                              .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                              .withBounds(4, 2, 5, 13)
                              .build(),
             
-                     new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
+                     new FrameBuilder(spriteSheet.getSprite(2, 0), 200)
                              .withScale((float) .7)
                              .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
 
                              .withBounds(4, 2, 5, 13)
                              .build()
              });
+        	 put("WALK_SHILED_RIGHT_RED", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(0, 2), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(2, 0), 200)
+                             .withScale((float) .7)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 put("WALK_SHILED_LEFT", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(1, 0), 200)
+                             .withScale((float) .7)
+                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 put("WALK_SHILED_RIGHT", new Frame[]{
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(1, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+                     new FrameBuilder(spriteSheet.getSprite(2, 3), 200)
+                             .withScale((float) .7)
+                             .withBounds(4, 2, 5, 13)
+                             .build(),
+            
+                     new FrameBuilder(spriteSheet.getSprite(1, 0), 200)
+                             .withScale((float) .7)
+
+                             .withBounds(4, 2, 5, 13)
+                             .build()
+             });
+        	 
+        	 
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
@@ -240,10 +320,20 @@ public class SpaceDog1 extends Enemy {
                             .withBounds(4, 2, 5, 13)
                             .build(),
            
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
 
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                            new FrameBuilder(spriteSheet.getSprite(2, 2), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
                             .build()
             });
@@ -251,18 +341,73 @@ public class SpaceDog1 extends Enemy {
             put("WALK_RIGHT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
                             .withScale((float) .7)
-                            //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+           
+                    new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
+                            .withScale((float) .7)
+
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+                            .withScale((float) .7)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                            new FrameBuilder(spriteSheet.getSprite(2, 2), 200)
+                            .withScale((float) .7)
+                            .withBounds(4, 2, 5, 13)
+                            .build()
+            });
+            put("WALK_LEFT_RED", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+           
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+
                             .withBounds(4, 2, 5, 13)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
-                           // .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                            new FrameBuilder(spriteSheet.getSprite(2, 1), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build()
+            });
+            put("WALK_RIGHT_RED", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .7)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+           
+                    new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
+                            .withScale((float) .7)
+
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .7)
+                            .withBounds(4, 2, 5, 13)
+                            .build(),
+                            new FrameBuilder(spriteSheet.getSprite(2, 1), 200)
+                            .withScale((float) .7)
                             .withBounds(4, 2, 5, 13)
                             .build()
             });
 
+
+            
+
             put("SHOOT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(0, 1))
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
@@ -270,7 +415,7 @@ public class SpaceDog1 extends Enemy {
             });
 
             put("SHOOT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                    new FrameBuilder(spriteSheet.getSprite(0, 1))
                             .withScale((float) .7)
                             //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(4, 2, 5, 13)
