@@ -120,10 +120,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
-		System.out.println(SpaceDog1.getDogStatus());
-//		if (SpaceDog1.getDogStatus() <= 0) {
-//			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-//		}
+		//System.out.println(SpaceDog1.getDogStatus());
+		if (SpaceDog1.getDogStatus() <= 0) {
+			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+			SpaceDog1.setDogStatus(3);
+		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the

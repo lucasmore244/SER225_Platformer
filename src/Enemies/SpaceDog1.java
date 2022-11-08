@@ -513,6 +513,9 @@ public class SpaceDog1 extends Enemy {
     public static int getDogStatus() {
     	return dogLives;
     }
+    public static void setDogStatus(int x) {
+    	dogLives = x;
+    }
     
 }
 

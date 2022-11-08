@@ -69,7 +69,7 @@ private Asteriods asteriod;
         enhancedMapTiles.add(new VerticalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getMapTile(40, 3).getLocation(),
-                getMapTile(40, 8).getLocation(),
+                getMapTile(40, 6).getLocation(),
                 TileType.NOT_PASSABLE,
                 3,
                 new Rectangle(0, 6,16,4),
@@ -78,21 +78,12 @@ private Asteriods asteriod;
         enhancedMapTiles.add(new VerticalMovingPlatform(
                 ImageLoader.load("GreenPlatform.png"),
                 getMapTile(53, 1).getLocation(),
-                getMapTile(53, 7).getLocation(),
+                getMapTile(53, 4).getLocation(),
                 TileType.NOT_PASSABLE,
                 3,
                 new Rectangle(0, 6,16,4),
                 Direction.RIGHT
         ));
-//        enhancedMapTiles.add(new VerticalMovingPlatformLevel3(
-//                ImageLoader.load("GreenPlatform.png"),
-//                getMapTile(12, 3).getLocation(),
-//                getMapTile(12, 7).getLocation(),
-//                TileType.NOT_PASSABLE,
-//                3,
-//                new Rectangle(0, 6,16,4),
-//                Direction.RIGHT
-//        ));
         
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 
