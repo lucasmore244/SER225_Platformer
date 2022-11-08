@@ -53,10 +53,10 @@ public class VerticalMovingPlatform extends EnhancedMapTile {
         float moveAmountY = 0;
         if (direction == Direction.DOWN && stop.isTimeUp()) {
             moveAmountY += movementSpeed;
-            stop2.setWaitTime(1000);
+            stop2.setWaitTime(2000);
         } else if (direction == Direction.UP && stop2.isTimeUp()) {
             moveAmountY -= movementSpeed;
-            stop.setWaitTime(1000);
+            stop.setWaitTime(2000);
         }
 
         moveY(moveAmountY);
