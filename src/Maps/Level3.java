@@ -18,6 +18,7 @@ import EnhancedMapTiles.SpaceshipParts;
 import EnhancedMapTiles.SpaceshipTWing;
 import EnhancedMapTiles.SpaceshipWing;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.VerticalMovingPlatformLevel3;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.Enemy;
@@ -62,9 +63,36 @@ private Asteriods asteriod;
                 getMapTile(6, 8).getLocation(),
                 TileType.NOT_PASSABLE,
                 3,
-                new Rectangle(0, 6, 16, 7),
-                Direction.DOWN 
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
         ));
+        enhancedMapTiles.add(new VerticalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(40, 3).getLocation(),
+                getMapTile(40, 8).getLocation(),
+                TileType.NOT_PASSABLE,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        ));
+        enhancedMapTiles.add(new VerticalMovingPlatform(
+                ImageLoader.load("GreenPlatform.png"),
+                getMapTile(53, 1).getLocation(),
+                getMapTile(53, 7).getLocation(),
+                TileType.NOT_PASSABLE,
+                3,
+                new Rectangle(0, 6,16,4),
+                Direction.RIGHT
+        ));
+//        enhancedMapTiles.add(new VerticalMovingPlatformLevel3(
+//                ImageLoader.load("GreenPlatform.png"),
+//                getMapTile(12, 3).getLocation(),
+//                getMapTile(12, 7).getLocation(),
+//                TileType.NOT_PASSABLE,
+//                3,
+//                new Rectangle(0, 6,16,4),
+//                Direction.RIGHT
+//        ));
         
         enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 
