@@ -30,6 +30,7 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Level.Player;
 import Level.PlayerLevel3;
+import Enemies.SpaceDog1;
 
 import Level.PlayerListener;
 
@@ -68,7 +69,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 3;
+	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -119,6 +120,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
+		// System.out.println(SpaceDog1.getDogStatus());
+//		if (SpaceDog1.getDogStatus() <= 0) {
+//			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+//			SpaceDog1.setDogStatus(3);
+//		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
@@ -126,7 +132,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case RUNNING:
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
-			coincount = "COINS: " + map.getCoinCount();
+			if (currentMap != 4) {
+				coincount = "COINS: " + map.getCoinCount();
+			} else {
+				coincount = "KITTENS: " + map.getCoinCount();
+			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			timedisplay = new TimeDisplay("TIME TAKEN:" + getTime(), 450, 50, "Comic Sans", 20, Color.red);
@@ -143,13 +153,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
+			if (SpaceDog1.getDogStatus() <= 0) {
+				playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+				SpaceDog1.setDogStatus(3);
+			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (currentMap <= 4) {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
-					if (getCurrentMap() == 3) {
+					if (getCurrentMap() == 4) {
 						try {
 							createTextFile();
 						} catch (IOException e) {
@@ -217,7 +231,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			levelCompletedStateChangeStart = true;
 			playSE(2);
 		}
-		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 3) {
+		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
 			levelClearedScreen.update();
 		}
 	}

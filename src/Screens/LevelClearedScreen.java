@@ -30,7 +30,7 @@ public class LevelClearedScreen extends Screen {
 
 	@Override
 	public void update() {
-		if (playlevelscreen.getCurrentMap() == 3) {
+		if (playlevelscreen.getCurrentMap() == 4) {
 			winMessage = new SpriteFont("YOU'VE REACHED THE END OF THE GAME", 170, 200, "Times New Roman", 25,
 					Color.white);
 			winMessage.setFontStyle(3);

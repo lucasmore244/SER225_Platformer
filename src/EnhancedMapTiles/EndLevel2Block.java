@@ -29,9 +29,6 @@ public class EndLevel2Block extends EnhancedMapTile {
 		super.update(player);
 		if (levelTimer.isTimeUp()) {
 			player.completeLevel();
-//            map.addEnhancedMapTile(null);
-//            map.addEnhancedMapTile(null);
-//            map.addEnhancedMapTile(null);
 		}
 	}
 

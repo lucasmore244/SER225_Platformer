@@ -22,6 +22,7 @@ import java.util.Random;
 public class CatProjectile extends Enemy {
     private float movementSpeed;
     private Stopwatch existenceTimer = new Stopwatch();
+    private int doglives = 3;
 
     public CatProjectile(Point location, float movementSpeed, int existenceTime) {
         super(location.x+20, location.y+10, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
@@ -38,6 +39,9 @@ public class CatProjectile extends Enemy {
 
     @Override
     public void update(Player player) {
+    	
+      
+      
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
         if (existenceTimer.isTimeUp()) {

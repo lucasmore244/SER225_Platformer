@@ -19,6 +19,7 @@ import EnhancedMapTiles.SpaceshipParts;
 import EnhancedMapTiles.SpaceshipTWing;
 import EnhancedMapTiles.SpaceshipWing;
 import EnhancedMapTiles.VerticalMovingPlatform;
+import EnhancedMapTiles.VerticalMovingPlatformLevel3;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.Enemy;
@@ -56,9 +57,15 @@ public class Level3 extends Map {
 	@Override
 	public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
 		ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-		enhancedMapTiles.add(new VerticalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
-				getMapTile(4, 4).getLocation(), getMapTile(6, 8).getLocation(), TileType.NOT_PASSABLE, 3,
-				new Rectangle(0, 6, 16, 7), Direction.DOWN));
+		enhancedMapTiles.add(new VerticalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(40, 3).getLocation(), getMapTile(40, 6).getLocation(), TileType.NOT_PASSABLE, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+		enhancedMapTiles.add(new VerticalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(53, 1).getLocation(), getMapTile(53, 4).getLocation(), TileType.NOT_PASSABLE, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+//		enhancedMapTiles.add(new VerticalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
+//				getMapTile(4, 4).getLocation(), getMapTile(6, 8).getLocation(), TileType.NOT_PASSABLE, 3,
+//				new Rectangle(0, 6, 16, 7), Direction.DOWN));
 		enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 		enhancedMapTiles.add(new Castle(getMapTile(67, 5).getLocation()));
 		enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
