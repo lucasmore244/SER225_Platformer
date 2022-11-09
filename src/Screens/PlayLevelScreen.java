@@ -58,6 +58,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected Player player;
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
+	protected Stopwatch endTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
 	protected LevelLoseScreen levelLoseScreen;
 	protected boolean levelCompletedStateChangeStart;
@@ -66,10 +67,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected TimeDisplay timedisplay;
 	protected String livescount;
 	protected SpriteFont level1;
-	protected SpriteFont coins;
+	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 4;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -120,22 +121,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
-		// System.out.println(SpaceDog1.getDogStatus());
-//		if (SpaceDog1.getDogStatus() <= 0) {
-//			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-//			SpaceDog1.setDogStatus(3);
-//		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
 		// platformer level going
 		case RUNNING:
+//			endTimer.setWaitTime(1000);
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
 			if (currentMap != 4) {
 				coincount = "COINS: " + map.getCoinCount();
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
+						Color.RED);
 			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
@@ -154,15 +153,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				keylock.unlockKey(MUSIC_KEY);
 			}
 			if (SpaceDog1.getDogStatus() <= 0) {
-				System.out.println("end");
-				playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+//				try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				onLevelCompleted();
 				SpaceDog1.setDogStatus(3);
 			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (currentMap <= 4) {
-				System.out.println("end2");
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {
@@ -172,6 +174,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 							e.printStackTrace();
 						}
 						screenCoordinator.setGameState(GameState.SCOREBOARD);
+//						System.exit(0);
 					}
 					levelCompletedStateChangeStart = false;
 					currentMap += 1;
@@ -208,6 +211,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			timedisplay.draw(graphicsHandler);
 			level1.draw(graphicsHandler);
 			coins.draw(graphicsHandler);
+			doglives.draw(graphicsHandler);
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);
