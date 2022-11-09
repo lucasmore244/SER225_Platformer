@@ -33,7 +33,7 @@ public class SpaceDog1 extends Enemy {
     //protected int dogLives = 3;
     protected int PlayerTouchFlag = 0;
     protected boolean shieldOn = true;
-    protected float PlayerTime = 0;
+    protected float damageTime = 0;
     protected int damageFlag = 0;
     protected float shieldTime = 0;
     protected static int dogLives = 3;
@@ -103,14 +103,30 @@ public class SpaceDog1 extends Enemy {
 					hitTimer.setWaitTime(1000);
 					shieldTimer.setWaitTime(allShieldTimerTimes);
 					shieldOn = false;
-				} else if(intersects(map.getEnemies().get(i)) && hitTimer.isTimeUp()) {
-					System.out.println("hit");	
-					dogLives = dogLives - 1;
-					currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_HURT_RIGHT" : "SHOOT_HURT_LEFT";
-					hitTimer.setWaitTime(1000);
+				} else if(intersects(map.getEnemies().get(i)) && hitTimer.isTimeUp() && damageFlag == 0 && shieldOn == false) {
+						spaceDogState = SpaceDogState.RED;
+						//currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+
+						Date date = new Date();
+						damageTime = date.getTime();
+						dogLives = dogLives - 1;
+						damageFlag = 1;
+				}		
+					else if(intersects(map.getEnemies().get(i)) && hitTimer.isTimeUp() && damageFlag == 1 && shieldOn == false) {
+						//currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_HURT_RIGHT" : "WALK_HURT_LEFT";
+
+						//Date date1 = new Date();
+						//long temp1 = date1.getTime();
+						//if (temp1 - damageTime >= 800) {
+							System.out.println(dogLives);
+							damageFlag = 0;
+						//}
+						hitTimer.setWaitTime(1000);
+
+					}
 				}
 			}
-		}
+		
         
         //Turns shield back on after set amount of time
         if (shieldOn == false && shieldTimer.isTimeUp()) {
@@ -118,6 +134,62 @@ public class SpaceDog1 extends Enemy {
         }
         
         
+        if (spaceDogState == SpaceDogState.RED) {
+        	if (facingDirection == Direction.RIGHT && shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_RIGHT_RED";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_LEFT_RED";
+                moveXHandleCollision(-movementSpeed);
+            }
+            
+            if (facingDirection == Direction.RIGHT && shieldOn == false) {
+                currentAnimationName = "WALK_HURT_RIGHT";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == false) {
+                currentAnimationName = "WALK_HURT_LEFT";
+                moveXHandleCollision(-movementSpeed);
+            }
+        	
+            if (getX1() + getWidth() >= endBound) {
+                float difference = endBound - (getX2());
+                moveXHandleCollision(-difference);
+                facingDirection = Direction.LEFT;
+            } else if (getX1() <= startBound) {
+                float difference = startBound - getX1();
+                moveXHandleCollision(difference);
+                facingDirection = Direction.RIGHT;
+            }
+                                            
+            //Shoots bone after set amount of time
+            if (shootTimer.isTimeUp()) {
+
+                // define where bones will spawn on map (x location) relative to space dog enemy's location
+                // and define its movement speed
+                int bonesX;
+                float movementSpeed;
+                if (facingDirection == Direction.RIGHT) {
+                    bonesX = Math.round(getX()) + getWidth();
+                    movementSpeed = 1.5f;
+                } else {
+                    bonesX = Math.round(getX());
+                    movementSpeed = -1.5f;
+                }
+
+                // define where bones will spawn on the map (y location) relative to space dog enemy's location
+                int bonesY = Math.round(getY()) + 20;
+
+                // create bones enemy
+                Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);
+
+                // add bones enemy to the map for it to offically spawn in the level
+                map.addEnemy(bones);
+
+                // change space dog back to its WALK state after shooting, reset shootTimer to wait another 2 seconds before shooting again
+                spaceDogState = SpaceDogState.WALK;
+                shootTimer.setWaitTime(2000);
+            }
+        }
 
         // if space dog is walking, determine which direction to walk in based on facing direction (also with shield or without shield)
         if (spaceDogState == SpaceDogState.WALK) {
@@ -190,74 +262,43 @@ public class SpaceDog1 extends Enemy {
                 map.addEnemy(bones);
 
                 // change space dog back to its WALK state after shooting, reset shootTimer to wait another 2 seconds before shooting again
-                spaceDogState = SpaceDogState.WALK;
+                //spaceDogState = SpaceDogState.WALK;
                 shootTimer.setWaitTime(2000);
             }
         }
+       // System.out.println(spaceDogState);
+
         previousSpaceDogState = spaceDogState;
         if (dogLives <= 0) {
         	this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
         super.update(player);
     }
-    
-//	public void hurtPlayer(Player player) {
-//		
-//		if (intersects(player) && shieldOn == true) {
-//			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_SHIELD_RIGHT" : "WALK_SHIELD_LEFT";
-//			shieldOn = false;
-//		}
-//		else if (shieldOn == false) {
-//			currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
-//
-//			Date date1 = new Date();
-//			shieldTime = date1.getTime();
-//			long temp1 = date1.getTime();
-//			if (temp1 - shieldTime >= 5000) {
-//			if (intersects(player) && PlayerTouchFlag == 0 ) {
-//				// do a 3 seconds timer for time without shield
-//				System.out.println(dogLives);
-//				Date date = new Date();
-//				PlayerTime = date.getTime();
-//				dogLives--;
-//				PlayerTouchFlag = 1;
-//			}
-//			
-//			if (intersects(player) && PlayerTouchFlag == 1) {
-//				
-//				damageFlag = 1;
-//				Date date = new Date();
-//				long temp = date.getTime();
-//				if (temp - PlayerTime >= 1000) {
-//					// playerState = PlayerState.TAKING_DAMAGE;
-//					PlayerTouchFlag = 0;
-//					// System.out.println(playerState);
-//					}
-//				
-//				
-//			
-//				}
-//			}
-//			shieldOn = true;
-//		}
-//		
-//		
-//		
-//		
-//	}
+
 
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if space dog enemy collides with something on the x axis, it turns around and walks the other way
         if (hasCollided) {
-            if (direction == Direction.RIGHT) {
-                facingDirection = Direction.LEFT;
-                currentAnimationName = "WALK_LEFT";
-            } else {
-                facingDirection = Direction.RIGHT;
-                currentAnimationName = "WALK_RIGHT";
-            }
+        	if (spaceDogState == spaceDogState.WALK) {
+        		 if (direction == Direction.RIGHT) {
+                     facingDirection = Direction.LEFT;
+                     currentAnimationName = "WALK_LEFT";
+                 } else {
+                     facingDirection = Direction.RIGHT;
+                     currentAnimationName = "WALK_RIGHT";
+                 }
+        	}
+        	if (spaceDogState == spaceDogState.RED) {
+       		 if (direction == Direction.RIGHT) {
+                    facingDirection = Direction.LEFT;
+                    currentAnimationName = "WALK_HURT_LEFT";
+                } else {
+                    facingDirection = Direction.RIGHT;
+                    currentAnimationName = "WALK_HURT_RIGHT";
+                }
+       	}
         }
     }
 
@@ -361,6 +402,16 @@ public class SpaceDog1 extends Enemy {
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 70, 60)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 70, 60)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 70, 60)
                             .build()
             });
 
@@ -373,6 +424,14 @@ public class SpaceDog1 extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 3), 200)
                             .withScale((float) .7)
                            // .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 70, 60)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 200)
+                            .withScale((float) .7)
+                            .withBounds(20, 20, 70, 60)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(2, 2), 200)
+                            .withScale((float) .7)
                             .withBounds(20, 20, 70, 60)
                             .build()
             });
@@ -413,7 +472,7 @@ public class SpaceDog1 extends Enemy {
             });
             
             put("WALK_HURT_LEFT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 70, 60)
@@ -423,27 +482,44 @@ public class SpaceDog1 extends Enemy {
                             .withScale((float) .7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(20, 20, 70, 60)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 70, 60)
+                            .build(),
+                     new FrameBuilder(spriteSheet.getSprite(2, 1), 200)
+                            .withScale((float) .7)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(20, 20, 70, 60)
                             .build()
             });
 
             put("WALK_HURT_RIGHT", new Frame[]{
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
-                            .withScale((float) .7)
-                            //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(20, 20, 70, 60)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
-                            .withScale((float) .7)
-                           // .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(20, 20, 70, 60)
-                            .build()
+            new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                    .withScale((float) .7)
+                    .withBounds(20, 20, 70, 60)
+                    .build(),
+   
+            new FrameBuilder(spriteSheet.getSprite(1, 1), 200)
+                    .withScale((float) .7)
+                    .withBounds(20, 20, 70, 60)
+                    .build(),
+            new FrameBuilder(spriteSheet.getSprite(0, 1), 200)
+                    .withScale((float) .7)
+                    .withBounds(20, 20, 70, 60)
+                    .build(),
+             new FrameBuilder(spriteSheet.getSprite(2, 1), 200)
+                    .withScale((float) .7)
+                    .withBounds(20, 20, 70, 60)
+                    .build()
             });
             
         };
     };
     }
     public enum SpaceDogState {
-        WALK, SHOOT
+        WALK, SHOOT, RED, 
     }
     
     public static int getDogStatus() {
