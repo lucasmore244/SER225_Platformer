@@ -177,7 +177,7 @@ public class SpaceDog1 extends Enemy {
                 }
 
                 // define where bones will spawn on the map (y location) relative to space dog enemy's location
-                int bonesY = Math.round(getY()) + 20;
+                int bonesY = Math.round(getY());
 
                 // create bones enemy
                 Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);

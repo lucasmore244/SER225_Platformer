@@ -22,7 +22,7 @@ public class Bones extends Enemy {
     private Stopwatch existenceTimer = new Stopwatch();
 
     public Bones(Point location, float movementSpeed, int existenceTime) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BoneSpriteSheet.png"), 80, 80), "DEFAULT");
+        super(location.x, location.y+20, new SpriteSheet(ImageLoader.load("BoneSpriteSheet.png"), 80, 80), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the bones will exist for before disappearing
@@ -42,7 +42,7 @@ public class Bones extends Enemy {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
             // move bones forward
-            moveXHandleCollision(movementSpeed);
+            moveXHandleCollision(movementSpeed*2);
             super.update(player);
         }
     }
@@ -68,15 +68,15 @@ public class Bones extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
+                            .withBounds(10, 10, 60,20)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
+                            .withBounds(10, 10, 60,20)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale((float).3)
-                            .withBounds(10, 10, 5, 5)
+                            .withBounds(10, 10, 60,20)
                             .build()
             });
         }};
