@@ -154,6 +154,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				keylock.unlockKey(MUSIC_KEY);
 			}
 			if (SpaceDog1.getDogStatus() <= 0) {
+				System.out.println("end");
 				playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 				SpaceDog1.setDogStatus(3);
 			}
@@ -161,6 +162,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (currentMap <= 4) {
+				System.out.println("end2");
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {

@@ -91,7 +91,7 @@ public class SpaceDog1 extends Enemy {
         for (int i = 0; i < map.getEnemies().size(); i++) {
 			if (map.getEnemies().get(i) instanceof CatProjectile) {
 				if (intersects(map.getEnemies().get(i))) {
-					System.out.println("hit");	
+//					System.out.println("hit");	
 					dogLives = dogLives - 1;
 				}
 			}
