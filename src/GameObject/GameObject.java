@@ -6,6 +6,7 @@ import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
 import Level.MapEntity;
 import Level.Player;
+import Players.Cat;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
@@ -13,6 +14,7 @@ import Utils.MathUtils;
 import java.awt.*;
 import java.util.HashMap;
 
+import Enemies.Bones;
 import Enemies.SpaceDog1;
 
 /*
@@ -269,7 +271,7 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-//			if (this instanceof SpaceDog1) {
+//			if (this instanceof Cat) {
 //				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 //			}
 			
