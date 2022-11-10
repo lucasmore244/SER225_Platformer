@@ -217,7 +217,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			timedisplay.draw(graphicsHandler);
 			level1.draw(graphicsHandler);
 			coins.draw(graphicsHandler);
-			doglives.draw(graphicsHandler);
+			if (currentMap == 4) {
+				doglives.draw(graphicsHandler);
+			}
+			
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);

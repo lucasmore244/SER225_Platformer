@@ -61,7 +61,7 @@ public class Kitten1 extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale((float) .7)
-                        .withBounds(40, 40, 40, 40)
+                        .withBounds(20, 20, 40, 40)
                         .build()
             });
         }};
