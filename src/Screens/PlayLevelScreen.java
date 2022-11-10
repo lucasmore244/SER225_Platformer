@@ -118,7 +118,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
-//		endTimer.setWaitTime(10000);
 	}
 
 	public void update() {
@@ -134,10 +133,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
-				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman",
-						18, Color.RED);
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
+						Color.RED);
 			}
-			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
+			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.RED);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			timedisplay = new TimeDisplay("TIME TAKEN:" + getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
@@ -153,8 +152,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-	//		System.out.println(endTimer.isTimeUp());
-//			if (endTimer.isTimeUp()) {
 				if (SpaceDog1.getDogStatus() <= 0) {
 					try {
 						Thread.sleep(500);
@@ -164,8 +161,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 					}
 					onLevelCompleted();
 					SpaceDog1.setDogStatus(3);
-//				}
-//					endTimer.setWaitTime(100000);
 			}
 			break;
 		// if level has been completed, bring up level cleared screen
@@ -173,13 +168,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (currentMap <= 4) {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
-//					endTimer.setWaitTime(100);
-//					System.out.println(endTimer.isTimeUp());
 					if (getCurrentMap() == 4) {
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 						try {
@@ -187,10 +179,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-//						if (endTimer.isTimeUp()) {
 						screenCoordinator.setGameState(GameState.SCOREBOARD);
 //						System.exit(0);
-//						}
 					}
 					levelCompletedStateChangeStart = false;
 					currentMap += 1;

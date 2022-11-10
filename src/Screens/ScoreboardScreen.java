@@ -43,8 +43,8 @@ public class ScoreboardScreen extends Screen {
 
 	@Override
 	public void initialize() {
-		playersnameheader = new SpriteFont("Player Name", 200, 50, "Times New Roman", 25, Color.MAGENTA);
-		playertimeheader = new SpriteFont("Time Used", 450, 50, "Times New Roman", 25, Color.MAGENTA);
+		playersnameheader = new SpriteFont("Player Name", 200, 50, "Times New Roman", 25, Color.ORANGE);
+		playertimeheader = new SpriteFont("Time Taken", 450, 50, "Times New Roman", 25, Color.ORANGE);
 		backtohomescreen = new SpriteFont("Click the Space Bar to go back to Home Screen", 0, 550, "Times New Roman",
 				30, Color.BLACK);
 		keyLocker.lockKey(Key.SPACE);

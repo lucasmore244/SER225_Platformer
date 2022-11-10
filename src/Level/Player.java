@@ -16,7 +16,7 @@ import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.UFOFireball;
-import Enemies.DinosaurEnemy.DinosaurState;
+import Enemies.DinosaurEnemy.DinosaurState; 
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import EnhancedMapTiles.Mushrooms;
@@ -299,7 +299,7 @@ public abstract class Player extends GameObject {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
 				playscreen.playSE(14);
 				map.addEnemy(poop);
-				reloadTimeBossFight.setWaitTime(100);
+				reloadTimeBossFight.setWaitTime(1000);
 			}
 		}
 		// if player last frame was in air and this frame is now on ground, player

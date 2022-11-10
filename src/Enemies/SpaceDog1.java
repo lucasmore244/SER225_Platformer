@@ -55,8 +55,7 @@ public class SpaceDog1 extends Enemy {
 	protected SpaceDogState previousSpaceDogState;
 
 	public SpaceDog1(Point startLocation, Point endLocation, Direction facingDirection) {
-		super(startLocation.x, startLocation.y - 15,
-				new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100, 100), "WALK_RIGHT");
+		super(startLocation.x, startLocation.y - 15,new SpriteSheet(ImageLoader.load("NewSpaceDogSheet.png"), 100, 100), "WALK_RIGHT");
 		this.startLocation = startLocation;
 		this.endLocation = endLocation;
 		this.startFacingDirection = facingDirection;
@@ -123,95 +122,108 @@ public class SpaceDog1 extends Enemy {
 					hitTimer.setWaitTime(1000);
 				}
 			}
-		}
-		// Turns shield back on after set amount of time
-		if (shieldOn == false && shieldTimer.isTimeUp()) {
-			shieldOn = true;
-		}
-		if (spaceDogState == SpaceDogState.RED) {
-			if (facingDirection == Direction.RIGHT && shieldOn == true) {
-				currentAnimationName = "WALK_SHIELD_RIGHT_RED";
-				moveXHandleCollision(movementSpeed);
-			} else if (shieldOn == true) {
-				currentAnimationName = "WALK_SHIELD_LEFT_RED";
-				moveXHandleCollision(-movementSpeed);
-			}
-			if (facingDirection == Direction.RIGHT && shieldOn == false) {
-				currentAnimationName = "WALK_HURT_RIGHT";
-				moveXHandleCollision(movementSpeed);
-			} else if (shieldOn == false) {
-				currentAnimationName = "WALK_HURT_LEFT";
-				moveXHandleCollision(-movementSpeed);
-			}
-			if (getX1() + getWidth() >= endBound) {
-				float difference = endBound - (getX2());
-				moveXHandleCollision(-difference);
-				facingDirection = Direction.LEFT;
-			} else if (getX1() <= startBound) {
-				float difference = startBound - getX1();
-				moveXHandleCollision(difference);
-				facingDirection = Direction.RIGHT;
-			}
-			// Shoots bone after set amount of time
-			if (shootTimer.isTimeUp()) {
-				// define where bones will spawn on map (x location) relative to space dog
-				// enemy's location
-				// and define its movement speed
-				int bonesX;
-				float movementSpeed;
-				if (facingDirection == Direction.RIGHT) {
-					bonesX = Math.round(getX()) + getWidth();
-					movementSpeed = 1.5f;
-				} else {
-					bonesX = Math.round(getX());
-					movementSpeed = -1.5f;
-				}
-				// define where bones will spawn on the map (y location) relative to space dog
-				// enemy's location
-				int bonesY = Math.round(getY()) + 20;
-				// create bones enemy
-				Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);
-				// add bones enemy to the map for it to offically spawn in the level
-				map.addEnemy(bones);
-				// change space dog back to its WALK state after shooting, reset shootTimer to
-				// wait another 2 seconds before shooting again
-				spaceDogState = SpaceDogState.WALK;
-				shootTimer.setWaitTime(2000);
-			}
-		}
-		// if space dog is walking, determine which direction to walk in based on facing
-		// direction (also with shield or without shield)
-		if (spaceDogState == SpaceDogState.WALK) {
-			if (facingDirection == Direction.RIGHT && shieldOn == true) {
-				currentAnimationName = "WALK_SHIELD_RIGHT";
-				moveXHandleCollision(movementSpeed);
-			} else if (shieldOn == true) {
-				currentAnimationName = "WALK_SHIELD_LEFT";
-				moveXHandleCollision(-movementSpeed);
-			}
-			if (facingDirection == Direction.RIGHT && shieldOn == false) {
-				currentAnimationName = "WALK_RIGHT";
-				moveXHandleCollision(movementSpeed);
-			} else if (shieldOn == false) {
-				currentAnimationName = "WALK_LEFT";
-				moveXHandleCollision(-movementSpeed);
-			}
-			// if space dog reaches the start or end location, it turns around
-			// space dog may end up going a bit past the start or end location depending on
-			// movement speed
-			// this calculates the difference and pushes the enemy back a bit so it ends up
-			// right on the start or end location
-			if (getX1() + getWidth() >= endBound) {
-				float difference = endBound - (getX2());
-				moveXHandleCollision(-difference);
-				facingDirection = Direction.LEFT;
-			} else if (getX1() <= startBound) {
-				float difference = startBound - getX1();
-				moveXHandleCollision(difference);
-				facingDirection = Direction.RIGHT;
-			}
-			// if space dog is shooting, it first turns red for 1 second
-			// then the bones is actually shot out
+
+		
+        
+        //Turns shield back on after set amount of time
+        if (shieldOn == false && shieldTimer.isTimeUp()) {
+        	shieldOn = true;
+        }
+        
+        
+        if (spaceDogState == SpaceDogState.RED) {
+        	if (facingDirection == Direction.RIGHT && shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_RIGHT_RED";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_LEFT_RED";
+                moveXHandleCollision(-movementSpeed);
+            }
+            
+            if (facingDirection == Direction.RIGHT && shieldOn == false) {
+                currentAnimationName = "WALK_HURT_RIGHT";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == false) {
+                currentAnimationName = "WALK_HURT_LEFT";
+                moveXHandleCollision(-movementSpeed);
+            }
+        	
+            if (getX1() + getWidth() >= endBound) {
+                float difference = endBound - (getX2());
+                moveXHandleCollision(-difference);
+                facingDirection = Direction.LEFT;
+            } else if (getX1() <= startBound) {
+                float difference = startBound - getX1();
+                moveXHandleCollision(difference);
+                facingDirection = Direction.RIGHT;
+            }
+                                            
+            //Shoots bone after set amount of time
+            if (shootTimer.isTimeUp()) {
+
+                // define where bones will spawn on map (x location) relative to space dog enemy's location
+                // and define its movement speed
+                int bonesX;
+                float movementSpeed;
+                if (facingDirection == Direction.RIGHT) {
+                    bonesX = Math.round(getX()) + getWidth();
+                    movementSpeed = 1.5f;
+                } else {
+                    bonesX = Math.round(getX());
+                    movementSpeed = -1.5f;
+                }
+
+                // define where bones will spawn on the map (y location) relative to space dog enemy's location
+                int bonesY = Math.round(getY());
+
+                // create bones enemy
+                Bones bones = new Bones(new Point(bonesX, bonesY), movementSpeed, 2000);
+
+                // add bones enemy to the map for it to offically spawn in the level
+                map.addEnemy(bones);
+
+                // change space dog back to its WALK state after shooting, reset shootTimer to wait another 2 seconds before shooting again
+                spaceDogState = SpaceDogState.WALK;
+                shootTimer.setWaitTime(2000);
+            }
+        }
+
+        // if space dog is walking, determine which direction to walk in based on facing direction (also with shield or without shield)
+        if (spaceDogState == SpaceDogState.WALK) {
+            if (facingDirection == Direction.RIGHT && shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_RIGHT";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == true) {
+                currentAnimationName = "WALK_SHIELD_LEFT";
+                moveXHandleCollision(-movementSpeed);
+            }
+            
+            if (facingDirection == Direction.RIGHT && shieldOn == false) {
+                currentAnimationName = "WALK_RIGHT";
+                moveXHandleCollision(movementSpeed);
+            } else if (shieldOn == false) {
+                currentAnimationName = "WALK_LEFT";
+                moveXHandleCollision(-movementSpeed);
+            }
+
+            // if space dog reaches the start or end location, it turns around
+            // space dog may end up going a bit past the start or end location depending on movement speed
+            // this calculates the difference and pushes the enemy back a bit so it ends up right on the start or end location
+            if (getX1() + getWidth() >= endBound) {
+                float difference = endBound - (getX2());
+                moveXHandleCollision(-difference);
+                facingDirection = Direction.LEFT;
+            } else if (getX1() <= startBound) {
+                float difference = startBound - getX1();
+                moveXHandleCollision(difference);
+                facingDirection = Direction.RIGHT;
+            }
+
+            
+            
+            // if space dog is shooting, it first turns red for 1 second
+            // then the bones is actually shot out
+
 //            if (previousSpaceDogState == SpaceDogState.WALK) {
 //                shootTimer.setWaitTime(1000);
 //                if (shieldOn == true) {
@@ -252,7 +264,8 @@ public class SpaceDog1 extends Enemy {
 		if (dogLives <= 0) {
 			this.mapEntityStatus = MapEntityStatus.REMOVED;
 		}
-		super.update(player);
+		
+		}super.update(player);
 	}
 
 	@Override

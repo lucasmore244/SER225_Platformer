@@ -271,7 +271,7 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-//			if (this instanceof Cat) {
+//			if (this instanceof Bones) {
 //				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 //			}
 			
