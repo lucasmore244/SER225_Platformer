@@ -1,6 +1,12 @@
 package Screens;
 
 import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -52,7 +58,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected Player player;
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
-	protected Stopwatch scoreboardtime = new Stopwatch();
+	protected Stopwatch endTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
 	protected LevelLoseScreen levelLoseScreen;
 	protected boolean levelCompletedStateChangeStart;
@@ -61,10 +67,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected TimeDisplay timedisplay;
 	protected String livescount;
 	protected SpriteFont level1;
-	protected SpriteFont coins;
+	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-
 	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
@@ -78,9 +83,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	public void initialize() {
 		// define/setup map
-		
-		
-//		stopMusic();
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
@@ -119,24 +121,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	}
 
 	public void update() {
-		
-		//System.out.println(SpaceDog1.getDogStatus());
-		if (SpaceDog1.getDogStatus() <= 0) {
-			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-			SpaceDog1.setDogStatus(3);
-
-		}
 		// based on screen state, perform specific actions
 		switch (playLevelScreenState) {
 		// if level is "running" update player and map to keep game logic for the
 		// platformer level going
 		case RUNNING:
+//			endTimer.setWaitTime(1000);
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
-			coincount = "COINS: " + map.getCoinCount();
+			if (currentMap != 4) {
+				coincount = "COINS: " + map.getCoinCount();
+			} else {
+				coincount = "KITTENS: " + map.getCoinCount();
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
+						Color.RED);
+			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
-			timedisplay = new TimeDisplay("TIME TAKEN:" + timer.getTime(), 450, 50, "Comic Sans", 20, Color.red);
+			timedisplay = new TimeDisplay("TIME TAKEN:" + getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
 			if (map.getCoinCount() >= 3 && player.getPlayerhealth() < 5) {
 				player.setPlayerHealth(player.getPlayerhealth() + 1);
@@ -150,30 +152,46 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
+			if (SpaceDog1.getDogStatus() <= 0) {
+//				try {
+//					Thread.sleep(500);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+				onLevelCompleted();
+				SpaceDog1.setDogStatus(3);
+			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
-			if (levelCompletedStateChangeStart) {
-				screenTimer.setWaitTime(2500);
-				scoreboardtime.setWaitTime(5000);
-				levelCompletedStateChangeStart = false;
-				currentMap += 1;
-				firstGo = true;
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				initialize();
-			} else {
-//				levelClearedScreen.update();
-				if (screenTimer.isTimeUp()) {
-					goBackToMenu();
+			if (currentMap <= 4) {
+				if (levelCompletedStateChangeStart) {
+					screenTimer.setWaitTime(2500);
+					if (getCurrentMap() == 4) {
+						try {
+							createTextFile();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						screenCoordinator.setGameState(GameState.SCOREBOARD);
+//						System.exit(0);
+					}
+					levelCompletedStateChangeStart = false;
+					currentMap += 1;
+					firstGo = true;
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					initialize();
+				} else {
+					levelClearedScreen.update();
+					if (screenTimer.isTimeUp()) {
+						goBackToMenu();
+					}
 				}
 			}
-//			if (scoreboardtime.isTimeUp() && getCurrentMap() == 4) {
-//				screenCoordinator.setGameState(GameState.SCOREBOARD);
-//			}
 			break;
 		// wait on level lose screen to make a decision (either resets level or sends
 		// player back to main menu)
@@ -193,6 +211,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			timedisplay.draw(graphicsHandler);
 			level1.draw(graphicsHandler);
 			coins.draw(graphicsHandler);
+			doglives.draw(graphicsHandler);
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);
@@ -213,7 +232,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
 	@Override
 	public void onLevelCompleted() {
-		scoreboardtime.setWaitTime(100);
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
@@ -245,6 +263,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		return currentMap;
 	}
 
+	public String getTime() {
+		return timer.getTime();
+	}
+
 	// This enum represents the different states this screen can be in
 	private enum PlayLevelScreenState {
 		RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
@@ -273,5 +295,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void playSE(int i) {
 		sound.setFile(i);
 		sound.play();
+	}
+
+	public void createTextFile() throws IOException {
+		ArrayList<String> values = new ArrayList<String>();
+		String name = JOptionPane.showInputDialog(null, "Please Enter your name to record your time");
+		FileWriter fWriter = new FileWriter("time.txt", true);
+		if (name == null) {
+			JOptionPane.getRootFrame().dispose();
+		} else {
+			fWriter.write(name);
+			fWriter.write(" ");
+			fWriter.write(this.getTime());
+			fWriter.write("\n");
+		}
+		fWriter.close();
 	}
 }

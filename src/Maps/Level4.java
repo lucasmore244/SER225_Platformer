@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import Enemies.DinosaurEnemy;
 import Enemies.SpaceDog;
 import Enemies.SpaceDog1;
+import Engine.ImageLoader;
+import EnhancedMapTiles.HorizontalMovingPlatform;
+import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
+import Level.TileType;
 import Tilesets.SpaceTileset;
 import Tilesets.SpaceTileset2;
 import Utils.Direction;
@@ -19,7 +23,7 @@ public class Level4 extends Map{
 	
 	public Level4() {
         super("level4.txt", new SpaceTileset2());
-        this.playerStartPosition = getMapTile(9, 5).getLocation(); 
+        this.playerStartPosition = getMapTile(9, 30).getLocation(); 
     }
     
     @Override
@@ -32,7 +36,15 @@ public class Level4 extends Map{
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-       
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
+				getMapTile(6, 16).getLocation(), getMapTile(12, 16).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
+				getMapTile(9, 10).getLocation(), getMapTile(12, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
+				getMapTile(9, 6).getLocation(), getMapTile(12, 6).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
 
 
         return enhancedMapTiles; 

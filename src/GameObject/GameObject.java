@@ -6,6 +6,7 @@ import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
 import Level.MapEntity;
 import Level.Player;
+import Players.Cat;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
