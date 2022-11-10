@@ -126,17 +126,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// if level is "running" update player and map to keep game logic for the
 		// platformer level going
 		case RUNNING:
-//			endTimer.setWaitTime(1000);
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
 			if (currentMap != 4) {
 				coincount = "COINS: " + map.getCoinCount();
+				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
 				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
 						Color.RED);
 			}
-			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
+			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.RED);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
 			timedisplay = new TimeDisplay("TIME TAKEN:" + getTime(), 450, 50, "Comic Sans", 20, Color.red);
 			map.update(player);
@@ -152,14 +152,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-			if (SpaceDog1.getDogStatus() <= 0) {
-//				try {
-//					Thread.sleep(500);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-				onLevelCompleted();
-				SpaceDog1.setDogStatus(3);
+				if (SpaceDog1.getDogStatus() <= 0) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					onLevelCompleted();
+					SpaceDog1.setDogStatus(3);
 			}
 			break;
 		// if level has been completed, bring up level cleared screen
@@ -168,6 +169,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
 						try {
 							createTextFile();
 						} catch (IOException e) {
@@ -242,6 +248,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
 			levelClearedScreen.update();
+//			playSE(2);
 		}
 	}
 
