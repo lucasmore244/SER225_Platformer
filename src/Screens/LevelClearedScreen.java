@@ -31,7 +31,7 @@ public class LevelClearedScreen extends Screen {
 	@Override
 	public void update() {
 		if (playlevelscreen.getCurrentMap() == 4) {
-			winMessage = new SpriteFont("YOU'VE REACHED THE END OF THE GAME", 170, 200, "Times New Roman", 25,
+			winMessage = new SpriteFont("GAME WON!", 320, 200, "Times New Roman", 25,
 					Color.white);
 			winMessage.setFontStyle(3);
 			winMessage2 = new SpriteFont("The Scoreboard Screen would load in a sec", 0, 560, "Times New Roman", 25,

@@ -1,5 +1,10 @@
 Momore 00:36
 q 00:43
 q 00:34
+<<<<<<< HEAD
 Yay 00:25
 cool 01:01
+=======
+julia 01:30
+s 00:58
+>>>>>>> daaac691ffbd2b9ae521bffd56b30161d3052c16
