@@ -70,7 +70,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
+	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -118,6 +118,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
+//		endTimer.setWaitTime(10000);
 	}
 
 	public void update() {
@@ -126,11 +127,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// if level is "running" update player and map to keep game logic for the
 		// platformer level going
 		case RUNNING:
-//			endTimer.setWaitTime(1000);
 			player.update();
 			livescount = "LIVES: " + player.getPlayerhealth();
 			if (currentMap != 4) {
 				coincount = "COINS: " + map.getCoinCount();
+				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
 				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman",
@@ -152,32 +153,42 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-			if (SpaceDog1.getDogStatus() <= 0) {
-//				try {
-//					Thread.sleep(500);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
+	//		System.out.println(endTimer.isTimeUp());
+//			if (endTimer.isTimeUp()) {
+				if (SpaceDog1.getDogStatus() <= 0) {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					onLevelCompleted();
+					SpaceDog1.setDogStatus(3);
 //				}
-				onLevelCompleted();
-				SpaceDog1.setDogStatus(3);
+//					endTimer.setWaitTime(100000);
 			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (currentMap <= 4) {
-//				endTimer.setWaitTime(1);
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
-					
+//					endTimer.setWaitTime(100);
+//					System.out.println(endTimer.isTimeUp());
 					if (getCurrentMap() == 4) {
-//						if(endTimer.isTimeUp()) {
+						try {
+							Thread.sleep(2000);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						try {
 							createTextFile();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 //						if (endTimer.isTimeUp()) {
-							screenCoordinator.setGameState(GameState.SCOREBOARD);
+						screenCoordinator.setGameState(GameState.SCOREBOARD);
 //						System.exit(0);
 //						}
 					}
