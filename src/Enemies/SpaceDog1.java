@@ -82,7 +82,7 @@ public class SpaceDog1 extends Enemy {
 
 	@Override
 	public void update(Player player) {
-		float startBound = startLocation.x;
+		float startBound = startLocation.x; 
 		float endBound = endLocation.x;
 		// if shoot timer is up and space dog is not currently shooting, set its state
 		// to SHOOT
