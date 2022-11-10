@@ -70,7 +70,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
+	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -133,8 +133,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				coincount = "COINS: " + map.getCoinCount();
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
-				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman",
-						18, Color.RED);
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
+						Color.RED);
 			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.red);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
@@ -165,21 +165,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
 			if (currentMap <= 4) {
-//				endTimer.setWaitTime(1);
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
-					
 					if (getCurrentMap() == 4) {
-//						if(endTimer.isTimeUp()) {
 						try {
 							createTextFile();
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-//						if (endTimer.isTimeUp()) {
-							screenCoordinator.setGameState(GameState.SCOREBOARD);
+						screenCoordinator.setGameState(GameState.SCOREBOARD);
 //						System.exit(0);
-//						}
 					}
 					levelCompletedStateChangeStart = false;
 					currentMap += 1;

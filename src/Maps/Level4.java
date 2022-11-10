@@ -36,16 +36,41 @@ public class Level4 extends Map{
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
-				getMapTile(6, 16).getLocation(), getMapTile(12, 16).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(3, 29).getLocation(), getMapTile(7, 29).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
-        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
-				getMapTile(9, 10).getLocation(), getMapTile(12, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(10, 30).getLocation(), getMapTile(13, 30).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
-        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreenPlatform.png"),
-				getMapTile(9, 6).getLocation(), getMapTile(12, 6).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(9, 27).getLocation(), getMapTile(13, 27).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
 
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(3, 24).getLocation(), getMapTile(12, 24).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(9, 19).getLocation(), getMapTile(15, 19).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(4, 19).getLocation(), getMapTile(5, 19).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(9, 15).getLocation(), getMapTile(14, 15).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(3, 12).getLocation(), getMapTile(14, 12).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
+				getMapTile(15, 10).getLocation(), getMapTile(17, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
+				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
 
         return enhancedMapTiles; 
     }
