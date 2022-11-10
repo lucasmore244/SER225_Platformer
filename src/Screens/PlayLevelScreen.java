@@ -70,7 +70,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 4;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -245,6 +245,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
 			levelClearedScreen.update();
+//			playSE(2);
 		}
 	}
 

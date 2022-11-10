@@ -78,6 +78,7 @@ public class Bones extends Enemy {
                             .withScale((float).3)
                             .withBounds(10, 10, 60,20)
                             .build()
+
             });
         }};
     }

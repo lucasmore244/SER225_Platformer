@@ -11,6 +11,7 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
+import Enemies.SpaceDog1;
 import Enemies.Fireball;
 import Enemies.Laser;
 import Enemies.RatEnemy;
@@ -71,6 +72,7 @@ public abstract class Player extends GameObject {
 	protected long mushroomTime = 0;
 	protected int damageFlag = 0;
 	protected long damageTime = 0;
+	
 	// classes that listen to player events can be added to this list
 	protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 	// define keys
@@ -157,6 +159,7 @@ public abstract class Player extends GameObject {
 			}
 		}
 	}
+
 
 
 	/*
