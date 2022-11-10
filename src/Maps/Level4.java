@@ -6,7 +6,12 @@ import Enemies.DinosaurEnemy;
 import Enemies.SpaceDog;
 import Enemies.SpaceDog1;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Coin;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.Kitten1;
+import EnhancedMapTiles.Kitten2;
+import EnhancedMapTiles.Kitten3;
+import EnhancedMapTiles.Kitten4;
 import GameObject.Rectangle;
 import Level.Enemy;
 import Level.EnhancedMapTile;
@@ -71,6 +76,11 @@ public class Level4 extends Map{
         enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
 				getMapTile(15, 10).getLocation(), getMapTile(17, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+        
+        enhancedMapTiles.add(new Kitten1(getMapTile(2, 20).getLocation(), this));
+        enhancedMapTiles.add(new Kitten2(getMapTile(7, 16).getLocation(), this));
+        enhancedMapTiles.add(new Kitten3(getMapTile(17, 12).getLocation(), this));
+        enhancedMapTiles.add(new Kitten4(getMapTile(3, 3).getLocation(), this));
 
         return enhancedMapTiles; 
     }
