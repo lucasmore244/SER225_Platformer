@@ -332,8 +332,8 @@ public abstract class Player extends GameObject {
         // if player last frame was in air and this frame is now on ground, player enters STANDING state
         if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
-        }
-    }
+        } 
+    } 
 
     protected void playerLevel2() {
     	//sSystem.out.println("Jump:" + this.gravity);
