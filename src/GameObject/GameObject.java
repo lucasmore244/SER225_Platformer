@@ -1,6 +1,7 @@
 package GameObject;
 
 import Engine.GraphicsHandler;
+import EnhancedMapTiles.Kitten1;
 import Level.Map;
 import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
@@ -271,7 +272,7 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-//			if (this instanceof Bones) {
+//			if (this instanceof Kitten1) {
 //				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 //			}
 			

@@ -79,7 +79,7 @@ public class Level4 extends Map{
         
         enhancedMapTiles.add(new Kitten1(getMapTile(2, 20).getLocation(), this));
         enhancedMapTiles.add(new Kitten2(getMapTile(7, 16).getLocation(), this));
-        enhancedMapTiles.add(new Kitten3(getMapTile(17, 12).getLocation(), this));
+        enhancedMapTiles.add(new Kitten3(getMapTile(15, 26).getLocation(), this));
         enhancedMapTiles.add(new Kitten4(getMapTile(3, 3).getLocation(), this));
 
         return enhancedMapTiles; 
