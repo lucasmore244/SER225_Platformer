@@ -19,6 +19,7 @@ public class ScreenCoordinator extends Screen {
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
 	protected GameState gameState;
 	protected GameState previousGameState;
+	protected String gameTime;
 
 	public GameState getGameState() {
 		return gameState;

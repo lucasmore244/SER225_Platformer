@@ -5,12 +5,17 @@ import Level.Map;
 import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
 import Level.MapEntity;
+import Level.Player;
+import Players.Cat;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
 
 import java.awt.*;
 import java.util.HashMap;
+
+import Enemies.Bones;
+import Enemies.SpaceDog1;
 
 /*
 	The all important GameObject class is what every "entity" used in this game should be based off of
@@ -266,11 +271,10 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-			/*
-			if (this instanceof Player) {
-				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-			}
-			*/
+//			if (this instanceof Bones) {
+//				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+//			}
+			
 		} else {
 			super.draw(graphicsHandler);
 		}

@@ -17,7 +17,7 @@ import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.UFOFireball;
-import Enemies.DinosaurEnemy.DinosaurState;
+import Enemies.DinosaurEnemy.DinosaurState; 
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import EnhancedMapTiles.Mushrooms;
@@ -302,7 +302,7 @@ public abstract class Player extends GameObject {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
 				playscreen.playSE(14);
 				map.addEnemy(poop);
-				reloadTimeBossFight.setWaitTime(100);
+				reloadTimeBossFight.setWaitTime(1000);
 			}
 		}
 		// if player last frame was in air and this frame is now on ground, player
@@ -311,11 +311,11 @@ public abstract class Player extends GameObject {
 			playerState = PlayerState.STANDING;
 		}
             // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
-            }
+//            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+//                moveAmountX -= walkSpeed;
+//            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+//                moveAmountX += walkSpeed;
+//            }
 
             // if player is falling, increases momentum as player falls so it falls faster over time
             if (moveAmountY > 0) {
@@ -479,6 +479,11 @@ public abstract class Player extends GameObject {
 			int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 			int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 			MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+			if(currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+				playerHealth = 0;
+				levelState = LevelState.PLAYER_DEAD;
+			}
+			
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
 				Date date = new Date();

@@ -32,6 +32,7 @@ public class TestMap extends Map {
 	private int coinCount = 0;
 	private Player player;
 	private Stopwatch spawnblock = new Stopwatch();
+	
 
 	public TestMap() {
 		super("test_map.txt", new CommonTileset());

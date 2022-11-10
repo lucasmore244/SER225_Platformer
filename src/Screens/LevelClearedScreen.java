@@ -14,7 +14,6 @@ import java.util.Map;
 public class LevelClearedScreen extends Screen {
 	protected PlayLevelScreen playlevelscreen;
 	protected SpriteFont winMessage;
-	protected Stopwatch stopwatch = new Stopwatch();
 	protected SpriteFont winMessage2;
 
 	public LevelClearedScreen(PlayLevelScreen playLevelScreen) {
@@ -26,18 +25,17 @@ public class LevelClearedScreen extends Screen {
 	public void initialize() {
 		winMessage = new SpriteFont("Level " + playlevelscreen.getCurrentMap() + " Cleared", 320, 270, "Comic Sans", 30,
 				Color.white);
-		stopwatch.setWaitTime(1000);
+		winMessage2= new SpriteFont(" ", 0, 0, null, 0, null);
 	}
 
 	@Override
 	public void update() {
 		if (playlevelscreen.getCurrentMap() == 4) {
-			winMessage = new SpriteFont("YOU'VE REACHED THE END OF THE GAME", 100, 200, "Times New Roman", 25,
+			winMessage = new SpriteFont("GAME WON!", 320, 200, "Times New Roman", 25,
 					Color.white);
-			if (stopwatch.isTimeUp()) {
-				winMessage = new SpriteFont("The Scoreboard Screen would load in a sec", 0, 560, "Times New Roman", 25,
-						Color.BLUE);
-			}
+			winMessage.setFontStyle(3);
+			winMessage2 = new SpriteFont("The Scoreboard Screen would load in a sec", 0, 560, "Times New Roman", 25,
+				Color.BLUE);
 		}
 	}
 
@@ -46,5 +44,6 @@ public class LevelClearedScreen extends Screen {
 		graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(),
 				Color.black);
 		winMessage.draw(graphicsHandler);
+		winMessage2.draw(graphicsHandler);
 	}
 }
