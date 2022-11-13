@@ -16,15 +16,16 @@ import java.util.HashMap;
 
 // This class is for the walrus NPC
 public class Walrus extends NPC {
-
-    public Walrus(Point location) {
+	
+	private String levelMessage = "he"; 
+	private int currentMap = 1;
+	
+    public Walrus(Point location, int currentMap) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
         this.talkedToTime = 5000;
-    }
-
-    @Override
-    protected SpriteFont createMessage() {
-        return new SpriteFont("Hello!", getX(), getY() - 10, "Arial", 12, Color.BLACK);
+        if (currentMap == 1) {
+        	levelMessage = "Hello!";
+        }
     }
 
     public void update(Player player) {
@@ -34,11 +35,16 @@ public class Walrus extends NPC {
         } else {
             currentAnimationName = "TAIL_DOWN";
         }
-
+        
         // set message box relative to walrus's current calibrated location
         message.setLocation(getCalibratedXLocation() + 2, getCalibratedYLocation() - 8);
 
         super.update(player);
+    }
+    
+    @Override
+    protected SpriteFont createMessage() {
+    		return new SpriteFont("Hello!", getX(), getY() - 10, "Arial", 12, Color.BLACK);
     }
 
     @Override
@@ -68,7 +74,6 @@ public class Walrus extends NPC {
     public void drawMessage(GraphicsHandler graphicsHandler) {
         // draws a box with a border (think like a speech box)
         graphicsHandler.drawFilledRectangleWithBorder(Math.round(getCalibratedXLocation() - 2), Math.round(getCalibratedYLocation() - 24), 40, 25, Color.WHITE, Color.BLACK, 2);
-
         // draws message "Hello" in the above speech box
         message.draw(graphicsHandler);
     }

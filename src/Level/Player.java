@@ -676,6 +676,10 @@ public abstract class Player extends GameObject {
     public PlayerState getPlayerState() {
         return playerState;
     }
+    
+    public int getCurrentMap() {
+    	return currentMap;
+    }
 
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState;
