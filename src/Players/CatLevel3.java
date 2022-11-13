@@ -38,7 +38,7 @@ public class CatLevel3 extends Player {
 		jumpDegrade = -.5f;
 		walkSpeed = 2.3f;
 		momentumYIncrease = -.15f;
-		playerHealth = 99;
+		playerHealth = 5;
 	}
 
 	public void update() {

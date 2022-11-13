@@ -26,7 +26,7 @@ public class SpaceshipLevel2 extends Player {
 		jumpDegrade = .5f;
 		walkSpeed = 8f;
 		momentumYIncrease = .5f;
-		playerHealth = 99;
+		playerHealth = 5;
 	}
 
 
