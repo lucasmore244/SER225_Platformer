@@ -66,6 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
+	protected int lives;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;
@@ -99,14 +100,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if (currentMap == 3) {
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);
+			player.setPlayerHealth(lives);
+			System.out.println("ye");
+		} else if (currentMap == 3) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			player.setPlayerHealth(lives);
 		} else if (currentMap == 4) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(4);
+			player.setPlayerHealth(lives);
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);
@@ -162,6 +167,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 					onLevelCompleted();
 					SpaceDog1.setDogStatus(3);
 			}
+			lives = player.getPlayerhealth();
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
@@ -203,6 +209,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// player back to main menu)
 		case LEVEL_LOSE:
 			levelLoseScreen.update();
+			lives = 5;
 			break;
 		}
 	}
