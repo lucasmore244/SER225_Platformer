@@ -6,6 +6,7 @@ import Enemies.Asteriods;
 import Level.Enemy;
 import Enemies.DinosaurEnemy;
 import Enemies.RatEnemy;
+import Enemies.ShootingStar;
 import Enemies.UFO;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Castle;
@@ -34,6 +35,10 @@ public class Level2 extends Map{
 	    public ArrayList<Enemy> loadEnemies() {
 		 Random random = new Random();
 	        ArrayList<Enemy> enemies = new ArrayList<>();
+	    	enemies.add(new ShootingStar(getMapTile(7,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new ShootingStar(getMapTile(15,random.nextInt(9)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new ShootingStar(getMapTile(11,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new ShootingStar(getMapTile(3,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
 	       	enemies.add(new Asteriods(getMapTile(11,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
 	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(4)).getLocation().addY(20), Direction.LEFT, this));
 	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(6)).getLocation().addY(20), Direction.LEFT, this));

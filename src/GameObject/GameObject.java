@@ -16,6 +16,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 import Enemies.Bones;
+import Enemies.ShootingStar;
 import Enemies.SpaceDog1;
 
 /*
@@ -272,7 +273,7 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-//			if (this instanceof Kitten1) {
+//			if (this instanceof ShootingStar) {
 //				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 //			}
 			
