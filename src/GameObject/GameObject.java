@@ -1,13 +1,17 @@
 package GameObject;
 
 import Engine.GraphicsHandler;
+import EnhancedMapTiles.Castle;
 import EnhancedMapTiles.Kitten1;
+import EnhancedMapTiles.Spaceship;
 import Level.Map;
 import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
 import Level.MapEntity;
 import Level.Player;
 import Players.Cat;
+import Players.CatLevel3;
+import Players.SpaceshipLevel2;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
@@ -15,8 +19,10 @@ import Utils.MathUtils;
 import java.awt.*;
 import java.util.HashMap;
 
+import Enemies.Asteriods;
 import Enemies.Bones;
 import Enemies.CatProjectile;
+import Enemies.Fireball;
 import Enemies.SpaceDog1;
 
 /*
@@ -273,7 +279,7 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-			if (this instanceof SpaceDog1) {
+			if (this instanceof SpaceshipLevel2) {
 				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 			}
 			

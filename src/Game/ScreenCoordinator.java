@@ -5,6 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.BeginningScreen;
 import Screens.CreditsScreen;
+import Screens.InstructionScreen;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
 import Screens.ScoreboardScreen;
@@ -60,6 +61,9 @@ public class ScreenCoordinator extends Screen {
 					break;
 				case SCOREBOARD:
 					currentScreen = new ScoreboardScreen(this);
+					break;
+				case INSTRUCTION:
+					currentScreen = new InstructionScreen(this);
 				}
 				currentScreen.initialize();
 			}

@@ -21,12 +21,16 @@ import Level.EnhancedMapTile;
 import Level.Map;
 import Level.TileType;
 import Tilesets.SpaceTileset;
+import Tilesets.SpaceTileset2;
 import Utils.Direction;
+import Utils.Stopwatch;
 
 public class Level2 extends Map{
+	Stopwatch asteroidTimer = new Stopwatch();
 	public Level2() {
-        super("level2.txt", new SpaceTileset());
+        super("level2.txt", new SpaceTileset2());
         this.playerStartPosition = getMapTile(1, 2).getLocation();
+        asteroidTimer.setWaitTime(30000);
         
     }
 
@@ -34,12 +38,16 @@ public class Level2 extends Map{
 	    public ArrayList<Enemy> loadEnemies() {
 		 Random random = new Random();
 	        ArrayList<Enemy> enemies = new ArrayList<>();
-	       	enemies.add(new Asteriods(getMapTile(11,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(4)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(6)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(9)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(11)).getLocation().addY(20), Direction.LEFT, this));
+	        if (asteroidTimer.isTimeUp()) {
+	        	
+	        }else {
+	       	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        }
 	    	
 	        return enemies;
 	    }

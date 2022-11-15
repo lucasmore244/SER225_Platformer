@@ -17,7 +17,7 @@ public class MenuScreen extends Screen {
     protected int menuItemSelected = -1;
     protected SpriteFont playGame;
     protected SpriteFont credits;
-    protected SpriteFont scoreboard;
+    protected SpriteFont scoreboard, instruction;
     protected Map background;
     protected Stopwatch keyTimer = new Stopwatch();
     protected int pointerLocationX, pointerLocationY;
@@ -29,15 +29,18 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY GAME", 200, 150, "Comic Sans", 30, new Color(49, 207, 240));
+        playGame = new SpriteFont("PLAY GAME", 200, 50, "Comic Sans", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 200, 250, "Comic Sans", 30, new Color(49, 207, 240));
+        credits = new SpriteFont("CREDITS", 200, 150, "Comic Sans", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        scoreboard = new SpriteFont("SCOREBOARD", 200, 350, "Comic Sans", 30, new Color(49, 207, 240));
+        scoreboard = new SpriteFont("SCOREBOARD", 200, 250, "Comic Sans", 30, new Color(49, 207, 240));
         scoreboard.setOutlineColor(Color.black);
         scoreboard.setOutlineThickness(3);
+        instruction = new SpriteFont("INSTRUCTIONS", 200, 350, "Comic Sans", 30, new Color(49, 207, 240));
+        instruction.setOutlineColor(Color.black);
+        instruction.setOutlineThickness(3);
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         keyTimer.setWaitTime(200);
@@ -59,10 +62,10 @@ public class MenuScreen extends Screen {
        } 
         
         // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 2) {
+        if (currentMenuItemHovered > 3) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
-            currentMenuItemHovered = 2;
+            currentMenuItemHovered = 3;
         } 
 
 
@@ -71,22 +74,34 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
             scoreboard.setColor(Color.RED);
+            instruction.setColor(Color.GREEN);
             pointerLocationX = 170;
-            pointerLocationY = 130;
+            pointerLocationY = 30;
         } else if (currentMenuItemHovered == 1) {
-            playGame.setColor(Color.RED);
+            playGame.setColor(Color.GREEN);
             credits.setColor(new Color(255,215,0));
             scoreboard.setColor(new Color(49, 207, 240));
+            instruction.setColor(Color.RED);
             pointerLocationX = 170;
-            pointerLocationY = 230;
+            pointerLocationY = 130;
         } 
         else if(currentMenuItemHovered == 2) {
+        	playGame.setColor(Color.RED);
+            credits.setColor(Color.GREEN);
+            scoreboard.setColor(new Color(255,215,0));
+            instruction.setColor(new Color(49, 207, 240));
+            pointerLocationX = 170;
+            pointerLocationY = 230;
+        }
+        else if(currentMenuItemHovered == 3) {
         	playGame.setColor(new Color(49, 207, 240));
-            credits.setColor(new Color(255,215,0));
-            scoreboard.setColor(Color.RED);
+            credits.setColor(Color.RED);
+            scoreboard.setColor(Color.GREEN);
+            instruction.setColor(new Color(255,215,0));
             pointerLocationX = 170;
             pointerLocationY = 330;
         }
+        
 
         // if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
         if (Keyboard.isKeyUp(Key.SPACE)) {
@@ -98,8 +113,11 @@ public class MenuScreen extends Screen {
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
-            } else {
+            } else if (menuItemSelected == 2){
             	screenCoordinator.setGameState(GameState.SCOREBOARD);
+            }
+            else{
+            	screenCoordinator.setGameState(GameState.INSTRUCTION);
             }
         }
     }
@@ -109,6 +127,7 @@ public class MenuScreen extends Screen {
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         scoreboard.draw(graphicsHandler);
+        instruction.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 
