@@ -37,7 +37,6 @@ public class SpaceTileset2 extends Tileset{
         MapTileBuilder skyTile = new MapTileBuilder(skyFrame);
 
         mapTiles.add(skyTile);
-
         return mapTiles;
     }
 }

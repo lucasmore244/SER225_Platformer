@@ -43,6 +43,7 @@ public class Asteriods extends Enemy {
 		this.startFacingDirection = facingDirection;
 		this.map = map;
 		isRespawnable = true;
+		gameTime.setWaitTime(3000);
 		this.initialize();
 	}
 
@@ -58,7 +59,7 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
-		gameTime.setWaitTime(3000);
+		
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));
 		if (bool == true) {
 			moveAmountY = -moveAmountY;
@@ -71,6 +72,9 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
+		if (gameTime.isTimeUp()) {
+			mapEntityStatus = MapEntityStatus.REMOVED;
+		}
 		float moveAmountX = 0;
 		
 		// if on air, walk forward based on facing direction
