@@ -11,6 +11,7 @@ import Level.TileType;
 import Players.SpaceshipLevel2;
 import Utils.Point;
 import Utils.Stopwatch;
+import Maps.Level2;
 
 import java.util.HashMap;
 
@@ -21,7 +22,7 @@ public class EndLevel2Block extends EnhancedMapTile {
 
 	public EndLevel2Block(Point location) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("SpaceTileset.png"), 16, 16), TileType.PASSABLE);
-		levelTimer.setWaitTime(30000);
+		levelTimer.setWaitTime(5000);
 	}
 
 	@Override

@@ -26,29 +26,21 @@ import Utils.Direction;
 import Utils.Stopwatch;
 
 public class Level2 extends Map{
-	Stopwatch asteroidTimer = new Stopwatch();
 	public Level2() {
         super("level2.txt", new SpaceTileset2());
         this.playerStartPosition = getMapTile(1, 2).getLocation();
-        asteroidTimer.setWaitTime(30000);
-        
     }
 
 	 @Override
 	    public ArrayList<Enemy> loadEnemies() {
 		 Random random = new Random();
 	        ArrayList<Enemy> enemies = new ArrayList<>();
-	        if (asteroidTimer.isTimeUp()) {
-	        	
-	        }else {
-	       	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	    	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
-	        }
-	    	
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
+	        	enemies.add(new Asteriods(getMapTile(11,random.nextInt(13)).getLocation().addY(20), Direction.LEFT, this));
 	        return enemies;
 	    }
 

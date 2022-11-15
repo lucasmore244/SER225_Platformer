@@ -157,8 +157,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-				if (SpaceDog1.getDogStatus() <= 0) {
+				if (SpaceDog1.getDogStatus() <= 0) {			
 					try {
+//						stopMusic();
 						Thread.sleep(500);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
@@ -175,6 +176,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {
+//						stopMusic();
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -254,9 +256,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			playSE(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
-			stopMusic();
+//			stopMusic();
 			levelClearedScreen.update();
-//			playSE(2);
+			playSE(2);
 		}
 	}
 

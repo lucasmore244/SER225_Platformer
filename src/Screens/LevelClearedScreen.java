@@ -15,7 +15,8 @@ public class LevelClearedScreen extends Screen {
 	protected PlayLevelScreen playlevelscreen;
 	protected SpriteFont winMessage;
 	protected SpriteFont winMessage2;
-
+	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
+	
 	public LevelClearedScreen(PlayLevelScreen playLevelScreen) {
 		this.playlevelscreen = playLevelScreen;
 		initialize();
@@ -31,6 +32,7 @@ public class LevelClearedScreen extends Screen {
 	@Override
 	public void update() {
 		if (playlevelscreen.getCurrentMap() == 4) {
+//			playscreen.stopMusic();
 			winMessage = new SpriteFont("GAME WON!", 320, 200, "Times New Roman", 25,
 					Color.white);
 			winMessage.setFontStyle(3);
