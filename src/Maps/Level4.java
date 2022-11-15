@@ -18,6 +18,7 @@ import Level.EnhancedMapTile;
 import Level.Map;
 import Level.NPC;
 import Level.TileType;
+import Screens.PlayLevelScreen;
 import Tilesets.SpaceTileset;
 import Tilesets.SpaceTileset2;
 import Utils.Direction;
@@ -25,17 +26,25 @@ import Utils.Point;
 
 public class Level4 extends Map{
 	private int coinCount = 0;
+	protected Map map;
 	
 	public Level4() {
         super("level4.txt", new SpaceTileset2());
         this.playerStartPosition = getMapTile(9, 30).getLocation(); 
+//     this.playerStartPosition = getMapTile(9, 4).getLocation(); 
     }
     
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+//        System.out.println(map.getCoinCount());
+//        System.out.println(this.getCoinCount());
         enemies.add(new SpaceDog1(getMapTile(7, 6).getLocation(), getMapTile(13, 6).getLocation(), Direction.RIGHT));
         return enemies;
+        
+        
+        
+       
     }
 
     @Override
@@ -80,7 +89,7 @@ public class Level4 extends Map{
         enhancedMapTiles.add(new Kitten1(getMapTile(2, 20).getLocation(), this));
         enhancedMapTiles.add(new Kitten2(getMapTile(7, 16).getLocation(), this));
         enhancedMapTiles.add(new Kitten3(getMapTile(15, 26).getLocation(), this));
-        enhancedMapTiles.add(new Kitten4(getMapTile(3, 3).getLocation(), this));
+        enhancedMapTiles.add(new Kitten4(getMapTile(2, 9).getLocation(), this));
 
         return enhancedMapTiles; 
     }
