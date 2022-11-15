@@ -71,11 +71,6 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
-		if (gameTime.isTimeUp()) {
-			mapEntityStatus = MapEntityStatus.REMOVED;
-			System.out.println("Running");
-		}
-		
 		float moveAmountX = 0;
 		
 		// if on air, walk forward based on facing direction
@@ -116,7 +111,6 @@ public class Asteriods extends Enemy {
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
-		
 	}
 
 	@Override

@@ -71,7 +71,7 @@ public class SpaceDog1 extends Enemy {
 		if (facingDirection == Direction.RIGHT) {
 			currentAnimationName = "WALK_RIGHT";
 		} else if (facingDirection == Direction.LEFT) {
-			currentAnimationName = "WALK_LEFT";
+			currentAnimationName = "WALK_LEFT"    ;
 		}
 		airGroundState = AirGroundState.GROUND;
 		isRespawnable = false;
