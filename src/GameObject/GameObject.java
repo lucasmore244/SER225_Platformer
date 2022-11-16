@@ -4,6 +4,7 @@ import Engine.GraphicsHandler;
 import EnhancedMapTiles.Castle;
 import EnhancedMapTiles.Kitten1;
 import EnhancedMapTiles.Spaceship;
+import Level.Enemy;
 import Level.Map;
 import Level.MapCollisionCheckResult;
 import Level.MapCollisionHandler;
@@ -279,9 +280,9 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-			if (this instanceof SpaceshipLevel2) {
-				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
-			}
+//			if (this instanceof Enemy) {
+//				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
+//			}
 			
 		} else {
 			super.draw(graphicsHandler);

@@ -43,7 +43,7 @@ public class Asteriods extends Enemy {
 		this.startFacingDirection = facingDirection;
 		this.map = map;
 		isRespawnable = true;
-		gameTime.setWaitTime(3000);
+		gameTime.setWaitTime(19000);
 		this.initialize();
 	}
 
