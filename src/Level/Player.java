@@ -612,7 +612,6 @@ public abstract class Player extends GameObject {
 				monsterTouchFlag = 0;
 			}
 		}
-		System.out.println(monsterTouchFlag);
 	}
 
 	// other entities can call this to tell the player they beat a level
