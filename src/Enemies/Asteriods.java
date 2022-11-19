@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.LevelState;
 import Level.Map;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -30,7 +31,6 @@ public class Asteriods extends Enemy {
 	protected Laser laser;
 	protected Stopwatch time = new Stopwatch();
 	protected Stopwatch othertime = new Stopwatch();
-	protected Stopwatch gameTime = new Stopwatch();
 	protected Map map;
 	
 	Random rand = new Random();
@@ -43,7 +43,6 @@ public class Asteriods extends Enemy {
 		this.startFacingDirection = facingDirection;
 		this.map = map;
 		isRespawnable = true;
-		gameTime.setWaitTime(19000);
 		this.initialize();
 	}
 
@@ -72,7 +71,7 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
-		if (gameTime.isTimeUp()) {
+		if (player.getLevelState() == LevelState.LEVEL_COMPLETED) {
 			mapEntityStatus = MapEntityStatus.REMOVED;
 		}
 		float moveAmountX = 0;

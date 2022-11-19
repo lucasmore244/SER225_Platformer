@@ -111,7 +111,7 @@ public class UFO extends Enemy {
         		map.addEnemy(fireball3);
         		map.addEnemy(fireball4);
         		map.addEnemy(fireball5);
-        		shootTimer.setWaitTime(200);
+        		shootTimer.setWaitTime(500);
         		
         }
         if (shootReloadTimer.isTimeUp()) {

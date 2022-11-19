@@ -25,14 +25,21 @@ public class Walrus extends NPC {
 	private Stopwatch message3 = new Stopwatch();
 	private Stopwatch message4 = new Stopwatch();
 	private Stopwatch message5 = new Stopwatch();
-	private int currentMap = 1;
+	private int boxLength = 0;
+	private int version = 1;
 	private int i = 0;
 	
-    public Walrus(Point location, int currentMap) {
+    public Walrus(Point location, int version) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
-        this.talkedToTime = 22000;
+        if (version == 1) {
+        	boxLength = 320;
+        	this.talkedToTime = 22000;
+        } else if (version == 2){
+        	boxLength = 340;
+        	this.talkedToTime = 5000;
+        }
         message1.setWaitTime(0);
-        this.currentMap = currentMap;
+        this.version = version;
     }
 
     public void update(Player player) {
@@ -44,7 +51,7 @@ public class Walrus extends NPC {
             	message2.setWaitTime(3000);
             	message3.setWaitTime(7000);
             	message4.setWaitTime(12000);
-            	message5.setWaitTime(17000);
+            	message5.setWaitTime(15000);
             }
         } else {
             currentAnimationName = "TAIL_DOWN";
@@ -52,7 +59,7 @@ public class Walrus extends NPC {
         }
         
         
-        if (currentMap == 1) {
+        if (version == 1) {
         	if (message1.isTimeUp() && !message2.isTimeUp() && !message3.isTimeUp()) {
         		levelMessage = "Hello! My name is Walter the Walrus!!";
         	} else if (message2.isTimeUp() && !message3.isTimeUp()) {
@@ -61,10 +68,18 @@ public class Walrus extends NPC {
         		levelMessage = "Now press the arrow keys to move and jump";
         	} else if (message4.isTimeUp() && !message5.isTimeUp()){
         		levelMessage = "And make sure you click m to change them tunes";
-        	} else {
-        		levelMessage = "OH! And random cat fact: cats hate water so steer clear!";
+        		System.out.println(version);
+        	} 
+        } else if (version == 2) {
+        	if (message1.isTimeUp() && !message2.isTimeUp() && !message3.isTimeUp()) {
+        		levelMessage = "Woah there watch out!! If you haven't realized out already... ";
+        	} else if (message2.isTimeUp() && !message3.isTimeUp()) {
+        		boxLength = 130;
+        		levelMessage = "CATS HATE WATER!!";
         	}
+        	
         }
+        
         
 //        System.out.println(!message2.isTimeUp());
         
@@ -78,7 +93,6 @@ public class Walrus extends NPC {
     
     @Override
     protected SpriteFont createMessage() {
-    	System.out.println(levelMessage);
     	return new SpriteFont(levelMessage, getX(), getY() - 10, "Arial", 12, Color.BLACK);
     }
 
@@ -108,7 +122,7 @@ public class Walrus extends NPC {
     @Override
     public void drawMessage(GraphicsHandler graphicsHandler) {
         // draws a box with a border (think like a speech box)
-        graphicsHandler.drawFilledRectangleWithBorder(Math.round(getCalibratedXLocation() - 2), Math.round(getCalibratedYLocation() - 24), 320, 25, Color.WHITE, Color.BLACK, 2);
+        graphicsHandler.drawFilledRectangleWithBorder(Math.round(getCalibratedXLocation() - 2), Math.round(getCalibratedYLocation() - 24), boxLength, 25, Color.WHITE, Color.BLACK, 2);
         // draws message "Hello" in the above speech box
         message.draw(graphicsHandler);
     }

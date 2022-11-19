@@ -679,7 +679,10 @@ public abstract class Player extends GameObject {
     	this.playerHealth = playerHealth;
     }
 
-   
+    public LevelState getLevelState() {
+        return levelState;
+    }
+    
     public PlayerState getPlayerState() {
         return playerState;
     }
