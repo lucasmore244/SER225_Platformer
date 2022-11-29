@@ -30,6 +30,7 @@ public class Asteriods extends Enemy {
 	protected Laser laser;
 	protected Stopwatch time = new Stopwatch();
 	protected Stopwatch othertime = new Stopwatch();
+	protected Stopwatch gameTime = new Stopwatch();
 	protected Map map;
 	
 	Random rand = new Random();
@@ -42,6 +43,7 @@ public class Asteriods extends Enemy {
 		this.startFacingDirection = facingDirection;
 		this.map = map;
 		isRespawnable = true;
+		gameTime.setWaitTime(3000);
 		this.initialize();
 	}
 
@@ -57,6 +59,7 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
+		
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));
 		if (bool == true) {
 			moveAmountY = -moveAmountY;
@@ -69,6 +72,9 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
+		if (gameTime.isTimeUp()) {
+			mapEntityStatus = MapEntityStatus.REMOVED;
+		}
 		float moveAmountX = 0;
 		
 		// if on air, walk forward based on facing direction
@@ -124,10 +130,10 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
-						.withBounds(10, 10, 80, 89).build(), });
+						.withBounds(0, 3, 80, 86).build(), });
 
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .6)
-						.withBounds(10, 10, 80, 389).build(), });
+						.withBounds(10, 3, 80, 86).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
 						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 80, 89).build(), });

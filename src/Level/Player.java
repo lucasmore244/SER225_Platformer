@@ -567,9 +567,9 @@ public abstract class Player extends GameObject {
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
 				// this.currentAnimationName = facingDirection == Direction.RIGHT ?
 				// "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-				if(playscreen.getCurrentMap() == 1 || playscreen.getCurrentMap() == 3) {
+				if(playscreen.getCurrentMap() != 2 ) {
 					playscreen.playSE(10);
-				} else if(playscreen.getCurrentMap() == 2) {
+				} else {
 					playscreen.playSE(9);
 				}
 
@@ -675,6 +675,10 @@ public abstract class Player extends GameObject {
    
     public PlayerState getPlayerState() {
         return playerState;
+    }
+    
+    public int getCurrentMap() {
+    	return currentMap;
     }
 
     public void setPlayerState(PlayerState playerState) {

@@ -66,11 +66,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
+	protected int lives = 5;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 2;
+	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -99,14 +100,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if (currentMap == 3) {
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);
+			player.setPlayerHealth(lives);
+			System.out.println("ye");
+		} else if (currentMap == 3) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			player.setPlayerHealth(lives);
 		} else if (currentMap == 4) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(4);
+			player.setPlayerHealth(lives);
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);
@@ -152,8 +157,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-				if (SpaceDog1.getDogStatus() <= 0) {
+				if (SpaceDog1.getDogStatus() <= 0) {			
 					try {
+//						stopMusic();
 						Thread.sleep(500);
 					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
@@ -162,6 +168,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 					onLevelCompleted();
 					SpaceDog1.setDogStatus(3);
 			}
+			lives = player.getPlayerhealth();
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
@@ -169,6 +176,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {
+//						stopMusic();
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -203,6 +211,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// player back to main menu)
 		case LEVEL_LOSE:
 			levelLoseScreen.update();
+			lives = 5;
 			break;
 		}
 	}
@@ -247,9 +256,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			playSE(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
-			stopMusic();
+//			stopMusic();
 			levelClearedScreen.update();
-//			playSE(2);
+			playSE(2);
 		}
 	}
 

@@ -43,7 +43,7 @@ public class Level3 extends Map {
 
 	public Level3() {
 		super("level3.txt", new SpaceTileset());
-		this.playerStartPosition = getMapTile(1, 3).getLocation();
+		this.playerStartPosition = getMapTile(3, 3).getLocation();
 	}
 
 	@Override
