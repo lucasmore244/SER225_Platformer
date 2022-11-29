@@ -9,6 +9,7 @@ import Level.Map;
 import Screens.PlayLevelScreen;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.Bones;
 import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
 import Enemies.SpaceDog1;
@@ -562,6 +563,7 @@ public abstract class Player extends GameObject {
 
 	// other entities can call this method to hurt the player
 	public void hurtPlayer(MapEntity mapEntity) {
+		//System.out.println(monsterTouchFlag);
 		if (!isInvincible) {
 			// if map entity is an enemy, kill player on touch
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
@@ -579,6 +581,7 @@ public abstract class Player extends GameObject {
 				// levelState = LevelState.PLAYER_DEAD;
 				playerHealth--;
 				monsterTouchFlag = 1;
+				
 				// drop life
 				if (playerHealth == 0) {
 					levelState = LevelState.PLAYER_DEAD;
@@ -590,6 +593,7 @@ public abstract class Player extends GameObject {
 					}
 				}
 			}
+			
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
 				/*
 				 * if(currentMap == 1) { this.currentAnimationName = facingDirection ==
@@ -601,8 +605,11 @@ public abstract class Player extends GameObject {
 				if (temp - monsterTime >= 1000) {
 					// playerState = PlayerState.TAKING_DAMAGE;
 					monsterTouchFlag = 0;
-					// System.out.println(playerState);
+					//System.out.println(playerState);
 				}
+			}
+			if (mapEntity instanceof Fireball || mapEntity instanceof Bones) {
+				monsterTouchFlag = 0;
 			}
 		}
 	}
@@ -672,7 +679,10 @@ public abstract class Player extends GameObject {
     	this.playerHealth = playerHealth;
     }
 
-   
+    public LevelState getLevelState() {
+        return levelState;
+    }
+    
     public PlayerState getPlayerState() {
         return playerState;
     }

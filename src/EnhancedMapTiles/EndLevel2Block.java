@@ -22,7 +22,7 @@ public class EndLevel2Block extends EnhancedMapTile {
 
 	public EndLevel2Block(Point location) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("SpaceTileset.png"), 16, 16), TileType.PASSABLE);
-		levelTimer.setWaitTime(5000);
+		levelTimer.setWaitTime(50000);
 	}
 
 	@Override

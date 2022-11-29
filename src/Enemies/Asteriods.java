@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.LevelState;
 import Level.Map;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -27,11 +28,13 @@ public class Asteriods extends Enemy {
 	private AirGroundState airGroundState;
 	protected Direction direction;
 	protected boolean hasCollided;
+	protected boolean firstRun = true;
 	protected Laser laser;
 	protected Stopwatch time = new Stopwatch();
 	protected Stopwatch othertime = new Stopwatch();
-	protected Stopwatch gameTime = new Stopwatch();
+	protected Stopwatch beginningTime = new Stopwatch();
 	protected Map map;
+	
 	
 	Random rand = new Random();
     private float moveAmountY = rand.nextFloat()*2;
@@ -43,7 +46,6 @@ public class Asteriods extends Enemy {
 		this.startFacingDirection = facingDirection;
 		this.map = map;
 		isRespawnable = true;
-		gameTime.setWaitTime(3000);
 		this.initialize();
 	}
 
@@ -59,6 +61,9 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
+		if (firstRun == true) {
+			beginningTime.setWaitTime(30000);
+		}
 		
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));
 		if (bool == true) {
@@ -72,9 +77,13 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
-		if (gameTime.isTimeUp()) {
+		if (player.getLevelState() == LevelState.LEVEL_COMPLETED) {
 			mapEntityStatus = MapEntityStatus.REMOVED;
 		}
+		if (beginningTime.isTimeUp()) { 
+		
+		firstRun = false;
+		
 		float moveAmountX = 0;
 		
 		// if on air, walk forward based on facing direction
@@ -115,6 +124,8 @@ public class Asteriods extends Enemy {
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
+		
+		}
 	}
 
 	@Override

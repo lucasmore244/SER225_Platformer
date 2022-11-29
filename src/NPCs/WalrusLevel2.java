@@ -16,77 +16,89 @@ import java.awt.*;
 import java.util.HashMap;
 
 // This class is for the walrus NPC
-public class Walrus extends NPC {
+public class WalrusLevel2 extends NPC {
 	
 	private SpriteFont message = new SpriteFont(levelMessage, getX(), getY() - 10, "Arial", 12, Color.BLACK);;
 	private static String levelMessage = "he";
+	private Stopwatch existanceTime = new Stopwatch();
+	private Stopwatch dissapear1 = new Stopwatch();
+	private Stopwatch dissapear2 = new Stopwatch();
+	private Stopwatch dissapear3 = new Stopwatch();
+	private Stopwatch dissapear4 = new Stopwatch();
 	private Stopwatch message1 = new Stopwatch();
 	private Stopwatch message2 = new Stopwatch();
 	private Stopwatch message3 = new Stopwatch();
 	private Stopwatch message4 = new Stopwatch();
 	private Stopwatch message5 = new Stopwatch();
 	private int boxLength = 0;
-	private int version = 1;
-	private int i = 0;
 	private boolean firstGo = true;
+	private boolean dissapearAgain = true;
 	
-    public Walrus(Point location, int version) {
+	private int i = 0;
+	
+    public WalrusLevel2(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Walrus.png"), 24, 24), "TAIL_DOWN");
-        if (version == 1) {
-        	boxLength = 320;
-        	this.talkedToTime = 22000;
-        } else if (version == 2){
-        	boxLength = 340;
-        	this.talkedToTime = 6000;
-        }
+        boxLength = 320;
+        this.talkedToTime = 20000;
+        existanceTime.setWaitTime(19000);
+        dissapear1.setWaitTime(000);
+        dissapear2.setWaitTime(21500);
+        dissapear3.setWaitTime(22600);
+        dissapear4.setWaitTime(23500);
         message1.setWaitTime(0);
-        this.version = version;
+        talkedTo = true;
+        timer.setWaitTime(talkedToTime);
     }
 
     public void update(Player player) {
         // while npc is being talked to, it raises its tail up (in excitement?)
-        if (talkedTo) {
-            currentAnimationName = "TAIL_UP";
-            if (firstGo == true) {
+    	if (existanceTime.isTimeUp()) {
+    		currentAnimationName = "DISSAPEAR";
+    		if (dissapear1.isTimeUp() && !dissapear2.isTimeUp()) {
+    			currentAnimationName = "TAIL_UP";
+    		} else if(dissapear2.isTimeUp() && !dissapear3.isTimeUp()) {
+    			currentAnimationName = "DISSAPEAR";
+    		} else if(dissapear3.isTimeUp() && !dissapear4.isTimeUp()) {
+    			currentAnimationName = "TAIL_UP";
+    			//System.out.println("Ydsfsdfmksmvsdkmksdkkkdkdkkdkdkdk");
+    		}else {
+    			
+    			currentAnimationName = "DISSAPEAR";
+    			if (dissapearAgain == true){
+    				//System.out.println("Ydjfsgjdsg");
+    				dissapear1.setWaitTime(1000);
+    		        dissapear2.setWaitTime(1900);
+    		        dissapear3.setWaitTime(2800);
+    		        dissapear4.setWaitTime(3500);
+    		        dissapearAgain = false;
+    			}
+    		}
+    		
+    	}else {
+    		currentAnimationName = "TAIL_UP";
+    		if (firstGo == true) {
             	message2.setWaitTime(3000);
             	message3.setWaitTime(7000);
             	message4.setWaitTime(12000);
-            	message5.setWaitTime(15000);
-            	if (version == 2) {
-            		message2.setWaitTime(3000);
-            		message3.setWaitTime(6000);
-            	}
+            	message5.setWaitTime(17000);
             	firstGo = false;
             }
-        } else {
-            currentAnimationName = "TAIL_DOWN";
-        }
-        
-        
-        if (version == 1) {
+    	}
+             
         	if (message1.isTimeUp() && !message2.isTimeUp() && !message3.isTimeUp()) {
-        		levelMessage = "Hello! My name is Walter the Walrus!!";
+        		boxLength = 180;
+        		levelMessage = "Hello Cosmic! It's me again!!";
         	} else if (message2.isTimeUp() && !message3.isTimeUp()) {
-        		levelMessage = "I'll be telling you the instructions throughout this game";
+        		boxLength = 320;
+        		levelMessage = "I just have a few rules for you as you fly through space!!";
         	} else if (message3.isTimeUp() && !message4.isTimeUp()){
-        		levelMessage = "Now press the arrow keys to move and jump";
+        		boxLength = 450;
+        		levelMessage = "Now there's an astroid field coming up in just a few seconds so...";
         	} else if (message4.isTimeUp() && !message5.isTimeUp()){
-        		levelMessage = "And make sure you click m to change them tunes";
-        	} 
-        } else if (version == 2) {
-        	System.out.println(!message2.isTimeUp());
-        	if (message1.isTimeUp() && !message2.isTimeUp()) {
-        		boxLength = 340;
-        		levelMessage = "Woah there watch out!! If you haven't realized it already... ";
-        	} else if (message2.isTimeUp() && !message3.isTimeUp()) {
-        		boxLength = 130;
-        		levelMessage = "CATS HATE WATER!!";
+        		levelMessage = "Press the up and down arrows to move and hit Q on your keyboard to fire!";
+        	}  else if (message5.isTimeUp()) {
+        		levelMessage = "Good luck Cosmic! Next stop the MOON!!!";
         	}
-        	
-        }
-        
-        
-//        System.out.println(!message2.isTimeUp());
         
         this.message = new SpriteFont(levelMessage, getX(), getY() - 10, "Arial", 12, Color.BLACK);
         
@@ -113,6 +125,12 @@ public class Walrus extends NPC {
             put("TAIL_UP", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0))
                             .withScale(3)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .build()
+            });
+            put("DISSAPEAR", new Frame[] {
+                    new FrameBuilder(spriteSheet.getSprite(1, 0))
+                            .withScale(0)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
