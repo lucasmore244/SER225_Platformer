@@ -62,7 +62,7 @@ public class Asteriods extends Enemy {
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
 		if (firstRun == true) {
-			beginningTime.setWaitTime(30000);
+			beginningTime.setWaitTime(20000);
 		}
 		
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));

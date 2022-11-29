@@ -28,7 +28,7 @@ public class CatProjectile extends Enemy {
         super(location.x+20, location.y+60, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
-        // how long the fireball will exist for before disappearing
+        // how long the projectile will exist for before disappearing
         existenceTimer.setWaitTime(existenceTime);
 
         // this enemy will not respawn after it has been removed
