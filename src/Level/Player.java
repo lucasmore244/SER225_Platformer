@@ -94,7 +94,7 @@ public abstract class Player extends GameObject {
 		playerState = PlayerState.STANDING;
 		previousPlayerState = playerState;
 		levelState = LevelState.RUNNING;
-		cooldown.setWaitTime(300);
+		cooldown.setWaitTime(500);
 		reloadTimeBossFight.setWaitTime(1000);
 	}
 
@@ -384,7 +384,7 @@ public abstract class Player extends GameObject {
 			playscreen.playSE(12);
 			Laser laser = new Laser(getLocation(), 4, 4000);
 			map.addEnemy(laser);
-			cooldown.setWaitTime(300);
+			cooldown.setWaitTime(500);
 		}
 	}
 
@@ -646,6 +646,11 @@ public abstract class Player extends GameObject {
     // if player has died, this will be the update cycle
     public void updatePlayerDead() {
         // change player animation to DEATH
+    	if (currentMap == 2) {
+    		for (PlayerListener listener : listeners) {
+                listener.onDeath();
+            }
+    	}
         if (!currentAnimationName.startsWith("DEATH")) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "DEATH_RIGHT";
