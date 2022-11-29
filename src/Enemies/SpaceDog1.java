@@ -300,92 +300,92 @@ public class SpaceDog1 extends Enemy {
 			{
 				put("WALK_SHIELD_LEFT_RED", new Frame[] {
 						new FrameBuilder(spriteSheet.getSprite(0, 2), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(1, 2), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 2), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(2, 0), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build() });
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build() });
 				put("WALK_SHIELD_RIGHT_RED",
 						new Frame[] {
 								new FrameBuilder(spriteSheet.getSprite(0, 2), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(1, 2), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(0, 2), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(2, 0), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build() });
+										.withBounds(0, 10, 95, 70).build() });
 				put("WALK_SHIELD_LEFT", new Frame[] {
 						new FrameBuilder(spriteSheet.getSprite(2, 3), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 20, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(1, 3), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 20, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(2, 3), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 20, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(1, 0), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build() });
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 20, 95, 70).build() });
 				put("WALK_SHIELD_RIGHT",
 						new Frame[] {
 								new FrameBuilder(spriteSheet.getSprite(2, 3), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(1, 3), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(2, 3), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(1, 0), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build() });
+										.withBounds(0, 10, 95, 70).build() });
 				put("WALK_LEFT", new Frame[] {
 						new FrameBuilder(spriteSheet.getSprite(0, 0), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 3), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 0), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(2, 2), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build() });
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build() });
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 200).withScale((float) .7)
 						// .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-						.withBounds(20, 20, 70, 60).build(),
+						.withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 3), 200).withScale((float) .7)
 								// .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-								.withBounds(20, 20, 70, 60).build(),
+								.withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 0), 200).withScale((float) .7)
-								.withBounds(20, 20, 70, 60).build(),
+								.withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(2, 2), 200).withScale((float) .7)
-								.withBounds(20, 20, 70, 60).build() });
+								.withBounds(0, 10, 95, 70).build() });
 				put("SHOOT_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0)).withScale((float) .7)
-						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(), });
+						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(), });
 				put("SHOOT_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0)).withScale((float) .7)
 						// .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-						.withBounds(20, 20, 70, 60).build(), });
+						.withBounds(0, 10, 95, 70).build(), });
 				put("SHOOT_SHIELD_LEFT",
 						new Frame[] { new FrameBuilder(spriteSheet.getSprite(2, 3)).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(), });
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(), });
 				put("SHOOT_SHIELD_RIGHT",
 						new Frame[] { new FrameBuilder(spriteSheet.getSprite(2, 3)).withScale((float) .7)
 								// .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-								.withBounds(20, 20, 70, 60).build(), });
+								.withBounds(0, 10, 95, 70).build(), });
 				put("WALK_HURT_LEFT", new Frame[] {
 						new FrameBuilder(spriteSheet.getSprite(0, 1), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(1, 1), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(0, 1), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build(),
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build(),
 						new FrameBuilder(spriteSheet.getSprite(2, 1), 200).withScale((float) .7)
-								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(20, 20, 70, 60).build() });
+								.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(0, 10, 95, 70).build() });
 				put("WALK_HURT_RIGHT",
 						new Frame[] {
 								new FrameBuilder(spriteSheet.getSprite(0, 1), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(1, 1), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(0, 1), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build(),
+										.withBounds(0, 10, 95, 70).build(),
 								new FrameBuilder(spriteSheet.getSprite(2, 1), 200).withScale((float) .7)
-										.withBounds(20, 20, 70, 60).build() });
+										.withBounds(0, 10, 95, 70).build() });
 			};
 		};
 	}
