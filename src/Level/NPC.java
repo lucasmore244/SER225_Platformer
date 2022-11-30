@@ -52,7 +52,7 @@ public class NPC extends MapEntity {
     }
 
     public void checkTalkedTo(Player player) {
-        if (intersects(player) && Keyboard.isKeyDown(Key.SPACE)) {
+        if (intersects(player)) {
             talkedTo = true;
             timer.setWaitTime(talkedToTime);
         };

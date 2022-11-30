@@ -25,10 +25,10 @@ public class CatProjectile extends Enemy {
     private int doglives = 3;
 
     public CatProjectile(Point location, float movementSpeed, int existenceTime) {
-        super(location.x+20, location.y+10, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
+        super(location.x+20, location.y+60, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
-        // how long the fireball will exist for before disappearing
+        // how long the projectile will exist for before disappearing
         existenceTimer.setWaitTime(existenceTime);
 
         // this enemy will not respawn after it has been removed
@@ -55,7 +55,7 @@ public class CatProjectile extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if fireball collides with anything solid on the x axis, it is removed
+        // if poop collides with anything solid on the y axis, it is removed
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         }
@@ -63,7 +63,7 @@ public class CatProjectile extends Enemy {
 
     @Override
     public void touchedPlayer(Player player) {
-        // if fireball touches player, it disappears
+        // if poop touches player, it disappears
         super.touchedPlayer(player);
         this.mapEntityStatus = MapEntityStatus.REMOVED;
     }
@@ -74,7 +74,7 @@ public class CatProjectile extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(0.5f)
-                            .withBounds(1, 1, 5, 5)
+                            .withBounds(0, 50, 50, 10)
                             .build()
             });
         }};

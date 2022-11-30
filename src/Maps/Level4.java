@@ -21,8 +21,10 @@ import Level.NPC;
 import Level.Player;
 import Level.TileType;
 import Screens.PlayLevelScreen;
+import Tilesets.CommonTileset;
 import Tilesets.SpaceTileset;
 import Tilesets.SpaceTileset2;
+import Tilesets.SpaceTileset3;
 import Utils.Direction;
 import Utils.Point;
 
@@ -31,13 +33,15 @@ public class Level4 extends Map {
 	protected Map map;
 	protected ArrayList<EnhancedMapTile> enhancedMapTiles;
 	protected Boolean isRemoved = false;
-
+	
 	public Level4() {
-		super("level4.txt", new SpaceTileset2());
+        super("level4.txt", new SpaceTileset3());
+        this.playerStartPosition = getMapTile(9, 3).getLocation(); 
+//     this.playerStartPosition = getMapTile(9, 4).getLocation(); 
 //		 this.playerStartPosition = getMapTile(9, 30).getLocation();
-		this.playerStartPosition = getMapTile(9, 4).getLocation();
-	}
-
+    }
+   
+    
 	@Override
 	public void update(Player player) {
 		super.update(player);

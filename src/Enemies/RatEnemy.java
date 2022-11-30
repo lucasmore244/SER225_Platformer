@@ -101,7 +101,7 @@ public class RatEnemy extends Enemy {
             put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale((float) 0.5)
-                            .withBounds(29, 29, 39, 51)
+                            .withBounds(0, 0, 70, 70)
                             .build(),
             });
 
@@ -109,7 +109,7 @@ public class RatEnemy extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                             .withScale((float) 0.5)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(29, 29, 39, 51)
+                            .withBounds(10, 0, 70, 70)
                             .build(),
             });
         }};

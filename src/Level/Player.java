@@ -1,6 +1,5 @@
 package Level;
 
-import Engine.BSound;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +9,7 @@ import Level.Map;
 import Screens.PlayLevelScreen;
 import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
+import Enemies.Bones;
 import Enemies.CatProjectile;
 import Enemies.DinosaurEnemy;
 import Enemies.SpaceDog1;
@@ -94,7 +94,7 @@ public abstract class Player extends GameObject {
 		playerState = PlayerState.STANDING;
 		previousPlayerState = playerState;
 		levelState = LevelState.RUNNING;
-		cooldown.setWaitTime(300);
+		cooldown.setWaitTime(500);
 		reloadTimeBossFight.setWaitTime(1000);
 	}
 
@@ -261,7 +261,7 @@ public abstract class Player extends GameObject {
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 //			playscreen.playSE(8);
-			Sound.playSE(8);
+			Sound.play(8);
 	//		BSound.playSE(3);
 			// sSystem.out.println("Jump:" + this.gravity);
 			// sets animation to a JUMP animation based on which way player is facing
@@ -301,7 +301,7 @@ public abstract class Player extends GameObject {
 			if (Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
 //				playscreen.playSE(14);
-				 Sound.playSE(14);
+				 Sound.play(14);
 //				BSound.playSE(7);
 				map.addEnemy(poop);
 				reloadTimeBossFight.setWaitTime(1000);
@@ -381,11 +381,11 @@ public abstract class Player extends GameObject {
 		}
 		if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()) {
 			// playscreen.playSE(12);
-			 Sound.playSE(12);
+			 Sound.play(12);
 //			BSound.playSE(6);
 			Laser laser = new Laser(getLocation(), 4, 4000);
 			map.addEnemy(laser);
-			cooldown.setWaitTime(300);
+			cooldown.setWaitTime(500);
 		}
 	}
 
@@ -433,7 +433,7 @@ public abstract class Player extends GameObject {
 			}
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
-				 Sound.playSE(10);
+				 Sound.play(10);
 //				BSound.playSE(5);
 				// playscreen.playSE(10);
 				Date date = new Date();
@@ -565,6 +565,7 @@ public abstract class Player extends GameObject {
 
 	// other entities can call this method to hurt the player
 	public void hurtPlayer(MapEntity mapEntity) {
+		//System.out.println(monsterTouchFlag);
 		if (!isInvincible) {
 			// if map entity is an enemy, kill player on touch
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
@@ -572,10 +573,10 @@ public abstract class Player extends GameObject {
 				// "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
 				if (playscreen.getCurrentMap() != 2) {
 					// playscreen.playSE(10);
-					Sound.playSE(10);
+					Sound.play(10);
 					// BSound.playSE(5);
 				} else {
-					Sound.playSE(9);
+					Sound.play(9);
 					// BSound.playSE(4);
 					// playscreen.playSE(9);
 				}
@@ -584,6 +585,7 @@ public abstract class Player extends GameObject {
 				// levelState = LevelState.PLAYER_DEAD;
 				playerHealth--;
 				monsterTouchFlag = 1;
+				
 				// drop life
 				if (playerHealth == 0) {
 					levelState = LevelState.PLAYER_DEAD;
@@ -595,6 +597,7 @@ public abstract class Player extends GameObject {
 					}
 				}
 			}
+			
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
 				/*
 				 * if(currentMap == 1) { this.currentAnimationName = facingDirection ==
@@ -606,8 +609,11 @@ public abstract class Player extends GameObject {
 				if (temp - monsterTime >= 1000) {
 					// playerState = PlayerState.TAKING_DAMAGE;
 					monsterTouchFlag = 0;
-					// System.out.println(playerState);
+					//System.out.println(playerState);
 				}
+			}
+			if (mapEntity instanceof Fireball || mapEntity instanceof Bones) {
+				monsterTouchFlag = 0;
 			}
 		}
 	}
@@ -641,39 +647,84 @@ public abstract class Player extends GameObject {
 		// currentMap++;
 	}
 
-	// if player has died, this will be the update cycle
-	public void updatePlayerDead() {
-		// change player animation to DEATH
-		if (!currentAnimationName.startsWith("DEATH")) {
-			if (facingDirection == Direction.RIGHT) {
-				currentAnimationName = "DEATH_RIGHT";
-			} else {
-				currentAnimationName = "DEATH_LEFT";
-			}
-			super.update();
-		}
-		// if death animation not on last frame yet, continue to play out death
-		// animation
-		else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-			super.update();
-		}
-		// if death animation on last frame (it is set up not to loop back to start),
-		// player should continually fall until it goes off screen
-		else if (currentFrameIndex == getCurrentAnimation().length - 1) {
-			if (map.getCamera().containsDraw(this)) {
-				moveY(3);
-			} else {
-				// tell all player listeners that the player has died in the level
-				for (PlayerListener listener : listeners) {
-					listener.onDeath();
-				}
-			}
-		}
-	}
+//<<<<<<< HEAD
+//	// if player has died, this will be the update cycle
+//	public void updatePlayerDead() {
+//		// change player animation to DEATH
+//		if (!currentAnimationName.startsWith("DEATH")) {
+//			if (facingDirection == Direction.RIGHT) {
+//				currentAnimationName = "DEATH_RIGHT";
+//			} else {
+//				currentAnimationName = "DEATH_LEFT";
+//			}
+//			super.update();
+//		}
+//		// if death animation not on last frame yet, continue to play out death
+//		// animation
+//		else if (currentFrameIndex != getCurrentAnimation().length - 1) {
+//			super.update();
+//		}
+//		// if death animation on last frame (it is set up not to loop back to start),
+//		// player should continually fall until it goes off screen
+//		else if (currentFrameIndex == getCurrentAnimation().length - 1) {
+//			if (map.getCamera().containsDraw(this)) {
+//				moveY(3);
+//			} else {
+//				// tell all player listeners that the player has died in the level
+//				for (PlayerListener listener : listeners) {
+//					listener.onDeath();
+//				}
+//			}
+//		}
+//	}
 
-	public int getPlayerhealth() {
-		return playerHealth;
-	}
+
+    // if player has died, this will be the update cycle
+    public void updatePlayerDead() {
+        // change player animation to DEATH
+    	if (currentMap == 2) {
+    		for (PlayerListener listener : listeners) {
+                listener.onDeath();
+            }
+    	}
+        if (!currentAnimationName.startsWith("DEATH")) {
+            if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "DEATH_RIGHT";
+            } else {
+                currentAnimationName = "DEATH_LEFT";
+            }
+            super.update();
+        }
+        // if death animation not on last frame yet, continue to play out death animation
+        else if (currentFrameIndex != getCurrentAnimation().length - 1) {
+          super.update();
+        }
+        // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
+        else if (currentFrameIndex == getCurrentAnimation().length - 1) {
+            if (map.getCamera().containsDraw(this)) {
+                moveY(3);
+            } else {
+                // tell all player listeners that the player has died in the level
+                for (PlayerListener listener : listeners) {
+                    listener.onDeath();
+                    
+                }
+            }
+        }
+    }
+    public int getPlayerhealth(){
+    	return playerHealth;
+    }
+    
+    public LevelState getLevelState() {
+        return levelState;
+    }
+    
+
+    
+    public int getCurrentMap() {
+    	return currentMap;
+    }
 
 	public void setPlayerHealth(int playerHealth) {
 		this.playerHealth = playerHealth;

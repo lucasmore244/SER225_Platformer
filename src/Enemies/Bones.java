@@ -68,17 +68,8 @@ public class Bones extends Enemy {
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale((float).3)
-                            .withBounds(10, 10, 60,20)
+                            .withBounds(10, 10, 70,20)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(1, 0))
-                            .withScale((float).3)
-                            .withBounds(10, 10, 60,20)
-                            .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale((float).3)
-                            .withBounds(10, 10, 60,20)
-                            .build()
-
             });
         }};
     }

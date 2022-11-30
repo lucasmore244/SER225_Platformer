@@ -39,7 +39,7 @@ public class Spaceship extends EnhancedMapTile {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale(4)
-                        .withBounds(1, 1, 25, 17)
+                        .withBounds(10, -9500, 25, 10000)
                         .build(),
             });
         }};

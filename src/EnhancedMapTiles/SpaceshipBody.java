@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Builders.FrameBuilder;
-import Engine.BSound;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Sound;
@@ -40,9 +39,7 @@ public class SpaceshipBody extends EnhancedMapTile {
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)&&!collected) {
-//        	playscreen.playSE(7);
-        	Sound.playSE(7);
-       // 	BSound.playSE(2);
+        	Sound.play(7);
         	parts = parts + 1;
         	super.update(player);
         	super.update(null);

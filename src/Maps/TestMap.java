@@ -94,7 +94,8 @@ public class TestMap extends Map {
 	@Override
 	public ArrayList<NPC> loadNPCs() {
 		ArrayList<NPC> npcs = new ArrayList<>();
-		npcs.add(new Walrus(getMapTile(30, 10).getLocation().subtractY(13)));
+		npcs.add(new Walrus(getMapTile(4, 11).getLocation().subtractY(13), 1));
+		npcs.add(new Walrus(getMapTile(35, 9).getLocation().subtractY(13), 2));
 		return npcs;
 	}
 

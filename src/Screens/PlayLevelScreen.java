@@ -15,7 +15,6 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import Enemies.Asteriods;
 import Enemies.Fireball;
-import Engine.BSound;
 import Engine.DisplayTime;
 import Engine.GameWindow;
 import Engine.GraphicsHandler;
@@ -68,11 +67,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
+	protected int lives = 5;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 4;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -101,14 +101,17 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-		} else if (currentMap == 3) {
-			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);
+			player.setPlayerHealth(lives);
+		} else if (currentMap == 3) {
+			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			player.setPlayerHealth(lives);
 		} else if (currentMap == 4) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(4);
+			player.setPlayerHealth(lives);
 		}
 		this.player.setMap(map);
 		this.player.addListener(this);
@@ -120,7 +123,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
-		musicPanel = new MusicPanel(null);
 	}
 
 	public void update() {
@@ -148,8 +150,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				map.setCoinCount(-3);
 			}
 			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
-				Sound.stop();
-				System.out.println("STOPPED");
+//				Sound.stopAll();
+				Sound.stop(4);
+				Sound.stop(1);
+				Sound.stop(0);
+				Sound.stop(5);
+				Sound.stop(11);
+				Sound.stop(6);
+				Sound.stop(13);
 				new MusicPanel(null).show();
 				keylock.lockKey(MUSIC_KEY);
 			}
@@ -157,32 +165,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				keylock.unlockKey(MUSIC_KEY);
 			}
 			if (SpaceDog1.getDogStatus() <= 0) {
-				// stopMusic();
 				try {
-//						stopMusic();
 					Thread.sleep(500);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			//	Sound.stop();
-				// stopMusic();
-				System.out.println("Music Stopped");
+				Sound.stopAll();
 				onLevelCompleted();
 				SpaceDog1.setDogStatus(3);
 			}
+			lives = player.getPlayerhealth();
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
-			System.out.println("Stopping");
-			//sound.stop();
 			if (currentMap <= 4) {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
-					
 					if (getCurrentMap() == 4) {
-//						stopMusic();
-			//			Sound.playMusic(4);
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -194,7 +194,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 							e.printStackTrace();
 						}
 						screenCoordinator.setGameState(GameState.SCOREBOARD);
-//						System.exit(0);
 						if (Keyboard.isKeyUp(MUSIC_KEY) && Keyboard.isKeyUp(Key.UP) && Keyboard.isKeyUp(Key.DOWN)
 								&& Keyboard.isKeyUp(Key.LEFT) && Keyboard.isKeyUp(Key.RIGHT)
 								&& Keyboard.isKeyUp(Key.Q)) {
@@ -227,6 +226,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// player back to main menu)
 		case LEVEL_LOSE:
 			levelLoseScreen.update();
+			lives = 5;
 			break;
 		}
 	}
@@ -267,14 +267,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
-//			BSound.playSE(0);
-			Sound.playSE(2);
+			Sound.play(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
-//			stopMusic();
 			levelClearedScreen.update();
-//			BSound.playSE(0);
-			Sound.playSE(2);
+			Sound.play(2);
 		}
 	}
 
@@ -282,8 +279,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void onDeath() {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-	//	BSound.playSE(1);
-
 		}
 	}
 
@@ -318,19 +313,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
 	}
-//	public void playMusic(int i) {
-//		sound.setFile(i);
-//		sound.play();
-//		sound.loop();
-//	}
-//	public void stopMusic() {
-//		sound.stop();
-//	}
-//	public void playSE(int i) {
-//		sound.setFile(i);
-//		sound.play();
-//	}
-
+	
 	public void createTextFile() throws IOException {
 		ArrayList<String> values = new ArrayList<String>();
 		String name = JOptionPane.showInputDialog(null, "Please Enter your name to record your time");

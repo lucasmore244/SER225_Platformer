@@ -39,7 +39,14 @@ public class MusicPanel {
 				// TODO Auto-generated method stub
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					if (box.getSelectedItem().equals("Mona Lisa- Lil Wayne")) {
-						Sound.stop();
+//						Sound.stopAll();
+						Sound.stop(4);
+						Sound.stop(1);
+						Sound.stop(0);
+						Sound.stop(5);
+						Sound.stop(11);
+						Sound.stop(6);
+						Sound.stop(13);
 						Sound.playMusic(4);
 //						Sound.setFile(4);
 //						Sound.play();
@@ -48,37 +55,37 @@ public class MusicPanel {
 //						playscreen.playMusic(4);
 					}
 					if (box.getSelectedItem().equals("Space Cadet- Metro Boomin")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(1);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(1);
 					}
 					if (box.getSelectedItem().equals("Space Cadet(INST)- Metro Boomin")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(0);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(0);
 					}
 					if (box.getSelectedItem().equals("Last Last- Burna Boy")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(5);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(5);
 					}
 					if (box.getSelectedItem().equals("Runaway- Kanye West")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(11);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(11);
 					}
 					if (box.getSelectedItem().equals("Default Song")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(6);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(6);
 					}
 					if (box.getSelectedItem().equals("Unknown Song")) {
-						Sound.stop();
+						Sound.stopAll();
 						Sound.playMusic(13);
 //						playscreen.stopMusic();
 //						playscreen.playMusic(13);
