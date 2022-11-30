@@ -16,6 +16,7 @@ import java.util.Date;
 import Builders.MapTileBuilder;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Sound;
 import GameObject.GameObject;
 import Players.Cat;
 import Screens.PlayLevelScreen;
@@ -61,7 +62,9 @@ public class CatLevel3 extends Player {
 		// if last frame player was on ground and this frame player is still on ground,
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-			playscreen.playSE(8);
+		//	playscreen.playSE(8);
+			Sound.play(8);
+//			BSound.playSE(3);
 			// System.out.println("Jump:" + this.gravity);
 			// sets animation to a JUMP animation based on which way player is facing
 			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";

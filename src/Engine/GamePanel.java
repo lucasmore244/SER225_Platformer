@@ -108,4 +108,7 @@ public class GamePanel extends JPanel {
 			draw();
 		}
 	}
+
+	public void addVideoPanel() {
+	}
 }

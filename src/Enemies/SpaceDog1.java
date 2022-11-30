@@ -36,7 +36,7 @@ public class SpaceDog1 extends Enemy {
 	protected float damageTime = 0;
 	protected int damageFlag = 0;
 	protected float shieldTime = 0;
-	protected static int dogLives = 3;
+	protected static int dogLives = 1;
 	protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 	protected float movementSpeed = 1f;
 	private Direction startFacingDirection;
