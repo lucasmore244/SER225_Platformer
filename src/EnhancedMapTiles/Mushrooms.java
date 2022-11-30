@@ -34,7 +34,7 @@ public class Mushrooms extends Enemy {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)
                         .withScale((float) .58)
-                        .withBounds(20, 20, 40, 40)
+                        .withBounds(2, 0, 48, 80)
                         .build(),
             });
         }};
