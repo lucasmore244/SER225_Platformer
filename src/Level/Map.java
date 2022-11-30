@@ -3,6 +3,7 @@ package Level;
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
+import Screens.PlayLevelScreen;
 import Utils.Point;
 
 import java.io.File;
@@ -406,4 +407,5 @@ public abstract class Map {
 	public abstract int getCoinCount();
 
 	public abstract void setCoinCount(int x);
+	
 }

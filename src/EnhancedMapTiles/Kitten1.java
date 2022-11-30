@@ -7,6 +7,7 @@ import java.util.Map;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -25,7 +26,7 @@ public class Kitten1 extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private Level4 map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
+
 	
 	public Kitten1(Point location, Level4 level4) {
         super(location.x, location.y + 2, new SpriteSheet(ImageLoader.load("Kitten1.png"), 80, 66), TileType.PASSABLE);
@@ -36,7 +37,7 @@ public class Kitten1 extends EnhancedMapTile {
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)&&!collected) {
-        	playscreen.playSE(7);
+        	Sound.play(7);
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);

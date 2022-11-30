@@ -74,7 +74,6 @@ public class Walrus extends NPC {
         		levelMessage = "And make sure you click m to change them tunes";
         	} 
         } else if (version == 2) {
-        	System.out.println(!message2.isTimeUp());
         	if (message1.isTimeUp() && !message2.isTimeUp()) {
         		boxLength = 340;
         		levelMessage = "Woah there watch out!! If you haven't realized it already... ";
