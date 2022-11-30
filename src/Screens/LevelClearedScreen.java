@@ -13,8 +13,8 @@ import java.util.Map;
 // This class is for the level cleared screen
 public class LevelClearedScreen extends Screen {
 	protected PlayLevelScreen playlevelscreen;
-	protected SpriteFont winMessage;
-	protected SpriteFont winMessage2;
+	    protected SpriteFont winMessage;
+	    protected SpriteFont winMessage2 = new SpriteFont("", 0, 0, "", 0, null);
 	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	public LevelClearedScreen(PlayLevelScreen playLevelScreen) {
@@ -22,12 +22,10 @@ public class LevelClearedScreen extends Screen {
 		initialize();
 	}
 
-	@Override
-	public void initialize() {
-		winMessage = new SpriteFont("Level " + playlevelscreen.getCurrentMap() + " Cleared", 320, 270, "Comic Sans", 30,
-				Color.white);
-		winMessage2= new SpriteFont(" ", 0, 0, null, 0, null);
-	}
+	  @Override
+	    public void initialize() {
+	    		winMessage = new SpriteFont("Level " + playlevelscreen.getCurrentMap()  + " Cleared", 320, 270, "Comic Sans", 30, Color.white);
+	    }
 
 	@Override
 	public void update() {
@@ -49,3 +47,4 @@ public class LevelClearedScreen extends Screen {
 		winMessage2.draw(graphicsHandler);
 	}
 }
+  

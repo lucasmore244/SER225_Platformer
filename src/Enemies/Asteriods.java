@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
+import Level.LevelState;
 import Level.Map;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -27,10 +28,13 @@ public class Asteriods extends Enemy {
 	private AirGroundState airGroundState;
 	protected Direction direction;
 	protected boolean hasCollided;
+	protected boolean firstRun = true;
 	protected Laser laser;
 	protected Stopwatch time = new Stopwatch();
 	protected Stopwatch othertime = new Stopwatch();
+	protected Stopwatch beginningTime = new Stopwatch();
 	protected Map map;
+	
 	
 	Random rand = new Random();
     private float moveAmountY = rand.nextFloat()*2;
@@ -57,6 +61,10 @@ public class Asteriods extends Enemy {
 		airGroundState = AirGroundState.AIR;
 		time.setWaitTime(1000);
 		othertime.setWaitTime(500);
+		if (firstRun == true) {
+			beginningTime.setWaitTime(20000);
+		}
+		
 		this.setMovementSpeed((int) (Math.random() * 8 + 5));
 		if (bool == true) {
 			moveAmountY = -moveAmountY;
@@ -69,6 +77,13 @@ public class Asteriods extends Enemy {
 
 	@Override
 	public void update(Player player) {
+		if (player.getLevelState() == LevelState.LEVEL_COMPLETED) {
+			mapEntityStatus = MapEntityStatus.REMOVED;
+		}
+		if (beginningTime.isTimeUp()) { 
+		
+		firstRun = false;
+		
 		float moveAmountX = 0;
 		
 		// if on air, walk forward based on facing direction
@@ -109,6 +124,8 @@ public class Asteriods extends Enemy {
 		moveXHandleCollision(moveAmountX);
 		super.update(player);
 		amountMoved = amountMoved + movementSpeed;
+		
+		}
 	}
 
 	@Override
@@ -124,10 +141,10 @@ public class Asteriods extends Enemy {
 		return new HashMap<String, Frame[]>() {
 			{
 				put("WALK_LEFT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
-						.withBounds(10, 10, 80, 89).build(), });
+						.withBounds(0, 3, 80, 86).build(), });
 
 				put("WALK_LEFT_BROKEN", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 1), 100).withScale((float) .6)
-						.withBounds(10, 10, 80, 389).build(), });
+						.withBounds(10, 3, 80, 86).build(), });
 
 				put("WALK_RIGHT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0), 100).withScale((float) .6)
 						.withImageEffect(ImageEffect.FLIP_HORIZONTAL).withBounds(10, 10, 80, 89).build(), });

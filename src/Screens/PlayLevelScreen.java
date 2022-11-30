@@ -113,6 +113,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
 		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
