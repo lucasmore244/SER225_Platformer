@@ -3,6 +3,7 @@ package Level;
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
+import Screens.PlayLevelScreen;
 import Utils.Point;
 
 import java.io.File;
@@ -25,6 +26,7 @@ import java.util.Scanner;
 public abstract class Map {
     // the tile map (map tiles that make up the entire map image)
     protected MapTile[] mapTiles;
+//    protected PlayLevelScreen playscreen;
 
     // width and height of the map in terms of the number of tiles width-wise and height-wise
     protected int width;
@@ -406,4 +408,8 @@ public abstract class Map {
 	public abstract int getCoinCount();
 
 	public abstract void setCoinCount(int x);
+	
+//	public void addPlayScreen(PlayLevelScreen playLevelScreen) {
+//		playscreen = playLevelScreen;
+//	}
 }

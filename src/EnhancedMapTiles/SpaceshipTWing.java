@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import Builders.FrameBuilder;
+import Engine.BSound;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -38,7 +40,9 @@ public class SpaceshipTWing extends EnhancedMapTile {
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)&&!collected) {
-        	playscreen.playSE(7);
+//        	playscreen.playSE(7);
+        //	Sound.playSE(7);
+        	BSound.playSE(2);
         	parts = parts + 1;
         	super.update(player);
         	super.update(null);

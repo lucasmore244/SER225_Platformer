@@ -11,10 +11,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 
 public class Sound {
-	Clip clip;
-	URL soundURL[] = new URL[15];
-	File file[] = new File[15];
-
+	private static Clip clip;
+	private static File file[] = new File[15];
+	private static AudioInputStream audio;
+	
 	public Sound() {
 		file[0] = new File("./src/MetroBoominFullSong.wav");
 		file[1] = new File("./src/spaceCadetLyrics.wav");
@@ -33,9 +33,14 @@ public class Sound {
 		file[14] = new File("./src/Fart.wav");
 	}
 
-	public void setFile(int i) {
+	public static void setFile(int i) {
 		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(file[i]);
+			if (clip != null) {
+			clip.stop();
+			clip.flush();
+			clip.close();
+			}
+			audio = AudioSystem.getAudioInputStream(file[i]);
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 		} catch (Exception e) {
@@ -43,18 +48,40 @@ public class Sound {
 		}
 	}
 
-	public void play() {
+	public static void play() {
+		if (clip != null) {
 		clip.start();
+		}
 	}
 
-	public void loop() {
+	public static void loop() {
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
-	public void stop() {
+	public static void stop() {
+		
 		if (clip == null) {
+			System.out.println("sound null");
 		} else {
 			clip.stop();
+			clip.flush();
+			clip.drain();
+			clip.close();
+			clip = null;
+			System.out.println("Testi");
 		}
+	}
+	
+
+
+	public static void playMusic(int i) {
+		setFile(i);
+		play();
+	loop();
+	}
+
+	public static void playSE(int i) {
+		setFile(i);
+		play();
 	}
 }

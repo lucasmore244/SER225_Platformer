@@ -26,8 +26,6 @@ public class ScoreboardScreen extends Screen {
 	protected Map background;
 	protected KeyLocker keyLocker = new KeyLocker();
 	protected SpriteFont playertimeheader, playertimedisplay, playersnameheader, playersnamedisplay, backtohomescreen, pn;
-	protected PlayLevelScreen timer = new PlayLevelScreen(null);
-	protected String playertime = timer.getTime();
 	protected LevelLoseScreen levellose;
 	protected LevelState levelState;
 	protected boolean start;

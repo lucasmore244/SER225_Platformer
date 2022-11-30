@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import Enemies.Asteriods;
 import Enemies.Fireball;
+import Engine.BSound;
 import Engine.DisplayTime;
 import Engine.GameWindow;
 import Engine.GraphicsHandler;
@@ -25,6 +26,7 @@ import Engine.Screen;
 import Engine.Sound;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
+import Game.Game;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -70,7 +72,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 1;
+	protected int currentMap = 4;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -86,7 +88,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-				playMusic(6);
+				Sound.playMusic(6);
 			} else if (currentMap == 2) {
 				this.map = new Level2();
 			} else if (currentMap == 3) {
@@ -118,6 +120,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
 		level1.setOutlineColor(Color.black);
 		level1.setOutlineThickness(3);
+		musicPanel = new MusicPanel(null);
 	}
 
 	public void update() {
@@ -133,8 +136,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
-				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
-						Color.RED);
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman",
+						18, Color.RED);
 			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.RED);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
@@ -145,32 +148,42 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				map.setCoinCount(-3);
 			}
 			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
-				stopMusic();
+				Sound.stop();
+				System.out.println("STOPPED");
 				new MusicPanel(null).show();
 				keylock.lockKey(MUSIC_KEY);
 			}
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-				if (SpaceDog1.getDogStatus() <= 0) {			
-					try {
+			if (SpaceDog1.getDogStatus() <= 0) {
+				// stopMusic();
+				try {
 //						stopMusic();
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					onLevelCompleted();
-					SpaceDog1.setDogStatus(3);
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			//	Sound.stop();
+				// stopMusic();
+				System.out.println("Music Stopped");
+				onLevelCompleted();
+				SpaceDog1.setDogStatus(3);
 			}
 			break;
 		// if level has been completed, bring up level cleared screen
 		case LEVEL_COMPLETED:
+			System.out.println("Stopping");
+			//sound.stop();
+			musicPanel.lol();
 			if (currentMap <= 4) {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
+					
 					if (getCurrentMap() == 4) {
 //						stopMusic();
+			//			Sound.playMusic(4);
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -183,6 +196,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 						}
 						screenCoordinator.setGameState(GameState.SCOREBOARD);
 //						System.exit(0);
+						if (Keyboard.isKeyUp(MUSIC_KEY) && Keyboard.isKeyUp(Key.UP) && Keyboard.isKeyUp(Key.DOWN)
+								&& Keyboard.isKeyUp(Key.LEFT) && Keyboard.isKeyUp(Key.RIGHT)
+								&& Keyboard.isKeyUp(Key.Q)) {
+							keylock.unlockKey(MUSIC_KEY);
+							keylock.unlockKey(Key.UP);
+							keylock.unlockKey(Key.DOWN);
+							keylock.unlockKey(Key.RIGHT);
+							keylock.unlockKey(Key.LEFT);
+							keylock.unlockKey(Key.Q);
+						}
 					}
 					levelCompletedStateChangeStart = false;
 					currentMap += 1;
@@ -222,7 +245,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (currentMap == 4) {
 				doglives.draw(graphicsHandler);
 			}
-			
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);
@@ -246,12 +268,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
-			playSE(2);
+			BSound.playSE(0);
+		//	Sound.playSE(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
 //			stopMusic();
 			levelClearedScreen.update();
-			playSE(2);
+			BSound.playSE(0);
+	//		Sound.playSE(2)
 		}
 	}
 
@@ -259,7 +283,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void onDeath() {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-			playSE(3);
+		BSound.playSE(1);
+//		Sound.playSE(3);
 		}
 	}
 
@@ -294,21 +319,18 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
 	}
-
-	public void playMusic(int i) {
-		sound.setFile(i);
-		sound.play();
-		sound.loop();
-	}
-
-	public void stopMusic() {
-		sound.stop();
-	}
-
-	public void playSE(int i) {
-		sound.setFile(i);
-		sound.play();
-	}
+//	public void playMusic(int i) {
+//		sound.setFile(i);
+//		sound.play();
+//		sound.loop();
+//	}
+//	public void stopMusic() {
+//		sound.stop();
+//	}
+//	public void playSE(int i) {
+//		sound.setFile(i);
+//		sound.play();
+//	}
 
 	public void createTextFile() throws IOException {
 		ArrayList<String> values = new ArrayList<String>();

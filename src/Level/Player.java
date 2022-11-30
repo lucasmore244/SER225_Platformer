@@ -1,5 +1,6 @@
 package Level;
 
+import Engine.BSound;
 import Engine.Key;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,6 +21,7 @@ import Enemies.UFOFireball;
 import Enemies.DinosaurEnemy.DinosaurState; 
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Sound;
 import EnhancedMapTiles.Mushrooms;
 import GameObject.Frame;
 import GameObject.GameObject;
@@ -261,7 +263,9 @@ public abstract class Player extends GameObject {
 		// if last frame player was on ground and this frame player is still on ground,
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-			playscreen.playSE(8);
+//			playscreen.playSE(8);
+//			Sound.playSE(8);
+			BSound.playSE(3);
 			// sSystem.out.println("Jump:" + this.gravity);
 			// sets animation to a JUMP animation based on which way player is facing
 			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
@@ -300,7 +304,9 @@ public abstract class Player extends GameObject {
 			
 			if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
-				playscreen.playSE(14);
+//				playscreen.playSE(14);
+			//	Sound.playSE(14);
+				BSound.playSE(7);
 				map.addEnemy(poop);
 				reloadTimeBossFight.setWaitTime(1000);
 			}
@@ -380,7 +386,9 @@ public abstract class Player extends GameObject {
 			applyGravity();
 		}
 		if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()) {
-			playscreen.playSE(12);
+	//		playscreen.playSE(12);
+	//		Sound.playSE(12);
+			BSound.playSE(6);
 			Laser laser = new Laser(getLocation(), 4, 4000);
 			map.addEnemy(laser);
 			cooldown.setWaitTime(300);
@@ -431,7 +439,9 @@ public abstract class Player extends GameObject {
 			}
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
-				playscreen.playSE(10);
+				//Sound.playSE(10);
+				BSound.playSE(5);
+		//		playscreen.playSE(10);
 				Date date = new Date();
 				waterTime = date.getTime();
 				waterFlag = 1;
@@ -568,9 +578,13 @@ public abstract class Player extends GameObject {
 				// this.currentAnimationName = facingDirection == Direction.RIGHT ?
 				// "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
 				if(playscreen.getCurrentMap() != 2 ) {
-					playscreen.playSE(10);
+					//playscreen.playSE(10);
+					Sound.playSE(10);
+				//	BSound.playSE(5);
 				} else {
-					playscreen.playSE(9);
+				Sound.playSE(9);
+			//		BSound.playSE(4);
+				//	playscreen.playSE(9);
 				}
 
 
