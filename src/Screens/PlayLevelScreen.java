@@ -116,7 +116,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		Point playerStartPosition = map.getPlayerStartPosition();
 		this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
 		this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-
 		levelClearedScreen = new LevelClearedScreen(this);
 		levelLoseScreen = new LevelLoseScreen(this);
 		level1 = new SpriteFont("LEVEL " + currentMap, 50, 50, "Comic Sans", 30, Color.red);
@@ -149,14 +148,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				map.setCoinCount(-3);
 			}
 			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
-//				Sound.stopAll();
-				Sound.stop(4);
-				Sound.stop(1);
-				Sound.stop(0);
-				Sound.stop(5);
-				Sound.stop(11);
-				Sound.stop(6);
-				Sound.stop(13);
+				Sound.stopAll();
 				new MusicPanel(null).show();
 				keylock.lockKey(MUSIC_KEY);
 			}
@@ -312,7 +304,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
 	}
-	
+
 	public void createTextFile() throws IOException {
 		ArrayList<String> values = new ArrayList<String>();
 		String name = JOptionPane.showInputDialog(null, "Please Enter your name to record your time");

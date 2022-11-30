@@ -37,7 +37,6 @@ public class Level4 extends Map {
 	public Level4() {
         super("level4.txt", new SpaceTileset3());
         this.playerStartPosition = getMapTile(9, 30).getLocation(); 
-//     this.playerStartPosition = getMapTile(9, 3).getLocation(); 
     }
    
     

@@ -313,8 +313,6 @@ public abstract class Player extends GameObject {
 			applyGravity();
 		}
 		if (Keyboard.isKeyDown(CROUCH_KEY)) {
-			// currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" :
-			// "JUMP_LEFT";
 			// player is set to be in air and then player is sent into the air
 			airGroundState = AirGroundState.AIR;
 			jumpForce = jumpHeight;

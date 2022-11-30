@@ -70,6 +70,7 @@ public class Sound {
 
 	public static void play(int i) {
 		clips[i].start();
+		clips[i].setFramePosition(0);
 	}
 
 	public static void loop(int i) {

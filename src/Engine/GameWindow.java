@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
@@ -15,7 +18,7 @@ import Game.ScreenCoordinator;
  * The JFrame that holds the GamePanel
  * Just does some setup and exposes the gamePanel's screenManager to allow an external class to setup their own content and attach it to this engine.
  */
-public class GameWindow {
+public class GameWindow implements KeyListener{
 	private JFrame gameWindow;
 	private GamePanel gamePanel;
 	private JLabel imageLabel = new JLabel();
@@ -65,9 +68,11 @@ public class GameWindow {
 	public void playVideo() {	
 		try {
 			JPanel contentPane = new JPanel();
-			contentPane.setFocusable(false);
+			contentPane.setFocusable(true);
+			contentPane.requestFocus();
 			contentPane.setLayout(new BorderLayout());
 			contentPane.setBackground(Color.BLACK);
+			contentPane.addKeyListener(this);
 			// add the image label
 				ii = new ImageIcon(
 						new ImageIcon("./src/Video.gif").getImage().getScaledInstance(800, 305, Image.SCALE_DEFAULT));
@@ -93,17 +98,30 @@ public class GameWindow {
 			timer.setRepeats(true);
 			gameWindow.setVisible(true);
 			
-			if (Keyboard.isKeyUp(Key.SPACE)) {	
-				keylocker.unlockKey(Key.SPACE);
-				System.out.println(keylocker.isKeyLocked(Key.SPACE));
-			}
-			// if space is pressed, go back to main menu
-			if (!keylocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
-				System.out.println(Keyboard.isKeyDown(Key.SPACE));
-				switchToGamePanel();
-			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			timer.stop();
+			switchToGamePanel();
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
