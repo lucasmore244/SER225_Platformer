@@ -64,8 +64,8 @@ public class CatLevel3 extends Player {
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 		//	playscreen.playSE(8);
-		//	Sound.playSE(8);
-			BSound.playSE(3);
+			Sound.playSE(8);
+//			BSound.playSE(3);
 			// System.out.println("Jump:" + this.gravity);
 			// sets animation to a JUMP animation based on which way player is facing
 			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";

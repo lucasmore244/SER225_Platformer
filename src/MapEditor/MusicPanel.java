@@ -40,7 +40,6 @@ public class MusicPanel {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					if (box.getSelectedItem().equals("Mona Lisa- Lil Wayne")) {
 						Sound.stop();
-						
 						Sound.playMusic(4);
 //						Sound.setFile(4);
 //						Sound.play();
@@ -89,10 +88,6 @@ public class MusicPanel {
 		});
 		labelPanel.add(box);
 		// TODO Auto-generated constructor stub
-	}
-
-	public void lol() {
-		sound.stop();
 	}
 
 	public void show() {

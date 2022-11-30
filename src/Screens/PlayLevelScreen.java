@@ -176,7 +176,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_COMPLETED:
 			System.out.println("Stopping");
 			//sound.stop();
-			musicPanel.lol();
 			if (currentMap <= 4) {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
@@ -268,14 +267,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
-			BSound.playSE(0);
-		//	Sound.playSE(2);
+//			BSound.playSE(0);
+			Sound.playSE(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
 //			stopMusic();
 			levelClearedScreen.update();
-			BSound.playSE(0);
-	//		Sound.playSE(2)
+//			BSound.playSE(0);
+			Sound.playSE(2);
 		}
 	}
 
@@ -283,8 +282,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void onDeath() {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-		BSound.playSE(1);
-//		Sound.playSE(3);
+	//	BSound.playSE(1);
+
 		}
 	}
 

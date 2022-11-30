@@ -41,8 +41,8 @@ public class SpaceshipWing extends EnhancedMapTile {
         super.update(player);
         if (intersects(player)&&!collected) {
 //        	playscreen.playSE(7);
-        //	Sound.playSE(7);
-        	BSound.playSE(2);
+        	Sound.playSE(7);
+      //  	BSound.playSE(2);
         	parts = parts + 1;
         	super.update(player);
         	super.update(null);
