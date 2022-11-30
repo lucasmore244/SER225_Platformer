@@ -27,7 +27,7 @@ public class SpaceshipBody extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
+
 	
 	public SpaceshipBody(Point location, Level3 level3) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Body.png"), 80, 45), TileType.PASSABLE);

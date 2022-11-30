@@ -29,7 +29,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class CatLevel3 extends Player {
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 
 	public CatLevel3(float x, float y) {
 		super(new SpriteSheet(ImageLoader.load("CatUpsideDown.png"), 24, 24), x, y, "STAND_RIGHT");
@@ -62,9 +61,7 @@ public class CatLevel3 extends Player {
 		// if last frame player was on ground and this frame player is still on ground,
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-		//	playscreen.playSE(8);
 			Sound.play(8);
-//			BSound.playSE(3);
 			// System.out.println("Jump:" + this.gravity);
 			// sets animation to a JUMP animation based on which way player is facing
 			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";

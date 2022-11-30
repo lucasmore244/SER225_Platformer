@@ -59,7 +59,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected Player player;
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
-	protected Stopwatch endTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
 	protected LevelLoseScreen levelLoseScreen;
 	protected boolean levelCompletedStateChangeStart;
@@ -74,7 +73,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
-	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
 	protected Key MUSIC_KEY = Key.M;
 	protected KeyLocker keylock = new KeyLocker();

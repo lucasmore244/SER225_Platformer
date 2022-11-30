@@ -28,7 +28,6 @@ public class SpaceshipWing extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 
 	public SpaceshipWing(Point location, Level3 level3) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Wing.png"), 80, 48), TileType.PASSABLE);

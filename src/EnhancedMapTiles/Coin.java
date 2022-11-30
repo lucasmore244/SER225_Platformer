@@ -25,7 +25,6 @@ public class Coin extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private TestMap map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	public Coin(Point location, TestMap testMap) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("CoinSpriteSheet.png"), 80, 80), TileType.PASSABLE);

@@ -26,7 +26,7 @@ public class Kitten2 extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private Level4 map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
+
 	
 	public Kitten2(Point location, Level4 level4) {
         super(location.x, location.y + 3, new SpriteSheet(ImageLoader.load("Kitten2.png"), 80, 80), TileType.PASSABLE);

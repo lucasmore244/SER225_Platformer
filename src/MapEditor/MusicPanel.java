@@ -15,9 +15,7 @@ public class MusicPanel {
 	private static String[] music = { "Mona Lisa- Lil Wayne", "Space Cadet- Metro Boomin",
 			"Space Cadet(INST)- Metro Boomin", "Last Last- Burna Boy", "Runaway- Kanye West", "Unknown Song",
 			"Default Song" };
-	private PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	private JDialog dialog;
-	private Sound sound = new Sound();
 
 	public MusicPanel(JFrame parent) {
 		dialog = new JDialog();
