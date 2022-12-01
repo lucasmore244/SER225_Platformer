@@ -35,42 +35,44 @@ public class CatProjectile extends Enemy {
 		initialize();
 	}
 
-	@Override
-	public void update(Player player) {
-		// if timer is up, set map entity status to REMOVED
-		// the camera class will see this next frame and remove it permanently from the
-		// map
-		if (existenceTimer.isTimeUp()) {
-			this.mapEntityStatus = MapEntityStatus.REMOVED;
-		} else {
-			// move fireball forward
-			moveYHandleCollision(movementSpeed);
-			super.update(player);
-		}
-	}
+	
+    @Override
+    public void update(Player player) {
+        // if timer is up, set map entity status to REMOVED
+        // the camera class will see this next frame and remove it permanently from the map
+        if (existenceTimer.isTimeUp()) {
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        } else {
+            // move projectile downward
+        	moveYHandleCollision(movementSpeed);
+            super.update(player);
+        }
+    }
 
-	@Override
-	public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-		// if poop collides with anything solid on the y axis, it is removed
-		if (hasCollided) {
-			this.mapEntityStatus = MapEntityStatus.REMOVED;
-		}
-	}
+    @Override
+    public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+        // if projectile collides with anything solid on the y axis, it is removed
+        if (hasCollided) {
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
+    }
 
-	@Override
-	public void touchedPlayer(Player player) {
-		// if poop touches player, it disappears
-		super.touchedPlayer(player);
-		this.mapEntityStatus = MapEntityStatus.REMOVED;
-	}
+    @Override
+    public void touchedPlayer(Player player) {
+        // if projectile touches player, it disappears
+        super.touchedPlayer(player);
+        this.mapEntityStatus = MapEntityStatus.REMOVED;
+    }
 
-	@Override
-	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-		return new HashMap<String, Frame[]>() {
-			{
-				put("DEFAULT", new Frame[] { new FrameBuilder(spriteSheet.getSprite(0, 0)).withScale(0.5f)
-						.withBounds(0, 50, 50, 10).build() });
-			}
-		};
-	}
+    @Override
+    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+        return new HashMap<String, Frame[]>() {{
+            put("DEFAULT", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0))
+                            .withScale(0.5f)
+                            .withBounds(0, 50, 50, 10)
+                            .build()
+            });
+        }};
+    }
 }

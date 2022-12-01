@@ -1,3 +1,4 @@
+//This class displays a beginning screen when the game begins
 package Screens;
 
 import Engine.*;

@@ -284,17 +284,20 @@ public abstract class Player extends GameObject {
 			playerState = PlayerState.STANDING;
 		}
 	}
+	
+	//system to handle al player movement in level 2
 
-	protected void playerLevel2() {
-		// sSystem.out.println("Jump:" + this.gravity);
-		// sets animation to a JUMP animation based on which way player is facing
-		playerState = PlayerState.JUMPING;
-		if (damageFlag == 0) {
-			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-		} else {
-			this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
-			Date date = new Date();
-			long temp = date.getTime();
+    protected void playerLevel2() {
+    	//this runs off of a lot of principles that were already established in this code
+    	//player is always in jumping state
+    	playerState = PlayerState.JUMPING;
+    	if (damageFlag == 0 ) {
+            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+    	}
+        else {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
+            Date date = new Date();
+        	long temp = date.getTime();
 			if (temp - damageTime >= 600) {
 				damageFlag = 0;
 			}
@@ -312,8 +315,8 @@ public abstract class Player extends GameObject {
 			}
 			applyGravity();
 		}
+		// makes player go down
 		if (Keyboard.isKeyDown(CROUCH_KEY)) {
-			// player is set to be in air and then player is sent into the air
 			airGroundState = AirGroundState.AIR;
 			jumpForce = jumpHeight;
 			if (Math.abs(jumpForce) > 0) {
@@ -325,11 +328,12 @@ public abstract class Player extends GameObject {
 			}
 			applyGravity();
 		}
+		//allows the player to shoot when they hit Q and seperates shots
 		if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()) {
 			 Sound.play(12);
 			Laser laser = new Laser(getLocation(), 4, 4000);
 			map.addEnemy(laser);
-			cooldown.setWaitTime(500);
+			cooldown.setWaitTime(700);
 		}
 	}
 

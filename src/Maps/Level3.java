@@ -59,6 +59,7 @@ public class Level3 extends Map {
 		enemies.add(new SpaceMushroom(getMapTile(28, 4).getLocation()));
 		enemies.add(new SpaceMushroom(getMapTile(48, 2).getLocation()));
 		enemies.add(new SpaceMushroom(getMapTile(63, 3).getLocation()));
+
 		return enemies;
 	}
 

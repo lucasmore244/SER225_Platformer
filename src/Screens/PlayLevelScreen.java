@@ -66,7 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
-	protected int lives = 5;
+	protected int lives = 100;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;

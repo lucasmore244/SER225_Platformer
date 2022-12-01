@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 Ohm 02:39
+=======
+Lucas 03:19
+>>>>>>> 319154dd1dee4aa14cb6b2bfa6e9b9b3caefacce

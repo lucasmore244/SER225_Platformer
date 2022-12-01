@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import javax.swing.Timer;
+
+import Level.Player;
+import NPCs.WalrusLevel2;
 import SpriteFont.SpriteFont;
+import Utils.Stopwatch;
 
 public class DisplayTime {
 	public Timer timer;
@@ -13,6 +17,7 @@ public class DisplayTime {
 	public DecimalFormat dformat = new DecimalFormat("00");
 	public String dsecond, dminute;
 	public String defaulttimer;
+	public Stopwatch level2Stop = new Stopwatch();
 
 	public DisplayTime() {
 		second = 0;
@@ -43,7 +48,6 @@ public class DisplayTime {
 			return "00:00";
 		}	else {
 				return (dminute + ":" + dsecond);		
-			}
-		
+			}	
 	}
 }

@@ -25,7 +25,6 @@ public class GameWindow implements KeyListener{
 	private Timer timer;
 	protected ImageIcon ii;
 	protected KeyLocker keylocker = new KeyLocker();
-//	protected ScreenCoordinator screenCoordinator;
 
 	public GameWindow() {
 		gameWindow = new JFrame("Game");
@@ -65,6 +64,7 @@ public class GameWindow implements KeyListener{
 		return gameWindow;
 	}
 
+	//plays video animation at the start of the game
 	public void playVideo() {	
 		try {
 			JPanel contentPane = new JPanel();
@@ -83,6 +83,7 @@ public class GameWindow implements KeyListener{
 			imageLabel.setFocusable(false);
 			contentPane.add(imageLabel, BorderLayout.CENTER);
 			int delay = 8000;
+			//timer to switch to the main game panel after video is over
 			timer = new Timer(1, new ActionListener() {
 				long startTime = System.currentTimeMillis();
 
@@ -106,7 +107,6 @@ public class GameWindow implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
