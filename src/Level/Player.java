@@ -18,9 +18,10 @@ import Enemies.Laser;
 import Enemies.RatEnemy;
 import Enemies.UFO;
 import Enemies.UFOFireball;
-import Enemies.DinosaurEnemy.DinosaurState; 
+import Enemies.DinosaurEnemy.DinosaurState;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Sound;
 import EnhancedMapTiles.Mushrooms;
 import GameObject.Frame;
 import GameObject.GameObject;
@@ -73,7 +74,6 @@ public abstract class Player extends GameObject {
 	protected long mushroomTime = 0;
 	protected int damageFlag = 0;
 	protected long damageTime = 0;
-	
 	// classes that listen to player events can be added to this list
 	protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 	// define keys
@@ -154,30 +154,10 @@ public abstract class Player extends GameObject {
 			case JUMPING:
 				playerJumping();
 				break;
-			/*
-			 * case SHOOT: playerShooting(); break;
-			 */
 			}
 		}
 	}
 
-
-
-	/*
-	 * protected void takingDamage() { this.mapEntity = mapEntity; if
-	 * (!isInvincible) { // if map entity is an enemy, kill player on touch if
-	 * (mapEntity instanceof Enemy && monsterTouchFlag == 0) { //
-	 * this.currentAnimationName = facingDirection == Direction.RIGHT ?
-	 * "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; playerState =
-	 * PlayerState.TAKING_DAMAGE; monsterTouchFlag = 1; Date date = new Date();
-	 * monsterTime = date.getTime(); // levelState = LevelState.PLAYER_DEAD;
-	 * playerHealth--; //drop life if (playerHealth == 0) { levelState =
-	 * LevelState.PLAYER_DEAD; } } if (mapEntity instanceof Enemy &&
-	 * monsterTouchFlag == 1) { //this.currentAnimationName = facingDirection ==
-	 * Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; Date date =
-	 * new Date(); long temp = date.getTime(); if (temp - monsterTime >= 1000) {
-	 * //playerState = PlayerState.TAKING_DAMAGE; monsterTouchFlag = 0; } } } }
-	 */
 	// player STANDING state logic
 	protected void playerStanding() {
 		// if walk left or walk right key is pressed, player enters WALKING state
@@ -193,9 +173,6 @@ public abstract class Player extends GameObject {
 		else if (Keyboard.isKeyDown(CROUCH_KEY)) {
 			playerState = PlayerState.CROUCHING;
 		}
-		/*
-		 * else if(Keyboard.isKeyDown(SHOOT_KEY)) { playerState = PlayerState.SHOOT; }
-		 */
 	}
 
 	// player WALKING state logic
@@ -221,10 +198,6 @@ public abstract class Player extends GameObject {
 		else if (Keyboard.isKeyDown(CROUCH_KEY)) {
 			playerState = PlayerState.CROUCHING;
 		}
-		/*
-		 * if (Keyboard.isKeyDown(SHOOT_KEY)) { playerState = PlayerState.SHOOT; }
-		 * System.out.println(playerState);
-		 */
 	}
 
 	// player CROUCHING state logic
@@ -239,37 +212,20 @@ public abstract class Player extends GameObject {
 			playerState = PlayerState.JUMPING;
 		}
 	}
-	// attempt to make the thing shoot
-	/*
-	 * protected void takingDamage() { this.mapEntity = mapEntity; if
-	 * (!isInvincible) { // if map entity is an enemy, kill player on touch if
-	 * (mapEntity instanceof Enemy && monsterTouchFlag == 0) { //
-	 * this.currentAnimationName = facingDirection == Direction.RIGHT ?
-	 * "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; playerState =
-	 * PlayerState.TAKING_DAMAGE; monsterTouchFlag = 1; Date date = new Date();
-	 * monsterTime = date.getTime(); // levelState = LevelState.PLAYER_DEAD;
-	 * playerHealth--; //drop life if (playerHealth == 0) { levelState =
-	 * LevelState.PLAYER_DEAD; } } if (mapEntity instanceof Enemy &&
-	 * monsterTouchFlag == 1) { //this.currentAnimationName = facingDirection ==
-	 * Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT"; Date date =
-	 * new Date(); long temp = date.getTime(); if (temp - monsterTime >= 1000) {
-	 * //playerState = PlayerState.TAKING_DAMAGE; monsterTouchFlag = 0; } } } }
-	 */
-	// player STANDING state logic
+
 	// player JUMPING state logic
 
 	protected void playerJumping() {
 		// if last frame player was on ground and this frame player is still on ground,
 		// the jump needs to be setup
 		if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-			playscreen.playSE(8);
-			// sSystem.out.println("Jump:" + this.gravity);
+			Sound.play(8);
 			// sets animation to a JUMP animation based on which way player is facing
 			currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
 			// player is set to be in air and then player is sent into the air
 			airGroundState = AirGroundState.AIR;
 			jumpForce = jumpHeight;
-			if (Math.abs(jumpForce) /* jumpForce */ > 0) {
+			if (Math.abs(jumpForce) > 0) {
 				moveAmountY -= jumpForce;
 				jumpForce -= jumpDegrade;
 				if (jumpForce < 0) {
@@ -298,10 +254,9 @@ public abstract class Player extends GameObject {
 			if (moveAmountY > 0) {
 				increaseMomentum();
 			}
-			
-			if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
+			if (Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
 				CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
-				playscreen.playSE(14);
+				 Sound.play(14);
 				map.addEnemy(poop);
 				reloadTimeBossFight.setWaitTime(1000);
 			}
@@ -311,30 +266,24 @@ public abstract class Player extends GameObject {
 		else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
 			playerState = PlayerState.STANDING;
 		}
-            // allows you to move left and right while in the air
-//            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-//                moveAmountX -= walkSpeed;
-//            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-//                moveAmountX += walkSpeed;
-//            }
-
-            // if player is falling, increases momentum as player falls so it falls faster over time
-            if (moveAmountY > 0) {
-                increaseMomentum();
-            }
-            
-            // If player is in the air this will shoot down (for boss fight)
-            if(Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
-            	CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
-            	map.addEnemy(poop);
-            	reloadTimeBossFight.setWaitTime(100);
-            }
-
-        // if player last frame was in air and this frame is now on ground, player enters STANDING state
-        if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
-            playerState = PlayerState.STANDING;
-        } 
-    } 
+		// allows you to move left and right while in the air
+		// if player is falling, increases momentum as player falls so it falls faster
+		// over time
+		if (moveAmountY > 0) {
+			increaseMomentum();
+		}
+		// If player is in the air this will shoot down (for boss fight)
+		if (Keyboard.isKeyDown(SHOOT_KEY) && reloadTimeBossFight.isTimeUp() && currentMap == 4) {
+			CatProjectile poop = new CatProjectile(getLocation(), 10, 4000);
+			map.addEnemy(poop);
+			reloadTimeBossFight.setWaitTime(100);
+		}
+		// if player last frame was in air and this frame is now on ground, player
+		// enters STANDING state
+		if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
+			playerState = PlayerState.STANDING;
+		}
+	}
 	
 	//system to handle al player movement in level 2
 
@@ -349,7 +298,6 @@ public abstract class Player extends GameObject {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED";
             Date date = new Date();
         	long temp = date.getTime();
-//    		System.out.println(this.currentAnimationName);
 			if (temp - damageTime >= 600) {
 				damageFlag = 0;
 			}
@@ -369,7 +317,6 @@ public abstract class Player extends GameObject {
 		}
 		// makes player go down
 		if (Keyboard.isKeyDown(CROUCH_KEY)) {
-			
 			airGroundState = AirGroundState.AIR;
 			jumpForce = jumpHeight;
 			if (Math.abs(jumpForce) > 0) {
@@ -383,7 +330,7 @@ public abstract class Player extends GameObject {
 		}
 		//allows the player to shoot when they hit Q and seperates shots
 		if (Keyboard.isKeyDown(SHOOT_KEY) && cooldown.isTimeUp()) {
-			playscreen.playSE(12);
+			 Sound.play(12);
 			Laser laser = new Laser(getLocation(), 4, 4000);
 			map.addEnemy(laser);
 			cooldown.setWaitTime(700);
@@ -407,7 +354,6 @@ public abstract class Player extends GameObject {
 
 	// anything extra the player should do based on interactions can be handled here
 	protected void handlePlayerAnimation() {
-		// System.out.println(playerState);
 		if (playerState == PlayerState.STANDING) {
 			if (damageFlag == 0) {
 				this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
@@ -415,7 +361,6 @@ public abstract class Player extends GameObject {
 				this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
 				Date date = new Date();
 				long temp = date.getTime();
-//        		System.out.println(this.currentAnimationName);
 				if (temp - damageTime >= 800) {
 					damageFlag = 0;
 				}
@@ -428,13 +373,13 @@ public abstract class Player extends GameObject {
 			int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 			int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 			MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-			if(currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
 				playerHealth = 0;
 				levelState = LevelState.PLAYER_DEAD;
 			}
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
-				playscreen.playSE(10);
+				 Sound.play(10);
 				Date date = new Date();
 				waterTime = date.getTime();
 				waterFlag = 1;
@@ -452,7 +397,6 @@ public abstract class Player extends GameObject {
 				}
 			}
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
-				// System.out.println(playerState);
 				this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
 				Date date = new Date();
 				long temp = date.getTime();
@@ -482,11 +426,10 @@ public abstract class Player extends GameObject {
 			int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
 			int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 			MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-			if(currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
+			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATERLEVEL3) {
 				playerHealth = 0;
 				levelState = LevelState.PLAYER_DEAD;
 			}
-			
 			if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 0) {
 				playerHealth--;
 				Date date = new Date();
@@ -541,17 +484,13 @@ public abstract class Player extends GameObject {
 	public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
 		// if player collides with a map tile below it, it is now on the ground
 		// if player does not collide with a map tile below, it is in air
-		// System.out.println(airGroundState + " " + hasCollided+ " " + moveAmountY + "
-		// " + direction + " " + entityCollidedWith);
 		if (direction == Direction.DOWN) {
 			if (hasCollided) {
 				momentumY = 0;
 				airGroundState = AirGroundState.GROUND;
-				// System.out.println("Landed");
 			} else {
 				playerState = PlayerState.JUMPING;
 				airGroundState = AirGroundState.AIR;
-				// System.out.println("Airborne");
 			}
 		}
 		// if player collides with map tile upwards, it means it was jumping and then
@@ -569,18 +508,13 @@ public abstract class Player extends GameObject {
 		if (!isInvincible) {
 			// if map entity is an enemy, kill player on touch
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
-				// this.currentAnimationName = facingDirection == Direction.RIGHT ?
-				// "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-				if(playscreen.getCurrentMap() != 2 ) {
-					playscreen.playSE(10);
+				if (playscreen.getCurrentMap() != 2) {
+					Sound.play(10);
 				} else {
-					playscreen.playSE(9);
+					Sound.play(9);
 				}
-
-
 				Date date = new Date();
 				monsterTime = date.getTime();
-				// levelState = LevelState.PLAYER_DEAD;
 				playerHealth--;
 				monsterTouchFlag = 1;
 				
@@ -597,17 +531,11 @@ public abstract class Player extends GameObject {
 			}
 			
 			if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
-				/*
-				 * if(currentMap == 1) { this.currentAnimationName = facingDirection ==
-				 * Direction.RIGHT ? "JUMP_RIGHT_RED" : "JUMP_LEFT_RED"; }
-				 */
 				damageFlag = 1;
 				Date date = new Date();
 				long temp = date.getTime();
 				if (temp - monsterTime >= 1000) {
-					// playerState = PlayerState.TAKING_DAMAGE;
 					monsterTouchFlag = 0;
-					//System.out.println(playerState);
 				}
 			}
 			if (mapEntity instanceof Fireball || mapEntity instanceof Bones) {
@@ -642,8 +570,8 @@ public abstract class Player extends GameObject {
 				listener.onLevelCompleted();
 			}
 		}
-		// currentMap++;
 	}
+
 
     // if player has died, this will be the update cycle
     public void updatePlayerDead() {
@@ -682,49 +610,53 @@ public abstract class Player extends GameObject {
     	return playerHealth;
     }
     
-    public void setPlayerHealth(int playerHealth) {
-    	this.playerHealth = playerHealth;
-    }
-
     public LevelState getLevelState() {
         return levelState;
     }
     
-    public PlayerState getPlayerState() {
-        return playerState;
-    }
+
     
     public int getCurrentMap() {
     	return currentMap;
     }
 
-    public void setPlayerState(PlayerState playerState) {
-        this.playerState = playerState;
-    }
+	public void setPlayerHealth(int playerHealth) {
+		this.playerHealth = playerHealth;
+	}
 
-    public AirGroundState getAirGroundState() {
-        return airGroundState;
-    }
+	public PlayerState getPlayerState() {
+		return playerState;
+	}
 
-    public Direction getFacingDirection() {
-        return facingDirection;
-    }
+	public void setPlayerState(PlayerState playerState) {
+		this.playerState = playerState;
+	}
 
-    public AirGroundState setAirGroundState(AirGroundState airGroundState) {
-        return airGroundState;
-    }
-    public void setFacingDirection(Direction facingDirection) {
-        this.facingDirection = facingDirection;
-    }
+	public AirGroundState getAirGroundState() {
+		return airGroundState;
+	}
 
-    public void setLevelState(LevelState levelState) {
-        this.levelState = levelState;
-    }
+	public Direction getFacingDirection() {
+		return facingDirection;
+	}
 
-    public void addListener(PlayerListener listener) {
-        listeners.add(listener);
-    }
-    public void setLevelMap(int currentMap) {
-    	this.currentMap = currentMap;
-    }
+	public AirGroundState setAirGroundState(AirGroundState airGroundState) {
+		return airGroundState;
+	}
+
+	public void setFacingDirection(Direction facingDirection) {
+		this.facingDirection = facingDirection;
+	}
+
+	public void setLevelState(LevelState levelState) {
+		this.levelState = levelState;
+	}
+
+	public void addListener(PlayerListener listener) {
+		listeners.add(listener);
+	}
+
+	public void setLevelMap(int currentMap) {
+		this.currentMap = currentMap;
+	}
 }

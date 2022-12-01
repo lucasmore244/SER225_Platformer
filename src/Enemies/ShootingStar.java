@@ -74,7 +74,7 @@ public class ShootingStar extends Enemy{
 //		
 		if(currentAnimationName == "WALK_LEFT" && this.getX2() < 2) {
 			 this.currentAnimationName = facingDirection == Direction.LEFT ? "WALK_LEFT" : "WALK_RIGHT";
-			this.setLocation(740, (float) (Math.random() * (400) + 1) );
+			this.setLocation(740, (float) (Math.random() * (450) + 101) );
 		}
 //		
 

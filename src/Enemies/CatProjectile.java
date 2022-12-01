@@ -20,23 +20,22 @@ import java.util.Random;
 // it will travel in a straight line (x axis) for a set time before disappearing
 // it will disappear early if it collides with a solid map tile
 public class CatProjectile extends Enemy {
-    private float movementSpeed;
-    private Stopwatch existenceTimer = new Stopwatch();
-    private int doglives = 3;
+	private float movementSpeed;
+	private Stopwatch existenceTimer = new Stopwatch();
+	private int doglives = 3;
 
-    public CatProjectile(Point location, float movementSpeed, int existenceTime) {
-        super(location.x+20, location.y+60, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53), "DEFAULT");
-        this.movementSpeed = movementSpeed;
+	public CatProjectile(Point location, float movementSpeed, int existenceTime) {
+		super(location.x + 20, location.y + 60, new SpriteSheet(ImageLoader.load("CatProjectile.png"), 50, 53),
+				"DEFAULT");
+		this.movementSpeed = movementSpeed;
+		// how long the projectile will exist for before disappearing
+		existenceTimer.setWaitTime(existenceTime);
+		// this enemy will not respawn after it has been removed
+		isRespawnable = false;
+		initialize();
+	}
 
-        // how long the projectile will exist for before disappearing
-        existenceTimer.setWaitTime(existenceTime);
-
-        // this enemy will not respawn after it has been removed
-        isRespawnable = false;
-
-        initialize();
-    }
-
+	
     @Override
     public void update(Player player) {
         // if timer is up, set map entity status to REMOVED
@@ -76,5 +75,4 @@ public class CatProjectile extends Enemy {
             });
         }};
     }
-    
 }

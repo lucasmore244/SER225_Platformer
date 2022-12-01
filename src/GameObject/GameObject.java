@@ -280,7 +280,8 @@ public class GameObject extends AnimatedSprite {
 					currentFrame.getImageEffect());
 
 			// Uncomment this to draw player's bounds to screen -- useful for debugging
-//			if (this instanceof Spaceship) {
+
+//			if (this instanceof Castle) {
 //				drawBounds(graphicsHandler, new Color(255, 0, 0, 100));
 //			}
 			

@@ -1,3 +1,5 @@
+
+
 package Engine;
 
 import GameObject.Rectangle;
@@ -60,7 +62,7 @@ public class GamePanel extends JPanel {
 	// this had to be done outside of the constructor because it needed to know the
 	// JPanel's width and height, which aren't available in the constructor
 	public void setupGame() {
-		setBackground(Colors.CORNFLOWER_BLUE);
+		setBackground(Color.BLACK);
 		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
 		doPaint = true;
 	}

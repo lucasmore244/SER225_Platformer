@@ -1,3 +1,4 @@
+//This class displays an Instruction screen
 package Screens;
 
 import java.awt.Color;
@@ -24,10 +25,10 @@ public class InstructionScreen extends Screen {
 	@Override
 	public void initialize() {
 		// TODO Auto-generated method stub
-		header = new SpriteFont("INSTRUCTIONS", 300, 50, "Times New Roman", 30, Color.BLACK);
+		header = new SpriteFont("INSTRUCTIONS", 300, 50, "Times New Roman", 30, Color.orange);
 		header.setFontStyle(1);
 		backtohomescreen = new SpriteFont("Click the Space Bar to go back to Previous Screen", 0, 550,
-				"Times New Roman", 30, Color.BLACK);
+				"Times New Roman", 30, Color.MAGENTA);
 		backtohomescreen.setFontStyle(2);
 		instruction1 = new SpriteFont("1. Use the Arrow Keys for movement", 0, 100, "Times New Roman", 20, Color.RED);
 		instruction1.setFontStyle(2);
@@ -37,7 +38,7 @@ public class InstructionScreen extends Screen {
 		instruction3 = new SpriteFont("3. In Level4, Hold the Q key to attack the enemy", 0, 200, "Times New Roman", 20,
 				Color.BLUE);
 		instruction3.setFontStyle(2);
-		instruction4 = new SpriteFont("4. Click the P key to Pause", 0, 250, "Times New Roman", 20, Color.BLACK);
+		instruction4 = new SpriteFont("4. Click the P key to Pause", 0, 250, "Times New Roman", 20, Color.MAGENTA);
 		instruction4.setFontStyle(2);
 		instruction5 = new SpriteFont("5. Click the M key for background song options", 0, 300, "Times New Roman", 20,
 				Color.GRAY);

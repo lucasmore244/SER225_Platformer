@@ -25,6 +25,7 @@ import Engine.Screen;
 import Engine.Sound;
 import EnhancedMapTiles.Checkpoint;
 import EnhancedMapTiles.Coin;
+import Game.Game;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
@@ -58,7 +59,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected Player player;
 	protected PlayLevelScreenState playLevelScreenState;
 	protected Stopwatch screenTimer = new Stopwatch();
-	protected Stopwatch endTimer = new Stopwatch();
 	protected LevelClearedScreen levelClearedScreen;
 	protected LevelLoseScreen levelLoseScreen;
 	protected boolean levelCompletedStateChangeStart;
@@ -73,7 +73,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public DisplayTime timer = new DisplayTime();
 	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
-	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
 	protected Key MUSIC_KEY = Key.M;
 	protected KeyLocker keylock = new KeyLocker();
@@ -87,7 +86,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (firstGo) {
 			if (currentMap == 1) {
 				this.map = new TestMap();
-				playMusic(6);
+				Sound.playMusic(6);
 			} else if (currentMap == 2) {
 				this.map = new Level2();
 			} else if (currentMap == 3) {
@@ -137,8 +136,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();
-				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman", 18,
-						Color.RED);
+				doglives = new HealthDisplay("SPACEDOG LIVES: " + SpaceDog1.getDogStatus(), 450, 70, "Times New Roman",
+						18, Color.RED);
 			}
 			healthdisplay = new HealthDisplay(livescount, 650, 50, "Comic Sans", 20, Color.RED);
 			coins = new SpriteFont(coincount, 650, 70, "Comic Sans", 20, Color.red);
@@ -149,23 +148,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				map.setCoinCount(-3);
 			}
 			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
-				stopMusic();
+				Sound.stopAll();
 				new MusicPanel(null).show();
 				keylock.lockKey(MUSIC_KEY);
 			}
 			if (Keyboard.isKeyUp(MUSIC_KEY)) {
 				keylock.unlockKey(MUSIC_KEY);
 			}
-				if (SpaceDog1.getDogStatus() <= 0) {			
-					try {
-//						stopMusic();
-						Thread.sleep(500);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					onLevelCompleted();
-					SpaceDog1.setDogStatus(3);
+			if (SpaceDog1.getDogStatus() <= 0) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Sound.stopAll();
+				onLevelCompleted();
+				SpaceDog1.setDogStatus(3);
 			}
 			lives = player.getPlayerhealth();
 			break;
@@ -175,7 +174,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				if (levelCompletedStateChangeStart) {
 					screenTimer.setWaitTime(2500);
 					if (getCurrentMap() == 4) {
-//						stopMusic();
 						try {
 							Thread.sleep(2000);
 						} catch (InterruptedException e1) {
@@ -187,7 +185,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 							e.printStackTrace();
 						}
 						screenCoordinator.setGameState(GameState.SCOREBOARD);
-//						System.exit(0);
+						if (Keyboard.isKeyUp(MUSIC_KEY) && Keyboard.isKeyUp(Key.UP) && Keyboard.isKeyUp(Key.DOWN)
+								&& Keyboard.isKeyUp(Key.LEFT) && Keyboard.isKeyUp(Key.RIGHT)
+								&& Keyboard.isKeyUp(Key.Q)) {
+							keylock.unlockKey(MUSIC_KEY);
+							keylock.unlockKey(Key.UP);
+							keylock.unlockKey(Key.DOWN);
+							keylock.unlockKey(Key.RIGHT);
+							keylock.unlockKey(Key.LEFT);
+							keylock.unlockKey(Key.Q);
+						}
 					}
 					levelCompletedStateChangeStart = false;
 					currentMap += 1;
@@ -228,7 +235,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 			if (currentMap == 4) {
 				doglives.draw(graphicsHandler);
 			}
-			
 			break;
 		case LEVEL_COMPLETED:
 			levelClearedScreen.draw(graphicsHandler);
@@ -252,12 +258,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
 			levelCompletedStateChangeStart = true;
-			playSE(2);
+			Sound.play(2);
 		}
 		if (playLevelScreenState == PlayLevelScreenState.LEVEL_COMPLETED && getCurrentMap() == 4) {
-//			stopMusic();
 			levelClearedScreen.update();
-			playSE(2);
+			Sound.play(2);
 		}
 	}
 
@@ -265,7 +270,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	public void onDeath() {
 		if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
 			playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-			playSE(3);
 		}
 	}
 
@@ -299,21 +303,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 		}
-	}
-
-	public void playMusic(int i) {
-		sound.setFile(i);
-		sound.play();
-		sound.loop();
-	}
-
-	public void stopMusic() {
-		sound.stop();
-	}
-
-	public void playSE(int i) {
-		sound.setFile(i);
-		sound.play();
 	}
 
 	public void createTextFile() throws IOException {

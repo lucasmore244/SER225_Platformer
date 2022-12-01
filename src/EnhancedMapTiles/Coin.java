@@ -7,6 +7,7 @@ import java.util.Map;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -24,7 +25,6 @@ public class Coin extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private TestMap map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	public Coin(Point location, TestMap testMap) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("CoinSpriteSheet.png"), 80, 80), TileType.PASSABLE);
@@ -35,7 +35,7 @@ public class Coin extends EnhancedMapTile {
 	public void update(Player player) {
         super.update(player);
         if (intersects(player)&&!collected) {
-        	playscreen.playSE(7);
+        	Sound.play(7);
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);

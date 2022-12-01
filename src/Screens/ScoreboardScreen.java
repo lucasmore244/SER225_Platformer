@@ -1,3 +1,4 @@
+//This class creates the Scoreboard.
 package Screens;
 
 import Engine.*;
@@ -26,8 +27,6 @@ public class ScoreboardScreen extends Screen {
 	protected Map background;
 	protected KeyLocker keyLocker = new KeyLocker();
 	protected SpriteFont playertimeheader, playertimedisplay, playersnameheader, playersnamedisplay, backtohomescreen, pn;
-	protected PlayLevelScreen timer = new PlayLevelScreen(null);
-	protected String playertime = timer.getTime();
 	protected LevelLoseScreen levellose;
 	protected LevelState levelState;
 	protected boolean start;
@@ -58,6 +57,7 @@ public class ScoreboardScreen extends Screen {
 
 	public void update() {
 		if (start) {
+			//Split every word that is typed by space. Representing the name and time
 			for (int i = 0; i < data.size(); i++) {
 				String line = data.get(i);
 				String[] split = line.split(" ");
@@ -74,6 +74,7 @@ public class ScoreboardScreen extends Screen {
 		}
 	}
 
+	//loads created text file
 	private ArrayList<String> loadTextFile() throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		{
