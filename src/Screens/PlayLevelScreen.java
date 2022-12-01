@@ -66,7 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
-	protected int lives = 5;
+	protected int lives = 100;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;
@@ -99,6 +99,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			player.setPlayerHealth(lives);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);

@@ -53,10 +53,10 @@ public class Level3 extends Map {
 				Direction.RIGHT));
 		enemies.add(new UFO(getMapTile(40, 10).getLocation().addY(2), getMapTile(47, 10).getLocation().addY(2),
 				Direction.RIGHT));
-		enemies.add(new SpaceMushroom(getMapTile(15, 2).getLocation()));
-		enemies.add(new SpaceMushroom(getMapTile(28, 4).getLocation()));
-		enemies.add(new SpaceMushroom(getMapTile(48, 2).getLocation()));
-		enemies.add(new SpaceMushroom(getMapTile(63, 3).getLocation()));
+//		enemies.add(new SpaceMushroom(getMapTile(15, 2).getLocation()));
+//		enemies.add(new SpaceMushroom(getMapTile(28, 4).getLocation()));
+//		enemies.add(new SpaceMushroom(getMapTile(48, 2).getLocation()));
+//		enemies.add(new SpaceMushroom(getMapTile(63, 3).getLocation()));
 		return enemies;
 	}
 

@@ -123,12 +123,8 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
-<<<<<<< HEAD
         // Changes UFO direction if it collides with a solid object (Not used in game)
-=======
-        // if collided into something while walking forward,
-        // it turns around (changes facing direction)
->>>>>>> 4d1138b5502ed4ad345d735fd6d16d60b52b6444
+
     	if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -142,12 +138,7 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-<<<<<<< HEAD
         // This isn't used since the UFO is in the air at all points in time
-=======
-        // if collided with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
->>>>>>> 4d1138b5502ed4ad345d735fd6d16d60b52b6444
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 airGroundState = AirGroundState.GROUND;

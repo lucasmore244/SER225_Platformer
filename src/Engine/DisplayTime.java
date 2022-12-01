@@ -27,24 +27,20 @@ public class DisplayTime {
 	}
 
 	public void counter() {
-		if (WalrusLevel2.isTalking() == true && !level2Stop.isTimeUp()) {
-			
-		} else {
-			timer = new Timer(1000, new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					second++;
+		timer = new Timer(1000, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				second++;
+				dsecond = dformat.format(second);
+				dminute = dformat.format(minute);
+				if (second == 60) {
+					second = 0;
+					minute++;
 					dsecond = dformat.format(second);
 					dminute = dformat.format(minute);
-					if (second == 60) {
-						second = 0;
-						minute++;
-						dsecond = dformat.format(second);
-						dminute = dformat.format(minute);
-					}
 				}
-			});
-		}
+			}
+		});
 	}
 
 	public String getTime() {
