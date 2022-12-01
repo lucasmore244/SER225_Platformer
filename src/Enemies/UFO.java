@@ -77,7 +77,6 @@ public class UFO extends Enemy {
         
     	if (getX1() + getWidth() >= endBound) {
             float difference = endBound - (getX2());
-//            System.out.println(difference);
             moveXHandleCollision(-difference);
             facingDirection = Direction.LEFT;
         } else if (getX1() <= startBound) {
@@ -86,7 +85,7 @@ public class UFO extends Enemy {
             facingDirection = Direction.RIGHT;
         }
     	
-    	// INITIALIZE FIREBALL
+    	// This section INITIALIZES FIREBALL!!
     	
     	float moveAmountX = 0;
         float moveAmountY = 0;
@@ -95,11 +94,13 @@ public class UFO extends Enemy {
         if (shootTimer.isTimeUp()) {
         		int fireballY = Math.round(getY()) + 20;
         		int fireballX = Math.round(getX()) + 20;
+        		//Creates instances of Fireball for the UFO to shoot
         		UFOFireball fireball1 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
         		UFOFireball fireball2 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
         		UFOFireball fireball3 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
         		UFOFireball fireball4 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
         		UFOFireball fireball5 = new UFOFireball(new Point(fireballX, fireballY), -6, 1500);
+        		// Makes it so the fireballs are shot out at a diagonal
         		fireball1.setDiagonal(0);
         		fireball2.setDiagonal(1);
         		fireball3.setDiagonal(2);
@@ -112,8 +113,8 @@ public class UFO extends Enemy {
         		map.addEnemy(fireball4);
         		map.addEnemy(fireball5);
         		shootTimer.setWaitTime(500);
-        		
         }
+        // sets a time for the reload timer, so the UFO doesn't continuously shoot
         if (shootReloadTimer.isTimeUp()) {
         	shootTimer.setWaitTime(2000);
         	shootReloadTimer.setWaitTime(3000);
@@ -124,8 +125,7 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
-        // if bug has collided into something while walking forward,
-        // it turns around (changes facing direction)
+        // Changes UFO direction if it collides with a solid object (Not used in game)
     	if (hasCollided) {
             if (direction == Direction.RIGHT) {
                 facingDirection = Direction.LEFT;
@@ -139,8 +139,7 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if bug is colliding with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
+        // This isn't used since the UFO is in the air at all points in time
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 airGroundState = AirGroundState.GROUND;
@@ -157,14 +156,14 @@ public class UFO extends Enemy {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                     		.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withScale(2)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(0, 10, 33, 27)
                             .build(),
             });
 
             put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 100)
                     		.withScale(2)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(6, 10, 33, 27)
                             .build(),
             });
         }};
