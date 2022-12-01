@@ -131,9 +131,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// platformer level going
 		case RUNNING:
 			player.update();
-			livescount = "LIVES: " + player.getPlayerhealth();
+			livescount = "LIVES: " + player.getPlayerhealth() + "/5";
 			if (currentMap != 4) {
-				coincount = "COINS: " + map.getCoinCount();
+				coincount = "COINS: " + map.getCoinCount() + "/4";
 				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();

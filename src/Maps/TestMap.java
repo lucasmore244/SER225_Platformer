@@ -47,6 +47,8 @@ public class TestMap extends Map {
 				Direction.RIGHT));
 		enemies.add(new DinosaurEnemy(getMapTile(58, 4).getLocation().addY(2), getMapTile(60, 4).getLocation().addY(2),
 				Direction.RIGHT));
+		
+		//Adds all the mushroom enemies that appear in level 1
 		enemies.add(new Mushrooms(getMapTile(16, 8).getLocation()));
 		enemies.add(new Mushrooms(getMapTile(24, 10).getLocation()));
 		enemies.add(new Mushrooms(getMapTile(34, 10).getLocation()));
@@ -72,6 +74,8 @@ public class TestMap extends Map {
 				getMapTile(48, 8).getLocation(), getMapTile(54, 8).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.LEFT));
 		enhancedMapTiles.add(new Spaceship(getMapTile(64, 10).getLocation()));
+		
+		//Adds all the coins that appear in level 1
 		enhancedMapTiles.add(new Coin(getMapTile(7, 11).getLocation(), this));
 		enhancedMapTiles.add(new Coin(getMapTile(20, 0).getLocation(), this));
 		enhancedMapTiles.add(new Coin(getMapTile(44, 5).getLocation(), this));

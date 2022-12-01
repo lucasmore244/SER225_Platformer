@@ -28,6 +28,7 @@ public class Kitten1 extends EnhancedMapTile {
 	private Level4 map;
 
 	
+	//Loads the first kitten into the game
 	public Kitten1(Point location, Level4 level4) {
         super(location.x, location.y + 2, new SpriteSheet(ImageLoader.load("Kitten1.png"), 80, 66), TileType.PASSABLE);
         this.map = level4;
@@ -36,8 +37,13 @@ public class Kitten1 extends EnhancedMapTile {
 
 	public void update(Player player) {
         super.update(player);
-        if (intersects(player)&&!collected) {
-        	Sound.play(7);
+        
+        //Says what to do when the player intersects with the kitten
+        if (intersects(player)&&!collected) {        	
+        	//This will play a sound affect when collected
+			Sound.play(7);
+        	//Will add to the coin count when a kitten is collected
+        	
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);
@@ -47,6 +53,7 @@ public class Kitten1 extends EnhancedMapTile {
         
     }
 	
+	//This tells the map to display the coin if it has not been collected yet
 	 public void draw(GraphicsHandler graphicsHandler) {
 		 if(!collected) {
 	        super.draw(graphicsHandler);
@@ -58,6 +65,7 @@ public class Kitten1 extends EnhancedMapTile {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
       
+			//These are the animations for the coin to spin
     		return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)

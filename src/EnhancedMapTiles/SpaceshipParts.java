@@ -27,7 +27,8 @@ public class SpaceshipParts extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
-
+	
+	//Loads the spaceship head collectible into the game
 	public SpaceshipParts(Point location, Level3 level3) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Head.png"), 80, 80), TileType.PASSABLE);
 		this.level3 = level3;
@@ -35,6 +36,8 @@ public class SpaceshipParts extends EnhancedMapTile {
 
 	public void update(Player player) {
 		super.update(player);
+		
+		//If the collectible intersects with the player, a sound affect will play and the coin count will count up
 		if (intersects(player) && !collected) {
 			Sound.play(7);
 			parts = parts + 1;
@@ -45,13 +48,16 @@ public class SpaceshipParts extends EnhancedMapTile {
 		}
 	}
 
+	//If the collectible has not been collected yet, the collectible will be drawn
 	public void draw(GraphicsHandler graphicsHandler) {
 		if (!collected) {
 			super.draw(graphicsHandler);
 		}
 	}
-
+	
 	@Override
+	
+	//Adds the collectible into the game
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{

@@ -39,7 +39,6 @@ public class Level4 extends Map {
         this.playerStartPosition = getMapTile(9, 30).getLocation(); 
     }
    
-    
 	@Override
 	public void update(Player player) {
 		super.update(player);
@@ -99,12 +98,15 @@ public class Level4 extends Map {
 		enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
 				getMapTile(3, 7).getLocation(), getMapTile(4, 7).getLocation(), TileType.NOT_PASSABLE, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
+		
+		//Adds all the kittens in level 4
 		enhancedMapTiles.add(new Kitten1(getMapTile(2, 20).getLocation(), this));
 		enhancedMapTiles.add(new Kitten2(getMapTile(7, 16).getLocation(), this));
 		enhancedMapTiles.add(new Kitten3(getMapTile(15, 26).getLocation(), this));
 		enhancedMapTiles.add(new Kitten4(getMapTile(2, 9).getLocation(), this));
 		return enhancedMapTiles;
 	}
+
 
 	public void setCoinCount(int x) {
 		coinCount = coinCount + x;

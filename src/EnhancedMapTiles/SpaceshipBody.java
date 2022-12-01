@@ -29,6 +29,7 @@ public class SpaceshipBody extends EnhancedMapTile {
 	private Level3 level3;
 
 	
+	//Loads the spaceship body collectable into the game
 	public SpaceshipBody(Point location, Level3 level3) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Body.png"), 80, 45), TileType.PASSABLE);
 
@@ -38,6 +39,8 @@ public class SpaceshipBody extends EnhancedMapTile {
 
 	public void update(Player player) {
         super.update(player);
+        
+        //If the collectible is collected, a sound affect will play, and the coin counter will count up
         if (intersects(player)&&!collected) {
         	Sound.play(7);
         	parts = parts + 1;
@@ -50,6 +53,8 @@ public class SpaceshipBody extends EnhancedMapTile {
     }
 	
 	 public void draw(GraphicsHandler graphicsHandler) {
+		 
+		 //Tells the game to draw the collectible when the collectible is not collected
 		 if(!collected) {
 	        super.draw(graphicsHandler);
 	    }
@@ -58,6 +63,7 @@ public class SpaceshipBody extends EnhancedMapTile {
 	
 
     @Override
+    //Draws the collectible into the game
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
       
     		return new HashMap<String, Frame[]>() {{

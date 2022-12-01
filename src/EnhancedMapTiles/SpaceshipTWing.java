@@ -27,6 +27,9 @@ public class SpaceshipTWing extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
+	
+	//Loads the spaceship wing collectible into the game
+
 
 	public SpaceshipTWing(Point location, Level3 level3) {
 		super(location.x, location.y, new SpriteSheet(ImageLoader.load("Wing2.png"), 80, 41), TileType.PASSABLE);
@@ -35,6 +38,8 @@ public class SpaceshipTWing extends EnhancedMapTile {
 
 	public void update(Player player) {
 		super.update(player);
+		
+		//If the player intersects with the collectible, a sound affect will be played and the coin counter will count up
 		if (intersects(player) && !collected) {
 			Sound.play(7);
 			parts = parts + 1;
@@ -45,13 +50,16 @@ public class SpaceshipTWing extends EnhancedMapTile {
 		}
 	}
 
+	//If the collectible has not been collected yet, the game will display it
 	public void draw(GraphicsHandler graphicsHandler) {
 		if (!collected) {
 			super.draw(graphicsHandler);
 		}
 	}
 
+
 	@Override
+	//Adds the collectible into the game
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{
