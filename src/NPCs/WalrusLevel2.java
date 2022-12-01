@@ -28,6 +28,7 @@ public class WalrusLevel2 extends NPC {
 	private Stopwatch message5 = new Stopwatch();
 	private int boxLength = 0;
 	private boolean firstGo = true;
+	private static boolean isTalking = false;
 	
 	private int i = 0;
 	
@@ -45,8 +46,10 @@ public class WalrusLevel2 extends NPC {
         // while npc is being talked to, it raises its tail up (in excitement?)
     	if (existanceTime.isTimeUp()) {
     		currentAnimationName = "DISSAPEAR";
+    		isTalking = false;
     	}else {
     		currentAnimationName = "TAIL_UP";
+    		isTalking = true;
     		if (firstGo == true) {
             	message2.setWaitTime(3000);
             	message3.setWaitTime(7000);
@@ -120,4 +123,9 @@ public class WalrusLevel2 extends NPC {
         // draws message "Hello" in the above speech box
         message.draw(graphicsHandler);
     }
+    
+    public static boolean isTalking() {
+    	return isTalking;
+    }
+    
 }
