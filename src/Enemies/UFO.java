@@ -16,9 +16,7 @@ import Utils.Stopwatch;
 
 import java.util.HashMap;
  
-// This class is for the black bug enemy
-// enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
-// if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
+
 public class UFO extends Enemy {
 	
 	 // timer is used to determine when a fireball is to be shot out
@@ -77,7 +75,6 @@ public class UFO extends Enemy {
         
     	if (getX1() + getWidth() >= endBound) {
             float difference = endBound - (getX2());
-//            System.out.println(difference);
             moveXHandleCollision(-difference);
             facingDirection = Direction.LEFT;
         } else if (getX1() <= startBound) {
@@ -124,7 +121,7 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
-        // if bug has collided into something while walking forward,
+        // if collided into something while walking forward,
         // it turns around (changes facing direction)
     	if (hasCollided) {
             if (direction == Direction.RIGHT) {
@@ -139,7 +136,7 @@ public class UFO extends Enemy {
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-        // if bug is colliding with the ground, change its air ground state to GROUND
+        // if collided with the ground, change its air ground state to GROUND
         // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {

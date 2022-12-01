@@ -7,6 +7,7 @@ import java.util.Map;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -25,7 +26,6 @@ public class Kitten3 extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private Level4 map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	//Loads the third kitten into the game
 	public Kitten3(Point location, Level4 level4) {
@@ -41,7 +41,7 @@ public class Kitten3 extends EnhancedMapTile {
         if (intersects(player)&&!collected) {
         	
         	//This will play a sound affect when collected
-        	playscreen.playSE(7);
+			Sound.play(7);
         	
         	//Will add to the coin count when a kitten is collected
         	coin = coin + 1;

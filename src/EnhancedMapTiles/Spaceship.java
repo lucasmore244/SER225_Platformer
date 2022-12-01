@@ -15,8 +15,7 @@ import java.util.HashMap;
 // this class has been edited in order to display a spaceship at the end of the level to match the games theme
 // The image of the spaceship at the end is an animation but i think thats fine because it works and ive been stuck on it for 4 hours
 
-// This class is for the end level gold box tile
-// when the player touches it, it will tell the player that the level has been completed
+
 public class Spaceship extends EnhancedMapTile {
 	
 	//Loads the spaceship into the game

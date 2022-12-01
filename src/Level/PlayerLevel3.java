@@ -307,15 +307,6 @@ public abstract class PlayerLevel3 extends GameObject {
 	            }
 	            
 
-	           /* 
-	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
-	                Date date = new Date();
-	            	long temp = date.getTime();
-	            	if (temp - waterTime >= 500) {
-	            		waterFlag = 0;
-	            	}
-	            }
-	            */
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.MUSHROOM && mushroomFlag == 1) {
 	                Date date = new Date();
 	            	long temp = date.getTime();
@@ -332,29 +323,10 @@ public abstract class PlayerLevel3 extends GameObject {
 	            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
 	            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
 	            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER /* && waterFlag == 0 */) {
-//	            System.out.println(levelState);
 	            playerHealth = 0;
             	levelState = LevelState.PLAYER_DEAD;
 	            }
-	            	/*
-	            	playerHealth--;
-	            	Date date = new Date();
-	            	waterTime = date.getTime();
-	            	waterFlag = 1;
-	            	
-	            	if (playerHealth == 0) {
-	            		levelState = LevelState.PLAYER_DEAD;
-	            	}
-	            }
-	            
-	            	if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER && waterFlag == 1) {
-	                    Date date = new Date();
-	                	long temp = date.getTime();
-	                	if (temp - waterTime >= 1000) {
-	                		waterFlag = 0;
-	                	}
-	                }
-	            */
+	   
 	        else if (playerState == PlayerState.CROUCHING) {
 	            // sets animation to a CROUCH animation based on which way player is facing
 	            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
@@ -367,20 +339,6 @@ public abstract class PlayerLevel3 extends GameObject {
 	                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
 	            }
 	        }
-	         /*   	
-	        else if (playerState == PlayerState.TAKING_DAMAGE) {
-	        	if (previousPlayerState == PlayerState.STANDING) {
-	        		System.out.println(playerState);
-	                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT_RED" : "STAND_LEFT_RED";
-	        	}
-	        	else if (previousPlayerState == PlayerState.WALKING) {
-	        		System.out.println(playerState);
-	                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT_RED" : "WALK_LEFT_RED";
-	        	}
-	            previousPlayerState = playerState;
-	            super.update();
-	        }
-	            	*/
 	        }
 	    }
 
@@ -414,13 +372,9 @@ public abstract class PlayerLevel3 extends GameObject {
 	        if (!isInvincible) {
 	            // if map entity is an enemy, kill player on touch
 	            if (mapEntity instanceof Enemy && monsterTouchFlag == 0) {
-	               // this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
-	            	//playerState = PlayerState.TAKING_DAMAGE;
 	            	monsterTouchFlag = 1;
 	            	Date date = new Date();          	
 	            	monsterTime = date.getTime();
-	               // levelState = LevelState.PLAYER_DEAD;
 	                playerHealth--;
 	                //drop life
 	            	if (playerHealth == 0) {
@@ -428,12 +382,9 @@ public abstract class PlayerLevel3 extends GameObject {
 	            	}
 	            }
 	            if (mapEntity instanceof Enemy && monsterTouchFlag == 1) {
-	                //this.currentAnimationName = facingDirection == Direction.RIGHT ? "TAKING_DAMAGE_RIGHT" : "TAKING_DAMAGE_LEFT";
-
 	            	Date date = new Date();          	
 	            	long temp = date.getTime();
-	            	if (temp - monsterTime >= 1000) {
-	                	//playerState = PlayerState.TAKING_DAMAGE;               	
+	            	if (temp - monsterTime >= 1000) {              	
 	            		monsterTouchFlag = 0;
 	            	}
 	            }

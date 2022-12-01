@@ -7,6 +7,7 @@ import java.util.Map;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -26,7 +27,7 @@ public class SpaceshipBody extends EnhancedMapTile {
 	private EnhancedMapTile collectable;
 	private TestMap map;
 	private Level3 level3;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
+
 	
 	//Loads the spaceship body collectable into the game
 	public SpaceshipBody(Point location, Level3 level3) {
@@ -41,7 +42,7 @@ public class SpaceshipBody extends EnhancedMapTile {
         
         //If the collectible is collected, a sound affect will play, and the coin counter will count up
         if (intersects(player)&&!collected) {
-        	playscreen.playSE(7);
+        	Sound.play(7);
         	parts = parts + 1;
         	super.update(player);
         	super.update(null);

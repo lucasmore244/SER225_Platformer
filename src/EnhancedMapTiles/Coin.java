@@ -7,6 +7,7 @@ import java.util.Map;
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
+import Engine.Sound;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
@@ -24,7 +25,6 @@ public class Coin extends EnhancedMapTile {
 	private boolean collected = false;
 	private EnhancedMapTile collectable;
 	private TestMap map;
-	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
 	//Loads the coin into the game
 	public Coin(Point location, TestMap testMap) {
@@ -39,8 +39,7 @@ public class Coin extends EnhancedMapTile {
         //Says what to do when the player intersects with the coin
         if (intersects(player)&&!collected) {
         	//This will play a sound affect when collected
-        	playscreen.playSE(7);
-        	
+        	Sound.play(7);
         	//Will add to the coin count when a coin is collected
         	coin = coin + 1;
         	super.update(player);
