@@ -19,6 +19,7 @@ public class SpaceshipLevel2 extends Player {
 
 
 	public SpaceshipLevel2(float x, float y) {
+		//Loads the rocket ship into the game
 		super(new SpriteSheet(ImageLoader.load("newRocketSheet.png"), 42, 35), x, y, "STAND_RIGHT");
 		gravity = (float) .001;
 		terminalVelocityY = 6f;
@@ -34,6 +35,7 @@ public class SpaceshipLevel2 extends Player {
 		super.update();
 	}
 
+	//Draws the rocket ship into the game
 	public void draw(GraphicsHandler graphicsHandler) {
 		super.draw(graphicsHandler);
 		// drawBounds(graphicsHandler, new Color(255, 0, 0, 170));
@@ -41,6 +43,7 @@ public class SpaceshipLevel2 extends Player {
 
 	@Override
 
+	//Gives the spaceship certain animations
 	public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 		return new HashMap<String, Frame[]>() {
 			{

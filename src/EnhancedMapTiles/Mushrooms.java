@@ -17,17 +17,21 @@ import Utils.Point;
 
 public class Mushrooms extends Enemy {
 	
+	//Load the mushroom into the game
 	public Mushrooms(Point location ) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Mushroom1.png"), 50, 88), "DEFAULT");
 	}
 	
 	public void update(Player player) {
         super.update(player);
+        
+        //If the mushroom intersects with the player, the player will get injured
         if (intersects(player)) {
         	super.update(player);
         }
     }
 
+	//Displays the mushroom on the map
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{

@@ -26,6 +26,7 @@ public class Coin extends EnhancedMapTile {
 	private TestMap map;
 	protected PlayLevelScreen playscreen = new PlayLevelScreen(null);
 	
+	//Loads the coin into the game
 	public Coin(Point location, TestMap testMap) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("CoinSpriteSheet.png"), 80, 80), TileType.PASSABLE);
         this.map = testMap;
@@ -34,8 +35,13 @@ public class Coin extends EnhancedMapTile {
 
 	public void update(Player player) {
         super.update(player);
+        
+        //Says what to do when the player intersects with the coin
         if (intersects(player)&&!collected) {
+        	//This will play a sound affect when collected
         	playscreen.playSE(7);
+        	
+        	//Will add to the coin count when a coin is collected
         	coin = coin + 1;
         	super.update(player);
         	super.update(null);
@@ -45,6 +51,7 @@ public class Coin extends EnhancedMapTile {
         
     }
 	
+	//This tells the map to display the coin if it has not been collected yet
 	 public void draw(GraphicsHandler graphicsHandler) {
 		 if(!collected) {
 	        super.draw(graphicsHandler);
@@ -56,6 +63,7 @@ public class Coin extends EnhancedMapTile {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
       
+    		//These are the animations for the coin to spin
     		return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 500)

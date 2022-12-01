@@ -41,6 +41,8 @@ public class Level4 extends Map{
         ArrayList<Enemy> enemies = new ArrayList<>();
 //        System.out.println(map.getCoinCount());
 //        System.out.println(this.getCoinCount());
+        
+        //Add the space dog enemy in the game
         enemies.add(new SpaceDog1(getMapTile(7, 6).getLocation(), getMapTile(13, 6).getLocation(), Direction.RIGHT));
         return enemies;
         
@@ -88,6 +90,7 @@ public class Level4 extends Map{
 				getMapTile(15, 10).getLocation(), getMapTile(17, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
         
+        //Adds all the kittens into the game
         enhancedMapTiles.add(new Kitten1(getMapTile(2, 20).getLocation(), this));
         enhancedMapTiles.add(new Kitten2(getMapTile(7, 16).getLocation(), this));
         enhancedMapTiles.add(new Kitten3(getMapTile(15, 26).getLocation(), this));

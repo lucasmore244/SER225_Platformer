@@ -19,7 +19,7 @@ import java.util.HashMap;
 // when the player touches it, it will tell the player that the level has been completed
 public class Spaceship extends EnhancedMapTile {
 	
-	
+	//Loads the spaceship into the game
     public Spaceship(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Rocket.png"), 50, 35), TileType.PASSABLE);
         }
@@ -27,12 +27,15 @@ public class Spaceship extends EnhancedMapTile {
     @Override
     public void update(Player player) {
         super.update(player);
+        
+        //When the player intersects with the spaceship in the first level, the level is complete and it will move onto the next level
         if (intersects(player)) {
             player.completeLevel();
         }
         
     }
 
+    //Displays the spaceship in the game
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{

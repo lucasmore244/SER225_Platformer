@@ -71,7 +71,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected SpriteFont coins, doglives;
 	protected String coincount;
 	public DisplayTime timer = new DisplayTime();
-	protected int currentMap = 2;
+	protected int currentMap = 1;
 	protected Key SHOOT_KEY = Key.Q;
 	protected Sound sound = new Sound();
 	protected MusicPanel musicPanel;
@@ -100,11 +100,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// setup player
 		if (currentMap == 1) {
 			this.player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+			player.setPlayerHealth(lives);
 		} else if (currentMap == 2) {
 			this.player = new SpaceshipLevel2(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			this.player.setLevelMap(2);
 			player.setPlayerHealth(lives);
-			System.out.println("ye");
 		} else if (currentMap == 3) {
 			this.player = new CatLevel3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
 			player.setPlayerHealth(lives);
@@ -132,9 +132,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		// platformer level going
 		case RUNNING:
 			player.update();
-			livescount = "LIVES: " + player.getPlayerhealth();
+			livescount = "LIVES: " + player.getPlayerhealth() + "/5";
 			if (currentMap != 4) {
-				coincount = "COINS: " + map.getCoinCount();
+				coincount = "COINS: " + map.getCoinCount() + "/4";
 				doglives = new SpriteFont(" ", 0, 0, null, 0, null);
 			} else {
 				coincount = "KITTENS: " + map.getCoinCount();

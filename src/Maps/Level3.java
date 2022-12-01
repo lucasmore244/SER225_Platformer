@@ -53,6 +53,8 @@ public class Level3 extends Map {
 				Direction.RIGHT));
 		enemies.add(new UFO(getMapTile(40, 10).getLocation().addY(2), getMapTile(47, 10).getLocation().addY(2),
 				Direction.RIGHT));
+		
+		//Adds the spaceship mushroom enemy in level 3
 		enemies.add(new SpaceMushroom(getMapTile(15, 2).getLocation()));
 		enemies.add(new SpaceMushroom(getMapTile(28, 4).getLocation()));
 		enemies.add(new SpaceMushroom(getMapTile(48, 2).getLocation()));
@@ -74,6 +76,8 @@ public class Level3 extends Map {
 //				new Rectangle(0, 6, 16, 7), Direction.DOWN));
 		enhancedMapTiles.add(new Checkpoint(getMapTile(44, 5).getLocation(), this));
 		enhancedMapTiles.add(new Castle(getMapTile(67, 5).getLocation()));
+		
+		//Adds the collectibles in level 3
 		enhancedMapTiles.add(new SpaceshipParts(getMapTile(5, 1).getLocation(), this));
 		enhancedMapTiles.add(new SpaceshipWing(getMapTile(16, 3).getLocation(), this));
 		enhancedMapTiles.add(new SpaceshipBody(getMapTile(30, 3).getLocation(), this));
