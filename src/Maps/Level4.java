@@ -91,7 +91,7 @@ public class Level4 extends Map {
 				getMapTile(15, 10).getLocation(), getMapTile(17, 10).getLocation(), TileType.JUMP_THROUGH_PLATFORM, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
 		enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
-				getMapTile(17, 7).getLocation(), getMapTile(18, 7).getLocation(), TileType.NOT_PASSABLE, 3,
+				getMapTile(15, 7).getLocation(), getMapTile(16, 7).getLocation(), TileType.NOT_PASSABLE, 3,
 				new Rectangle(0, 6, 16, 4), Direction.RIGHT));
 		enhancedMapTiles.add(new HorizontalMovingPlatform(ImageLoader.load("GreyPlatform.png"),
 				getMapTile(2, 7).getLocation(), getMapTile(3, 7).getLocation(), TileType.NOT_PASSABLE, 3,
