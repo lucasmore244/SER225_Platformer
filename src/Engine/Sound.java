@@ -1,3 +1,4 @@
+//Class that plays sound in the game
 package Engine;
 
 import java.io.File;
@@ -13,6 +14,7 @@ public class Sound {
 	private static AudioInputStream audio;
 	
 	public static Clip[] loadClips() {
+		//Load audio into game
 		Clip[] clips = new Clip[15];
 		try {
 			audio = AudioSystem.getAudioInputStream(new File("./src/MetroBoominFullSong.wav"));
@@ -70,6 +72,7 @@ public class Sound {
 
 	public static void play(int i) {
 		clips[i].start();
+		//restarts the song
 		clips[i].setFramePosition(0);
 	}
 

@@ -1,3 +1,4 @@
+//This class creates the Scoreboard.
 package Screens;
 
 import Engine.*;
@@ -56,6 +57,7 @@ public class ScoreboardScreen extends Screen {
 
 	public void update() {
 		if (start) {
+			//Split every word that is typed by space. Representing the name and time
 			for (int i = 0; i < data.size(); i++) {
 				String line = data.get(i);
 				String[] split = line.split(" ");
@@ -72,6 +74,7 @@ public class ScoreboardScreen extends Screen {
 		}
 	}
 
+	//loads created text file
 	private ArrayList<String> loadTextFile() throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		{

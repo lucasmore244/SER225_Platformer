@@ -1,3 +1,4 @@
+//This class displays an Instruction screen
 package Screens;
 
 import java.awt.Color;
