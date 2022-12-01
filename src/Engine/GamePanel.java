@@ -1,5 +1,3 @@
-
-
 package Engine;
 
 import GameObject.Rectangle;
