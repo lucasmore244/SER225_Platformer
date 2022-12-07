@@ -19,11 +19,4 @@ It can be accessed at [https://a-r-t.github.io/SER-225-Game-Platformer/](https:/
 Changes to content in the `docs` folder will not show up on the website unless they are pushed to the `master` branch.
 
 ## Credits
-**Alex Thimineur**: Programmed the game, made the art.
-
-rom wasserman
-Steven Griffin
-Moore
-Lucas
-Ohm Patel
-
+**Rom Wasserman, Steven Griffin, Momoreoluwa Ayinde, Lucas  Morello, Ohm Patel**: Programmed the game, made the art.

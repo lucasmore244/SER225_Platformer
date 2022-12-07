@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-Ohm 02:39
-=======
-Lucas 03:19
->>>>>>> 319154dd1dee4aa14cb6b2bfa6e9b9b3caefacce
+a 00:22
+Nicholas 00:20
+Momore 06:21

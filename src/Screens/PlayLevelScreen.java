@@ -66,7 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 	protected HealthDisplay healthdisplay;
 	protected TimeDisplay timedisplay;
 	protected String livescount;
-	protected int lives = 100;
+	protected int lives = 5;
 	protected SpriteFont level1;
 	protected SpriteFont coins, doglives;
 	protected String coincount;
@@ -148,6 +148,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 				player.setPlayerHealth(player.getPlayerhealth() + 1);
 				map.setCoinCount(-3);
 			}
+//			if(player.getPlayerhealth() <= 0) {
+//				map.set
+//			}
 			if (!keylock.isKeyLocked(MUSIC_KEY) && Keyboard.isKeyDown(MUSIC_KEY)) {
 				Sound.stopAll();
 				new MusicPanel(null).show();
@@ -219,6 +222,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 		case LEVEL_LOSE:
 			levelLoseScreen.update();
 			lives = 5;
+			map.setCoinCount(0);
 			break;
 		}
 	}
